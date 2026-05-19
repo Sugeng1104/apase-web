@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard APASE WEB</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:
+      linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+      padding:30px;
+      overflow-x:hidden;
+    }
+
+    /* Background Blur */
+
+    .blur1,
+    .blur2{
+      position:fixed;
+      border-radius:50%;
+      filter:blur(100px);
+      opacity:.4;
+      z-index:0;
+    }
+
+    .blur1{
+      width:300px;
+      height:300px;
+      background:#60a5fa;
+      top:-100px;
+      left:-100px;
+    }
+
+    .blur2{
+      width:350px;
+      height:350px;
+      background:#2563eb;
+      bottom:-120px;
+      right:-120px;
+    }
+
+    /* Container */
+
+    .container{
+      position:relative;
+      z-index:2;
+      max-width:1400px;
+      margin:auto;
+    }
+
+    /* Header */
+
+    .header{
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(18px);
+
+      border:1px solid rgba(255,255,255,0.15);
+
+      border-radius:30px;
+
+      padding:25px 35px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      box-shadow:
+      0 10px 35px rgba(0,0,0,0.25);
+
+      margin-bottom:40px;
+    }
+
+    .header img{
+      width:110px;
+      height:110px;
+      object-fit:cover;
+      border-radius:50%;
+      border:4px solid rgba(255,255,255,0.3);
+      background:white;
+    }
+
+    .header-title{
+      text-align:center;
+      color:white;
+      flex:1;
+      padding:0 20px;
+    }
+
+    .header-title h1{
+      font-size:38px;
+      font-weight:700;
+      letter-spacing:2px;
+      margin-bottom:10px;
+    }
+
+    .header-title h2{
+      font-size:22px;
+      font-weight:500;
+      line-height:1.6;
+    }
+
+    /* Menu Grid */
+
+    .menu-grid{
+
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(230px,1fr));
+
+      gap:30px;
+
+    }
+
+    /* Card */
+
+    .menu-card{
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(18px);
+
+      border:
+      1px solid rgba(255,255,255,0.18);
+
+      border-radius:28px;
+
+      padding:35px 20px;
+
+      text-align:center;
+
+      text-decoration:none;
+
+      color:white;
+
+      transition:.35s ease;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.2);
+
+    }
+
+    .menu-card:hover{
+
+      transform:
+      translateY(-10px)
+      scale(1.03);
+
+      background:
+      rgba(255,255,255,0.18);
+
+      box-shadow:
+      0 20px 40px rgba(0,0,0,0.35);
+
+    }
+
+    .menu-icon{
+
+      width:95px;
+      height:95px;
+
+      margin:auto auto 20px;
+
+      border-radius:24px;
+
+      background:
+      linear-gradient(135deg,#ffffff,#dbeafe);
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:45px;
+
+      color:#1e3a8a;
+
+      box-shadow:
+      0 10px 25px rgba(0,0,0,0.2);
+
+    }
+
+    .menu-title{
+      font-size:18px;
+      font-weight:600;
+      line-height:1.5;
+    }
+
+    /* Footer */
+
+    .footer{
+
+      margin-top:40px;
+
+      text-align:center;
+
+      color:white;
+
+      opacity:.7;
+
+      font-size:14px;
+
+    }
+
+    /* Responsive */
+
+    @media(max-width:900px){
+
+      .header{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .header-title{
+        margin:20px 0;
+      }
+
+      .header-title h1{
+        font-size:30px;
+      }
+
+      .header-title h2{
+        font-size:18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Blur Background -->
+  <div class="blur1"></div>
+  <div class="blur2"></div>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+      <!-- Logo Kabupaten -->
+      <img src="assets/logo/kab.png" alt="Logo Kabupaten">
+
+      <!-- Judul -->
+      <div class="header-title">
+
+        <h1>
+          APASE
+        </h1>
+
+        <h2>
+          (APLIKASI ADMINISTRASI SEKOLAH) <br>
+          UPT SATUAN PENDIDIKAN SDN PANDITAN I
+        </h2>
+
+      </div>
+
+      <!-- Foto Kepala Sekolah -->
+      <img src="assets/img/kepsek.png" alt="Kepala Sekolah">
+
+    </div>
+
+    <!-- MENU -->
+    <div class="menu-grid">
+
+      <!-- 1 -->
+      <a href="pages/kepala-sekolah.html" class="menu-card">
+
+        <div class="menu-icon">👨‍🏫</div>
+
+        <div class="menu-title">
+          Data Kepala Sekolah
+        </div>
+
+      </a>
+
+      <!-- 2 -->
+      <a href="pages/data-sekolah.html" class="menu-card">
+
+        <div class="menu-icon">🏫</div>
+
+        <div class="menu-title">
+          Data Sekolah
+        </div>
+
+      </a>
+
+      <!-- 3 -->
+      <a href="pages/data-guru.html" class="menu-card">
+
+        <div class="menu-icon">👩‍🏫</div>
+
+        <div class="menu-title">
+          Data Guru + Tendik
+        </div>
+
+      </a>
+
+      <!-- 4 -->
+      <a href="pages/statistik-siswa.html" class="menu-card">
+
+        <div class="menu-icon">📊</div>
+
+        <div class="menu-title">
+          Data Statistik Siswa
+        </div>
+
+      </a>
+
+      <!-- 5 -->
+      <a href="pages/absensi.html" class="menu-card">
+
+        <div class="menu-icon">📝</div>
+
+        <div class="menu-title">
+          Data Absensi Guru dan Staf
+        </div>
+
+      </a>
+
+      <!-- 6 -->
+      <a href="pages/program-sekolah.html" class="menu-card">
+
+        <div class="menu-icon">📚</div>
+
+        <div class="menu-title">
+          Program Sekolah
+        </div>
+
+      </a>
+
+      <!-- 7 -->
+      <a href="pages/perangkat.html" class="menu-card">
+
+        <div class="menu-icon">💻</div>
+
+        <div class="menu-title">
+          Perangkat Pembelajaran
+        </div>
+
+      </a>
+
+      <!-- 8 -->
+      <a href="pages/supervisi.html" class="menu-card">
+
+        <div class="menu-icon">✅</div>
+
+        <div class="menu-title">
+          Administrasi Supervisi
+        </div>
+
+      </a>
+
+      <!-- 9 -->
+      <a href="pages/e-kinerja.html" class="menu-card">
+
+        <div class="menu-icon">📈</div>
+
+        <div class="menu-title">
+          Data E-Kinerja Guru dan Staf
+        </div>
+
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+
+      APASE WEB © 2026 | SDN PANDITAN I
+
+    </div>
+
+  </div>
+
+</body>
+</html>

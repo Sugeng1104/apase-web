@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
   <title>Login APASE WEB</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
   <style>
 
@@ -19,139 +27,303 @@
     }
 
     body{
+
       height:100vh;
+
       display:flex;
+
       justify-content:center;
+
       align-items:center;
-      background:
-      linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+
       overflow:hidden;
+
+      background:
+      linear-gradient(
+      135deg,
+      #0f172a,
+      #1e3a8a,
+      #2563eb
+      );
+
+      position:relative;
+
     }
 
-    .background-circle{
+    /* ========================= */
+    /* BACKGROUND BLUR */
+    /* ========================= */
+
+    .blur1,
+    .blur2{
+
       position:absolute;
+
       border-radius:50%;
-      filter:blur(100px);
-      opacity:.5;
+
+      filter:blur(120px);
+
+      opacity:.45;
+
     }
 
-    .circle1{
-      width:300px;
-      height:300px;
-      background:#60a5fa;
-      top:-100px;
-      left:-100px;
-    }
+    .blur1{
 
-    .circle2{
       width:350px;
       height:350px;
+
+      background:#60a5fa;
+
+      top:-120px;
+      left:-120px;
+
+    }
+
+    .blur2{
+
+      width:350px;
+      height:350px;
+
       background:#2563eb;
+
       bottom:-120px;
       right:-120px;
+
     }
+
+    /* ========================= */
+    /* LOGIN BOX */
+    /* ========================= */
 
     .login-container{
+
       position:relative;
-      width:380px;
-      padding:40px;
-      border-radius:25px;
-      background:rgba(255,255,255,0.1);
-      backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.2);
-      box-shadow:0 8px 32px rgba(0,0,0,0.3);
-      color:white;
+
       z-index:2;
+
+      width:400px;
+
+      padding:45px 40px;
+
+      border-radius:30px;
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(20px);
+
+      border:
+      1px solid rgba(255,255,255,0.18);
+
+      box-shadow:
+      0 10px 35px rgba(0,0,0,0.3);
+
+      color:white;
+
     }
 
+    /* ========================= */
+    /* LOGO */
+    /* ========================= */
+
     .logo{
+
       text-align:center;
-      margin-bottom:25px;
+
+      margin-bottom:30px;
+
     }
 
     .logo h1{
-      font-size:32px;
+
+      font-size:36px;
+
       font-weight:700;
-      letter-spacing:1px;
+
+      letter-spacing:2px;
+
+      margin-bottom:8px;
+
     }
 
     .logo p{
-      margin-top:5px;
-      font-size:14px;
+
+      font-size:15px;
+
       opacity:.8;
+
     }
 
+    /* ========================= */
+    /* INPUT */
+    /* ========================= */
+
     .input-group{
-      margin-bottom:20px;
+
+      margin-bottom:22px;
+
     }
 
     .input-group label{
+
       display:block;
+
       margin-bottom:8px;
+
       font-size:14px;
+
       font-weight:500;
+
     }
 
     .input-group input{
+
       width:100%;
-      padding:14px 16px;
+
+      padding:15px 16px;
+
       border:none;
-      border-radius:12px;
+
+      border-radius:14px;
+
       outline:none;
-      background:rgba(255,255,255,0.15);
+
+      background:
+      rgba(255,255,255,0.15);
+
       color:white;
+
       font-size:15px;
+
       transition:.3s;
+
     }
 
     .input-group input::placeholder{
-      color:rgba(255,255,255,0.7);
+
+      color:
+      rgba(255,255,255,0.7);
+
     }
 
     .input-group input:focus{
-      background:rgba(255,255,255,0.25);
-      border:1px solid #93c5fd;
+
+      background:
+      rgba(255,255,255,0.22);
+
+      border:
+      1px solid #93c5fd;
+
     }
 
+    /* ========================= */
+    /* BUTTON */
+    /* ========================= */
+
     .login-btn{
+
       width:100%;
-      padding:14px;
+
+      padding:15px;
+
       border:none;
-      border-radius:14px;
-      background:#ffffff;
+
+      border-radius:15px;
+
+      background:white;
+
       color:#1e3a8a;
+
       font-size:16px;
-      font-weight:600;
+
+      font-weight:700;
+
       cursor:pointer;
+
       transition:.3s;
+
       margin-top:10px;
+
     }
 
     .login-btn:hover{
-      transform:translateY(-2px);
+
+      transform:
+      translateY(-2px);
+
       background:#dbeafe;
+
+      box-shadow:
+      0 10px 20px rgba(0,0,0,0.2);
+
+    }
+
+    /* ========================= */
+    /* MESSAGE */
+    /* ========================= */
+
+    .loading{
+
+      display:none;
+
+      text-align:center;
+
+      margin-top:18px;
+
+      font-size:14px;
+
+      color:#dbeafe;
+
     }
 
     .error-message{
-      margin-top:15px;
-      text-align:center;
-      font-size:14px;
-      color:#fecaca;
+
       display:none;
+
+      margin-top:18px;
+
+      text-align:center;
+
+      font-size:14px;
+
+      color:#fecaca;
+
     }
 
-    .loading{
-      display:none;
+    /* ========================= */
+    /* FOOTER */
+    /* ========================= */
+
+    .footer{
+
+      margin-top:28px;
+
       text-align:center;
-      margin-top:15px;
-      font-size:14px;
+
+      font-size:13px;
+
+      opacity:.7;
+
     }
+
+    /* ========================= */
+    /* RESPONSIVE */
+    /* ========================= */
 
     @media(max-width:480px){
 
       .login-container{
-        width:90%;
-        padding:30px;
+
+        width:92%;
+
+        padding:35px 25px;
+
+      }
+
+      .logo h1{
+
+        font-size:30px;
+
       }
 
     }
@@ -159,100 +331,221 @@
   </style>
 
 </head>
+
 <body>
 
-  <div class="background-circle circle1"></div>
-  <div class="background-circle circle2"></div>
+  <!-- BACKGROUND -->
+  <div class="blur1"></div>
+  <div class="blur2"></div>
 
+  <!-- LOGIN -->
   <div class="login-container">
 
     <div class="logo">
-      <h1>APASE WEB</h1>
-      <p>Aplikasi Administrasi Sekolah</p>
+
+      <h1>
+        APASE WEB
+      </h1>
+
+      <p>
+        Aplikasi Administrasi Sekolah
+      </p>
+
     </div>
 
+    <!-- USERNAME -->
     <div class="input-group">
-      <label>Username</label>
-      <input type="text" id="username" placeholder="Masukkan username">
+
+      <label>
+        Username
+      </label>
+
+      <input type="text"
+             id="username"
+             placeholder="Masukkan username">
+
     </div>
 
+    <!-- PASSWORD -->
     <div class="input-group">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Masukkan password">
+
+      <label>
+        Password
+      </label>
+
+      <input type="password"
+             id="password"
+             placeholder="Masukkan password">
+
     </div>
 
-    <button class="login-btn" onclick="login()">
+    <!-- BUTTON -->
+    <button class="login-btn"
+            onclick="login()">
+
       LOGIN
+
     </button>
 
-    <div class="loading" id="loading">
+    <!-- LOADING -->
+    <div class="loading"
+         id="loading">
+
       Memeriksa akun...
+
     </div>
 
-    <div class="error-message" id="errorMessage">
+    <!-- ERROR -->
+    <div class="error-message"
+         id="errorMessage">
+
       Username atau password salah
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+      APASE WEB © 2026
+
     </div>
 
   </div>
 
-<script>
+  <!-- SCRIPT -->
+  <script>
 
-  // GANTI DENGAN URL GOOGLE APPS SCRIPT
-  const API_URL = "PASTE_URL_APPS_SCRIPT_DISINI";
+    // =====================================
+    // URL GOOGLE APPS SCRIPT
+    // =====================================
 
-  async function login(){
+    const API_URL =
+    "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
 
-    const errorMessage = document.getElementById("errorMessage");
-    const loading = document.getElementById("loading");
+    // =====================================
+    // CEK LOGIN
+    // =====================================
 
-    errorMessage.style.display = "none";
+    if(localStorage.getItem("loginUser")){
 
-    if(username === "" || password === ""){
-      errorMessage.innerText = "Username dan password wajib diisi";
-      errorMessage.style.display = "block";
-      return;
+      window.location.href =
+      "dashboard.html";
+
     }
 
-    loading.style.display = "block";
 
-    try{
+    // =====================================
+    // LOGIN SYSTEM
+    // =====================================
 
-      const response = await fetch(`${API_URL}?action=login&username=${username}&password=${password}`);
+    async function login(){
 
-      const result = await response.json();
+      const username =
+      document.getElementById("username")
+      .value
+      .trim();
 
-      loading.style.display = "none";
+      const password =
+      document.getElementById("password")
+      .value
+      .trim();
 
-      if(result.status === "success"){
+      const errorMessage =
+      document.getElementById("errorMessage");
 
-        localStorage.setItem("loginUser", username);
+      const loading =
+      document.getElementById("loading");
 
-        window.location.href = "dashboard.html";
+      // RESET MESSAGE
+      errorMessage.style.display =
+      "none";
 
-      }else{
+      // VALIDASI
+      if(username === "" || password === ""){
 
-        errorMessage.innerText = "Username atau password salah";
-        errorMessage.style.display = "block";
+        errorMessage.innerText =
+        "Username dan password wajib diisi";
+
+        errorMessage.style.display =
+        "block";
+
+        return;
 
       }
 
-    }catch(error){
+      loading.style.display =
+      "block";
 
-      loading.style.display = "none";
+      try{
 
-      errorMessage.innerText = "Koneksi gagal";
-      errorMessage.style.display = "block";
+        // URL API
+        const url =
+        `${API_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
-      console.error(error);
+        // FETCH API
+        const response =
+        await fetch(url,{
+
+          method:"GET",
+
+          mode:"cors"
+
+        });
+
+        const result =
+        await response.json();
+
+        loading.style.display =
+        "none";
+
+        // LOGIN BERHASIL
+        if(result.status === "success"){
+
+          // SIMPAN SESSION
+          localStorage.setItem(
+            "loginUser",
+            result.username
+          );
+
+          // REDIRECT
+          window.location.href =
+          "dashboard.html";
+
+        }
+
+        // LOGIN GAGAL
+        else{
+
+          errorMessage.innerText =
+          "Username atau password salah";
+
+          errorMessage.style.display =
+          "block";
+
+        }
+
+      }
+
+      // ERROR
+      catch(error){
+
+        loading.style.display =
+        "none";
+
+        errorMessage.innerText =
+        "Koneksi ke server gagal";
+
+        errorMessage.style.display =
+        "block";
+
+        console.error(error);
+
+      }
 
     }
 
-  }
-
-</script>
+  </script>
 
 </body>
 </html>

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Dashboard APASE WEB</title>
 
+  <!-- GOOGLE FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -19,114 +23,194 @@
     }
 
     body{
+
       min-height:100vh;
+
       background:
-      linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
-      padding:30px;
+      linear-gradient(
+      135deg,
+      #0f172a,
+      #1e3a8a,
+      #2563eb
+      );
+
       overflow-x:hidden;
+
+      padding:30px;
+
+      position:relative;
+
     }
 
-    /* Background Blur */
+    /* ========================= */
+    /* BACKGROUND BLUR */
+    /* ========================= */
 
     .blur1,
     .blur2{
+
       position:fixed;
+
       border-radius:50%;
-      filter:blur(100px);
+
+      filter:blur(120px);
+
       opacity:.4;
+
       z-index:0;
+
     }
 
     .blur1{
-      width:300px;
-      height:300px;
+
+      width:350px;
+      height:350px;
+
       background:#60a5fa;
-      top:-100px;
-      left:-100px;
+
+      top:-120px;
+      left:-120px;
+
     }
 
     .blur2{
+
       width:350px;
       height:350px;
+
       background:#2563eb;
+
       bottom:-120px;
       right:-120px;
+
     }
 
-    /* Container */
+    /* ========================= */
+    /* CONTAINER */
+    /* ========================= */
 
     .container{
+
       position:relative;
+
       z-index:2;
-      max-width:1400px;
+
+      max-width:1500px;
+
       margin:auto;
+
     }
 
-    /* Header */
+    /* ========================= */
+    /* HEADER */
+    /* ========================= */
 
     .header{
-      background:rgba(255,255,255,0.12);
-      backdrop-filter:blur(18px);
 
-      border:1px solid rgba(255,255,255,0.15);
+      background:
+      rgba(255,255,255,0.12);
 
-      border-radius:30px;
+      backdrop-filter:blur(20px);
 
-      padding:25px 35px;
+      border:
+      1px solid rgba(255,255,255,0.15);
+
+      border-radius:35px;
+
+      padding:30px 40px;
 
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
 
       box-shadow:
       0 10px 35px rgba(0,0,0,0.25);
 
-      margin-bottom:40px;
+      margin-bottom:45px;
+
     }
+
+    /* ========================= */
+    /* LOGO & FOTO */
+    /* ========================= */
 
     .header img{
-      width:110px;
-      height:110px;
+
+      width:120px;
+      height:120px;
+
       object-fit:cover;
+
       border-radius:50%;
-      border:4px solid rgba(255,255,255,0.3);
+
       background:white;
+
+      border:
+      4px solid rgba(255,255,255,0.3);
+
+      box-shadow:
+      0 8px 20px rgba(0,0,0,0.25);
+
     }
 
+    /* ========================= */
+    /* TITLE */
+    /* ========================= */
+
     .header-title{
-      text-align:center;
-      color:white;
+
       flex:1;
+
+      text-align:center;
+
+      color:white;
+
       padding:0 20px;
+
     }
 
     .header-title h1{
-      font-size:38px;
+
+      font-size:44px;
+
       font-weight:700;
+
       letter-spacing:2px;
+
       margin-bottom:10px;
+
     }
 
     .header-title h2{
-      font-size:22px;
+
+      font-size:24px;
+
       font-weight:500;
-      line-height:1.6;
+
+      line-height:1.7;
+
     }
 
-    /* Menu Grid */
+    /* ========================= */
+    /* MENU GRID */
+    /* ========================= */
 
     .menu-grid{
 
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(230px,1fr));
+      repeat(auto-fit,minmax(240px,1fr));
 
       gap:30px;
 
     }
 
-    /* Card */
+    /* ========================= */
+    /* CARD */
+    /* ========================= */
 
     .menu-card{
 
@@ -138,9 +222,9 @@
       border:
       1px solid rgba(255,255,255,0.18);
 
-      border-radius:28px;
+      border-radius:30px;
 
-      padding:35px 20px;
+      padding:35px 25px;
 
       text-align:center;
 
@@ -169,42 +253,65 @@
 
     }
 
+    /* ========================= */
+    /* ICON IMAGE */
+    /* ========================= */
+
     .menu-icon{
 
-      width:95px;
-      height:95px;
+      width:110px;
+      height:110px;
 
       margin:auto auto 20px;
 
-      border-radius:24px;
+      border-radius:28px;
 
       background:
-      linear-gradient(135deg,#ffffff,#dbeafe);
+      rgba(255,255,255,0.15);
 
       display:flex;
+
       justify-content:center;
+
       align-items:center;
 
-      font-size:45px;
-
-      color:#1e3a8a;
+      overflow:hidden;
 
       box-shadow:
       0 10px 25px rgba(0,0,0,0.2);
 
     }
 
-    .menu-title{
-      font-size:18px;
-      font-weight:600;
-      line-height:1.5;
+    .menu-icon img{
+
+      width:70%;
+      height:70%;
+
+      object-fit:contain;
+
     }
 
-    /* Footer */
+    /* ========================= */
+    /* TITLE MENU */
+    /* ========================= */
+
+    .menu-title{
+
+      font-size:18px;
+
+      font-weight:600;
+
+      line-height:1.6;
+
+    }
+
+    /* ========================= */
+    /* FOOTER */
+    /* ========================= */
 
     .footer{
 
-      margin-top:40px;
+      margin-top:45px;
 
       text-align:center;
 
@@ -214,27 +321,75 @@
 
       font-size:14px;
 
+      letter-spacing:1px;
+
     }
 
-    /* Responsive */
+    /* ========================= */
+    /* RESPONSIVE */
+    /* ========================= */
 
     @media(max-width:900px){
 
       .header{
+
         flex-direction:column;
+
         text-align:center;
+
       }
 
       .header-title{
-        margin:20px 0;
+
+        margin:25px 0;
+
       }
 
       .header-title h1{
-        font-size:30px;
+
+        font-size:34px;
+
       }
 
       .header-title h2{
+
         font-size:18px;
+
+      }
+
+    }
+
+    @media(max-width:500px){
+
+      body{
+
+        padding:15px;
+
+      }
+
+      .header{
+
+        padding:25px 20px;
+
+      }
+
+      .header img{
+
+        width:95px;
+        height:95px;
+
+      }
+
+      .header-title h1{
+
+        font-size:28px;
+
+      }
+
+      .header-title h2{
+
+        font-size:16px;
+
       }
 
     }
@@ -245,19 +400,20 @@
 
 <body>
 
-  <!-- Blur Background -->
+  <!-- BACKGROUND -->
   <div class="blur1"></div>
   <div class="blur2"></div>
 
+  <!-- CONTAINER -->
   <div class="container">
 
     <!-- HEADER -->
     <div class="header">
 
-      <!-- Logo Kabupaten -->
+      <!-- LOGO KABUPATEN -->
       <img src="assets/logo/kab.png" alt="Logo Kabupaten">
 
-      <!-- Judul -->
+      <!-- TITLE -->
       <div class="header-title">
 
         <h1>
@@ -265,24 +421,27 @@
         </h1>
 
         <h2>
-          (APLIKASI ADMINISTRASI SEKOLAH) <br>
+          (APLIKASI ADMINISTRASI SEKOLAH)
+          <br>
           UPT SATUAN PENDIDIKAN SDN PANDITAN I
         </h2>
 
       </div>
 
-      <!-- Foto Kepala Sekolah -->
+      <!-- FOTO KEPSEK -->
       <img src="assets/img/kepsek.png" alt="Kepala Sekolah">
 
     </div>
 
-    <!-- MENU -->
+    <!-- MENU GRID -->
     <div class="menu-grid">
 
       <!-- 1 -->
-      <a href="pages/kepala-sekolah.html" class="menu-card">
+      <a href="pages/data-kepsek.html" class="menu-card">
 
-        <div class="menu-icon">👨‍🏫</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr1.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data Kepala Sekolah
@@ -293,7 +452,9 @@
       <!-- 2 -->
       <a href="pages/data-sekolah.html" class="menu-card">
 
-        <div class="menu-icon">🏫</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr2.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data Sekolah
@@ -304,7 +465,9 @@
       <!-- 3 -->
       <a href="pages/data-guru.html" class="menu-card">
 
-        <div class="menu-icon">👩‍🏫</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr3.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data Guru + Tendik
@@ -315,7 +478,9 @@
       <!-- 4 -->
       <a href="pages/statistik-siswa.html" class="menu-card">
 
-        <div class="menu-icon">📊</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr4.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data Statistik Siswa
@@ -326,7 +491,9 @@
       <!-- 5 -->
       <a href="pages/absensi.html" class="menu-card">
 
-        <div class="menu-icon">📝</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr5.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data Absensi Guru dan Staf
@@ -337,7 +504,9 @@
       <!-- 6 -->
       <a href="pages/program-sekolah.html" class="menu-card">
 
-        <div class="menu-icon">📚</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr6.png" alt="">
+        </div>
 
         <div class="menu-title">
           Program Sekolah
@@ -348,7 +517,9 @@
       <!-- 7 -->
       <a href="pages/perangkat.html" class="menu-card">
 
-        <div class="menu-icon">💻</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr7.png" alt="">
+        </div>
 
         <div class="menu-title">
           Perangkat Pembelajaran
@@ -359,7 +530,9 @@
       <!-- 8 -->
       <a href="pages/supervisi.html" class="menu-card">
 
-        <div class="menu-icon">✅</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr8.png" alt="">
+        </div>
 
         <div class="menu-title">
           Administrasi Supervisi
@@ -370,7 +543,9 @@
       <!-- 9 -->
       <a href="pages/e-kinerja.html" class="menu-card">
 
-        <div class="menu-icon">📈</div>
+        <div class="menu-icon">
+          <img src="assets/img/gbr9.png" alt="">
+        </div>
 
         <div class="menu-title">
           Data E-Kinerja Guru dan Staf
@@ -380,10 +555,12 @@
 
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div class="footer">
 
-      APASE WEB © 2026 | SDN PANDITAN I
+      APASE WEB © 2026
+      <br>
+      UPT SATUAN PENDIDIKAN SDN PANDITAN I
 
     </div>
 

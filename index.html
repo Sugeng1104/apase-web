@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>APASE WEB</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      background:
+      linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+      position:relative;
+    }
+
+    /* Background Blur */
+    .blur1,
+    .blur2{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(100px);
+      opacity:.5;
+    }
+
+    .blur1{
+      width:350px;
+      height:350px;
+      background:#60a5fa;
+      top:-120px;
+      left:-120px;
+    }
+
+    .blur2{
+      width:350px;
+      height:350px;
+      background:#2563eb;
+      bottom:-120px;
+      right:-120px;
+    }
+
+    /* Container */
+    .container{
+      position:relative;
+      z-index:2;
+      width:90%;
+      max-width:700px;
+      text-align:center;
+      padding:60px 40px;
+      border-radius:30px;
+
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(20px);
+
+      border:1px solid rgba(255,255,255,0.2);
+
+      box-shadow:
+      0 8px 32px rgba(0,0,0,0.3);
+
+      color:white;
+    }
+
+    .header{
+      font-size:52px;
+      font-weight:700;
+      letter-spacing:2px;
+      margin-bottom:20px;
+    }
+
+    .subtext{
+      font-size:18px;
+      line-height:1.8;
+      opacity:.95;
+      margin-bottom:45px;
+    }
+
+    /* Tombol Bulat */
+    .login-circle{
+
+      width:140px;
+      height:140px;
+
+      margin:auto;
+
+      border-radius:50%;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background:
+      linear-gradient(135deg,#ffffff,#dbeafe);
+
+      color:#1e3a8a;
+
+      font-size:22px;
+      font-weight:700;
+
+      text-decoration:none;
+
+      box-shadow:
+      0 10px 25px rgba(0,0,0,0.25);
+
+      transition:all .3s ease;
+
+    }
+
+    .login-circle:hover{
+
+      transform:
+      scale(1.08)
+      translateY(-5px);
+
+      box-shadow:
+      0 15px 35px rgba(0,0,0,0.35);
+
+      background:
+      linear-gradient(135deg,#ffffff,#bfdbfe);
+
+    }
+
+    .footer{
+      margin-top:40px;
+      font-size:14px;
+      opacity:.7;
+    }
+
+    @media(max-width:768px){
+
+      .header{
+        font-size:38px;
+      }
+
+      .subtext{
+        font-size:16px;
+      }
+
+      .login-circle{
+        width:120px;
+        height:120px;
+        font-size:20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="blur1"></div>
+  <div class="blur2"></div>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <div class="header">
+      APASE WEB
+    </div>
+
+    <div class="subtext">
+      Selamat Datang di Administrasi <br>
+      SDN Lumbang I Kec. Lumbang Kabupaten Pasuruan
+    </div>
+
+    <!-- Tombol Login -->
+    <a href="login.html" class="login-circle">
+      LOGIN
+    </a>
+
+    <div class="footer">
+      Aplikasi Administrasi Sekolah Berbasis Web
+    </div>
+
+  </div>
+
+</body>
+</html>

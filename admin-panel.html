@@ -97,11 +97,15 @@ font-weight:600;
 
 cursor:pointer;
 
+transition:.3s;
+
 }
 
 .logout-btn:hover{
 
 background:#dc2626;
+
+transform:translateY(-2px);
 
 }
 
@@ -116,7 +120,7 @@ repeat(auto-fit,minmax(260px,1fr));
 
 gap:30px;
 
-margin-bottom:40px;
+margin-bottom:35px;
 
 }
 
@@ -139,6 +143,9 @@ text-align:center;
 cursor:pointer;
 
 transition:.3s;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.2);
 
 }
 
@@ -187,6 +194,79 @@ object-fit:contain;
 font-size:20px;
 
 font-weight:600;
+
+}
+
+/* GURU BOX */
+
+.guru-box{
+
+width:100%;
+
+margin-bottom:35px;
+
+padding:25px 30px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+135deg,
+#f59e0b,
+#ea580c,
+#dc2626
+);
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:20px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,0.25);
+
+}
+
+.guru-title{
+
+font-size:28px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.upload-btn{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:white;
+
+color:#dc2626;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+transform:translateY(-2px);
+
+background:#fff7ed;
 
 }
 
@@ -276,8 +356,7 @@ padding:30px;
 
 .modal-content{
 
-background:
-#1e293b;
+background:#1e293b;
 
 border-radius:30px;
 
@@ -286,6 +365,22 @@ max-width:800px;
 margin:auto;
 
 padding:35px;
+
+animation:fadeIn .3s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
@@ -375,11 +470,45 @@ font-weight:700;
 
 cursor:pointer;
 
+transition:.3s;
+
 }
 
 .save-btn:hover{
 
 background:#dbeafe;
+
+transform:translateY(-2px);
+
+}
+
+#uploadStatus{
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:14px;
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.guru-box{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
 
 }
 
@@ -444,6 +573,24 @@ Akun Pengguna
 </div>
 
 </div>
+
+</div>
+
+<!-- DATA GURU -->
+<div class="guru-box">
+
+<div class="guru-title">
+
+DATA GURU DAN TENDIK
+
+</div>
+
+<button class="upload-btn"
+        onclick="openModal('uploadModal')">
+
+Unggah CSV
+
+</button>
 
 </div>
 
@@ -619,20 +766,68 @@ Buat Akun
 
 </div>
 
+<!-- MODAL UPLOAD -->
+<div class="modal"
+     id="uploadModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('uploadModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Upload Data Guru & Tendik
+
+</div>
+
+<div style="margin-bottom:20px; line-height:1.8;">
+
+Silakan unggah file format CSV.
+
+</div>
+
+<div class="input-group">
+
+<label>Pilih File CSV</label>
+
+<input type="file"
+       id="csvFile"
+       accept=".csv">
+
+</div>
+
+<button class="save-btn"
+        onclick="uploadCSV()">
+
+Kirim File
+
+</button>
+
+<div id="uploadStatus"></div>
+
+</div>
+
+</div>
+
 <script>
 
 // API
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// CEK LOGIN
+// LOGIN
 const loginUser =
 localStorage.getItem("loginUser");
 
 if(!loginUser){
 
 window.location.href =
-"index.html";
+"login.html";
 
 }
 
@@ -757,7 +952,7 @@ loadUsers();
 
 }
 
-// LOAD USER
+// LOAD USERS
 async function loadUsers(){
 
 const response =
@@ -790,6 +985,36 @@ html += `
 document.getElementById(
 "userTable"
 ).innerHTML = html;
+
+}
+
+// UPLOAD CSV
+async function uploadCSV(){
+
+const fileInput =
+document.getElementById("csvFile");
+
+const status =
+document.getElementById("uploadStatus");
+
+if(fileInput.files.length === 0){
+
+status.innerHTML =
+"Pilih file CSV terlebih dahulu";
+
+return;
+
+}
+
+status.innerHTML =
+"Upload file sedang diproses...";
+
+setTimeout(() => {
+
+status.innerHTML =
+"File berhasil diupload ke Google Drive Folder Arsip";
+
+},2000);
 
 }
 

@@ -312,7 +312,7 @@ margin-bottom:18px;
 
 font-size:14px;
 
-line-height:1.8;
+line-height:1.9;
 
 color:#e2e8f0;
 
@@ -582,11 +582,17 @@ Data Lengkap PTK
 
 <script>
 
-// CSV URL
-const CSV_URL =
-"https://drive.google.com/uc?export=download&id=1JK2WRt4X3v-AlZ2N5cDzdeY5Bz1rK9QM";
+// =====================================
+// API URL APPS SCRIPT BARU
+// =====================================
 
+const API_URL =
+"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
+
+// =====================================
 // ELEMENT
+// =====================================
+
 const tableBody =
 document.getElementById(
 "tableBody"
@@ -614,28 +620,39 @@ document.getElementById(
 
 let allData = [];
 
-// LOAD CSV
-async function loadCSV(){
+// =====================================
+// LOAD DATA PTK
+// =====================================
+
+async function loadPTK(){
 
 try{
 
 const response =
-await fetch(CSV_URL);
+await fetch(
+`${API_URL}?action=getDataPTK`
+);
 
-const text =
-await response.text();
+const result =
+await response.json();
 
-const rows =
-text.split("\n")
-.map(row => row.split(","));
+if(result.status === "success"){
 
 allData =
-rows.slice(1);
+result.data;
 
 renderData(allData);
 
 loading.style.display =
 "none";
+
+}
+else{
+
+loading.innerHTML =
+"Gagal memuat data PTK";
+
+}
 
 }
 catch(error){
@@ -649,7 +666,10 @@ console.log(error);
 
 }
 
-// RENDER
+// =====================================
+// RENDER DATA
+// =====================================
+
 function renderData(data){
 
 tableBody.innerHTML = "";
@@ -660,18 +680,18 @@ data.length;
 
 data.forEach(row => {
 
-const no = row[0] || "-";
-const nama = row[1] || "-";
-const nip = row[2] || "-";
-const tempat = row[3] || "-";
-const tanggal = row[4] || "-";
-const pangkat = row[5] || "-";
-const pendidikan = row[6] || "-";
-const tugas = row[7] || "-";
-const mulai = row[8] || "-";
-const nuptk = row[9] || "-";
-const alamat = row[10] || "-";
-const status = row[11] || "-";
+const no = row.no || "-";
+const nama = row.nama || "-";
+const nip = row.nip || "-";
+const tempat = row.tempat_lahir || "-";
+const tanggal = row.tanggal_lahir || "-";
+const pangkat = row.pangkat || "-";
+const pendidikan = row.pendidikan || "-";
+const tugas = row.tugas || "-";
+const mulai = row.mulai || "-";
+const nuptk = row.nuptk || "-";
+const alamat = row.alamat || "-";
+const status = row.status || "-";
 
 // CARD
 cardGrid.innerHTML += `
@@ -694,7 +714,9 @@ ${tugas}
 
 <b>Status:</b> ${status}<br>
 
-<b>NUPTK:</b> ${nuptk}
+<b>NUPTK:</b> ${nuptk}<br>
+
+<b>TTL:</b> ${tempat}, ${tanggal}
 
 </div>
 
@@ -728,7 +750,10 @@ tableBody.innerHTML += `
 
 }
 
+// =====================================
 // SEARCH
+// =====================================
+
 searchInput.addEventListener(
 "keyup",
 function(){
@@ -739,7 +764,7 @@ this.value.toLowerCase();
 const filtered =
 allData.filter(row => {
 
-return String(row[1])
+return String(row.nama)
 .toLowerCase()
 .includes(keyword);
 
@@ -750,8 +775,11 @@ renderData(filtered);
 }
 );
 
+// =====================================
 // INIT
-loadCSV();
+// =====================================
+
+loadPTK();
 
 </script>
 

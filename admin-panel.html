@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Panel APASE WEB</title>
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+
+      min-height:100vh;
+
+      background:
+      linear-gradient(
+      135deg,
+      #0f172a,
+      #1e3a8a,
+      #2563eb
+      );
+
+      padding:30px;
+
+      overflow-x:hidden;
+
+      position:relative;
+
+    }
+
+    /* ========================= */
+    /* BACKGROUND */
+    /* ========================= */
+
+    .blur1,
+    .blur2{
+
+      position:fixed;
+
+      border-radius:50%;
+
+      filter:blur(120px);
+
+      opacity:.4;
+
+      z-index:0;
+
+    }
+
+    .blur1{
+
+      width:350px;
+      height:350px;
+
+      background:#60a5fa;
+
+      top:-120px;
+      left:-120px;
+
+    }
+
+    .blur2{
+
+      width:350px;
+      height:350px;
+
+      background:#2563eb;
+
+      bottom:-120px;
+      right:-120px;
+
+    }
+
+    /* ========================= */
+    /* CONTAINER */
+    /* ========================= */
+
+    .container{
+
+      position:relative;
+
+      z-index:2;
+
+      max-width:1400px;
+
+      margin:auto;
+
+    }
+
+    /* ========================= */
+    /* HEADER */
+    /* ========================= */
+
+    .header{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      margin-bottom:35px;
+
+      color:white;
+
+      flex-wrap:wrap;
+
+      gap:20px;
+
+    }
+
+    .header h1{
+
+      font-size:38px;
+
+      font-weight:700;
+
+      letter-spacing:1px;
+
+    }
+
+    .logout-btn{
+
+      padding:12px 22px;
+
+      border:none;
+
+      border-radius:14px;
+
+      background:#ef4444;
+
+      color:white;
+
+      font-size:15px;
+
+      font-weight:600;
+
+      cursor:pointer;
+
+      transition:.3s;
+
+    }
+
+    .logout-btn:hover{
+
+      background:#dc2626;
+
+      transform:translateY(-2px);
+
+    }
+
+    /* ========================= */
+    /* MENU CARD */
+    /* ========================= */
+
+    .menu-grid{
+
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(260px,1fr));
+
+      gap:30px;
+
+      margin-bottom:40px;
+
+    }
+
+    .menu-card{
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(20px);
+
+      border:
+      1px solid rgba(255,255,255,0.18);
+
+      border-radius:30px;
+
+      padding:35px 25px;
+
+      text-align:center;
+
+      color:white;
+
+      cursor:pointer;
+
+      transition:.3s;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.25);
+
+    }
+
+    .menu-card:hover{
+
+      transform:
+      translateY(-10px);
+
+      background:
+      rgba(255,255,255,0.18);
+
+    }
+
+    .menu-icon{
+
+      width:120px;
+      height:120px;
+
+      margin:auto auto 20px;
+
+      border-radius:30px;
+
+      background:
+      rgba(255,255,255,0.15);
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      overflow:hidden;
+
+    }
+
+    .menu-icon img{
+
+      width:70%;
+      height:70%;
+
+      object-fit:contain;
+
+    }
+
+    .menu-title{
+
+      font-size:20px;
+
+      font-weight:600;
+
+    }
+
+    /* ========================= */
+    /* TABLE */
+    /* ========================= */
+
+    .table-container{
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(20px);
+
+      border:
+      1px solid rgba(255,255,255,0.18);
+
+      border-radius:30px;
+
+      padding:25px;
+
+      overflow-x:auto;
+
+      color:white;
+
+    }
+
+    .table-title{
+
+      font-size:24px;
+
+      margin-bottom:20px;
+
+      font-weight:600;
+
+    }
+
+    table{
+
+      width:100%;
+
+      border-collapse:collapse;
+
+    }
+
+    th,
+    td{
+
+      padding:15px;
+
+      text-align:left;
+
+      border-bottom:
+      1px solid rgba(255,255,255,0.1);
+
+      font-size:14px;
+
+    }
+
+    th{
+
+      background:
+      rgba(255,255,255,0.1);
+
+    }
+
+    tr:hover{
+
+      background:
+      rgba(255,255,255,0.05);
+
+    }
+
+    /* ========================= */
+    /* MODAL */
+    /* ========================= */
+
+    .modal{
+
+      display:none;
+
+      position:fixed;
+
+      z-index:999;
+
+      left:0;
+      top:0;
+
+      width:100%;
+      height:100%;
+
+      overflow:auto;
+
+      background:
+      rgba(0,0,0,0.6);
+
+      backdrop-filter:blur(5px);
+
+      padding:30px;
+
+    }
+
+    .modal-content{
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(20px);
+
+      border:
+      1px solid rgba(255,255,255,0.2);
+
+      border-radius:30px;
+
+      max-width:700px;
+
+      margin:auto;
+
+      padding:35px;
+
+      color:white;
+
+      animation:fadeIn .3s ease;
+
+    }
+
+    @keyframes fadeIn{
+
+      from{
+        transform:translateY(-20px);
+        opacity:0;
+      }
+
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+
+    }
+
+    .close{
+
+      float:right;
+
+      font-size:28px;
+
+      cursor:pointer;
+
+    }
+
+    .form-title{
+
+      font-size:28px;
+
+      margin-bottom:25px;
+
+      font-weight:700;
+
+    }
+
+    .form-grid{
+
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(250px,1fr));
+
+      gap:18px;
+
+    }
+
+    .input-group{
+
+      display:flex;
+
+      flex-direction:column;
+
+    }
+
+    .input-group label{
+
+      margin-bottom:8px;
+
+      font-size:14px;
+
+    }
+
+    .input-group input{
+
+      padding:14px;
+
+      border:none;
+
+      border-radius:14px;
+
+      outline:none;
+
+      background:
+      rgba(255,255,255,0.15);
+
+      color:white;
+
+      font-size:14px;
+
+    }
+
+    .save-btn{
+
+      width:100%;
+
+      margin-top:25px;
+
+      padding:15px;
+
+      border:none;
+
+      border-radius:16px;
+
+      background:white;
+
+      color:#1e3a8a;
+
+      font-size:16px;
+
+      font-weight:700;
+
+      cursor:pointer;
+
+      transition:.3s;
+
+    }
+
+    .save-btn:hover{
+
+      background:#dbeafe;
+
+      transform:translateY(-2px);
+
+    }
+
+    @media(max-width:768px){
+
+      .header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+      }
+
+      .header h1{
+
+        font-size:28px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="blur1"></div>
+  <div class="blur2"></div>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+      <h1>
+        ADMIN PANEL APASE WEB
+      </h1>
+
+      <button class="logout-btn"
+              onclick="logout()">
+
+        Logout
+
+      </button>
+
+    </div>
+
+    <!-- MENU -->
+    <div class="menu-grid">
+
+      <!-- PROFIL SEKOLAH -->
+      <div class="menu-card"
+           onclick="openModal('profilModal')">
+
+        <div class="menu-icon">
+
+          <img src="assets/img/profil-sekolah.png">
+
+        </div>
+
+        <div class="menu-title">
+
+          Profil Sekolah
+
+        </div>
+
+      </div>
+
+      <!-- AKUN PENGGUNA -->
+      <div class="menu-card"
+           onclick="openModal('akunModal')">
+
+        <div class="menu-icon">
+
+          <img src="assets/img/akun-pengguna.png">
+
+        </div>
+
+        <div class="menu-title">
+
+          Akun Pengguna
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TABLE USER -->
+    <div class="table-container">
+
+      <div class="table-title">
+
+        Data Pengguna
+
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Nama Pengguna</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Total Login</th>
+            <th>Login Terakhir</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="userTable">
+
+          <tr>
+
+            <td>Administrator</td>
+            <td>admin</td>
+            <td>admin123</td>
+            <td>admin@gmail.com</td>
+            <td>15</td>
+            <td>20 Mei 2026 08:30</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- ====================== -->
+  <!-- MODAL PROFIL SEKOLAH -->
+  <!-- ====================== -->
+
+  <div class="modal"
+       id="profilModal">
+
+    <div class="modal-content">
+
+      <span class="close"
+            onclick="closeModal('profilModal')">
+
+        &times;
+
+      </span>
+
+      <div class="form-title">
+
+        Form Profil Sekolah
+
+      </div>
+
+      <div class="form-grid">
+
+        <div class="input-group">
+          <label>Nama Sekolah</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>NPSN</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Alamat Sekolah</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Desa Sekolah</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Kecamatan</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Kabupaten</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Provinsi</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Email Sekolah</label>
+          <input type="email">
+        </div>
+
+        <div class="input-group">
+          <label>Nama Kepala Sekolah</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>NIP</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Pangkat / Golongan</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Alamat Kepala Sekolah</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Email Kepala Sekolah</label>
+          <input type="email">
+        </div>
+
+        <div class="input-group">
+          <label>No. HP</label>
+          <input type="text">
+        </div>
+
+      </div>
+
+      <button class="save-btn">
+
+        Simpan Data
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ====================== -->
+  <!-- MODAL AKUN -->
+  <!-- ====================== -->
+
+  <div class="modal"
+       id="akunModal">
+
+    <div class="modal-content">
+
+      <span class="close"
+            onclick="closeModal('akunModal')">
+
+        &times;
+
+      </span>
+
+      <div class="form-title">
+
+        Tambah Akun Pengguna
+
+      </div>
+
+      <div class="form-grid">
+
+        <div class="input-group">
+          <label>Nama Pengguna</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text">
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password">
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email">
+        </div>
+
+      </div>
+
+      <button class="save-btn">
+
+        Buat Akun
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    // =========================
+    // CEK LOGIN
+    // =========================
+
+    const loginUser =
+    localStorage.getItem("loginUser");
+
+    if(!loginUser){
+
+      window.location.href =
+      "login.html";
+
+    }
+
+    // =========================
+    // LOGOUT
+    // =========================
+
+    function logout(){
+
+      localStorage.removeItem(
+        "loginUser"
+      );
+
+      window.location.href =
+      "login.html";
+
+    }
+
+    // =========================
+    // MODAL
+    // =========================
+
+    function openModal(id){
+
+      document.getElementById(id)
+      .style.display = "block";
+
+    }
+
+    function closeModal(id){
+
+      document.getElementById(id)
+      .style.display = "none";
+
+    }
+
+    window.onclick = function(event){
+
+      const modals =
+      document.querySelectorAll(".modal");
+
+      modals.forEach(modal => {
+
+        if(event.target == modal){
+
+          modal.style.display =
+          "none";
+
+        }
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>

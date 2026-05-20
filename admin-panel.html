@@ -39,24 +39,36 @@ linear-gradient(
 
 padding:30px;
 
+overflow-x:hidden;
+
 color:white;
 
 }
 
+/* CONTAINER */
+
 .container{
 
 max-width:1400px;
+
 margin:auto;
 
 }
 
+/* HEADER */
+
 .header{
 
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 margin-bottom:35px;
+
 flex-wrap:wrap;
+
 gap:20px;
 
 }
@@ -64,6 +76,7 @@ gap:20px;
 .header h1{
 
 font-size:38px;
+
 font-weight:700;
 
 }
@@ -71,14 +84,32 @@ font-weight:700;
 .logout-btn{
 
 padding:12px 22px;
+
 border:none;
+
 border-radius:14px;
+
 background:#ef4444;
+
 color:white;
+
 font-weight:600;
+
 cursor:pointer;
 
+transition:.3s;
+
 }
+
+.logout-btn:hover{
+
+background:#dc2626;
+
+transform:translateY(-2px);
+
+}
+
+/* MENU */
 
 .menu-grid{
 
@@ -113,11 +144,17 @@ cursor:pointer;
 
 transition:.3s;
 
+box-shadow:
+0 10px 30px rgba(0,0,0,0.2);
+
 }
 
 .menu-card:hover{
 
 transform:translateY(-10px);
+
+background:
+rgba(255,255,255,0.18);
 
 }
 
@@ -147,6 +184,7 @@ overflow:hidden;
 
 width:70%;
 height:70%;
+
 object-fit:contain;
 
 }
@@ -154,11 +192,12 @@ object-fit:contain;
 .menu-title{
 
 font-size:20px;
+
 font-weight:600;
 
 }
 
-/* BOX GURU */
+/* GURU BOX */
 
 .guru-box{
 
@@ -188,12 +227,18 @@ flex-wrap:wrap;
 
 gap:20px;
 
+box-shadow:
+0 12px 30px rgba(0,0,0,0.25);
+
 }
 
 .guru-title{
 
 font-size:28px;
+
 font-weight:700;
+
+letter-spacing:1px;
 
 }
 
@@ -212,6 +257,16 @@ color:#dc2626;
 font-weight:700;
 
 cursor:pointer;
+
+transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+transform:translateY(-2px);
+
+background:#fff7ed;
 
 }
 
@@ -238,7 +293,9 @@ overflow-x:auto;
 .table-title{
 
 font-size:24px;
+
 margin-bottom:20px;
+
 font-weight:600;
 
 }
@@ -246,6 +303,7 @@ font-weight:600;
 table{
 
 width:100%;
+
 border-collapse:collapse;
 
 }
@@ -302,11 +360,27 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:700px;
+max-width:800px;
 
 margin:auto;
 
 padding:35px;
+
+animation:fadeIn .3s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
@@ -344,6 +418,7 @@ gap:18px;
 .input-group{
 
 display:flex;
+
 flex-direction:column;
 
 }
@@ -351,6 +426,8 @@ flex-direction:column;
 .input-group label{
 
 margin-bottom:8px;
+
+font-size:14px;
 
 }
 
@@ -361,6 +438,8 @@ padding:14px;
 border:none;
 
 border-radius:14px;
+
+outline:none;
 
 background:
 rgba(255,255,255,0.1);
@@ -391,12 +470,49 @@ font-weight:700;
 
 cursor:pointer;
 
+transition:.3s;
+
+}
+
+.save-btn:hover{
+
+background:#dbeafe;
+
+transform:translateY(-2px);
+
 }
 
 #uploadStatus{
 
 margin-top:20px;
+
 text-align:center;
+
+font-size:14px;
+
+font-weight:600;
+
+line-height:1.8;
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.guru-box{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
 
 }
 
@@ -424,10 +540,11 @@ Logout
 </div>
 
 <!-- MENU -->
-
 <div class="menu-grid">
 
-<div class="menu-card">
+<!-- PROFIL -->
+<div class="menu-card"
+     onclick="openModal('profilModal')">
 
 <div class="menu-icon">
 
@@ -443,7 +560,9 @@ Profil Sekolah
 
 </div>
 
-<div class="menu-card">
+<!-- AKUN -->
+<div class="menu-card"
+     onclick="openModal('akunModal')">
 
 <div class="menu-icon">
 
@@ -462,7 +581,6 @@ Akun Pengguna
 </div>
 
 <!-- DATA GURU -->
-
 <div class="guru-box">
 
 <div class="guru-title">
@@ -481,7 +599,6 @@ Unggah CSV
 </div>
 
 <!-- TABLE -->
-
 <div class="table-container">
 
 <div class="table-title">
@@ -515,8 +632,145 @@ Data Pengguna
 
 </div>
 
-<!-- MODAL UPLOAD -->
+<!-- MODAL PROFIL -->
+<div class="modal"
+     id="profilModal">
 
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('profilModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Form Profil Sekolah
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Sekolah</label>
+<input type="text" id="nama_sekolah">
+</div>
+
+<div class="input-group">
+<label>NPSN</label>
+<input type="text" id="npsn">
+</div>
+
+<div class="input-group">
+<label>Alamat Sekolah</label>
+<input type="text" id="alamat_sekolah">
+</div>
+
+<div class="input-group">
+<label>Email Sekolah</label>
+<input type="email" id="email_sekolah">
+</div>
+
+<div class="input-group">
+<label>Nama Kepala Sekolah</label>
+<input type="text" id="nama_kepsek">
+</div>
+
+<div class="input-group">
+<label>NIP</label>
+<input type="text" id="nip">
+</div>
+
+<div class="input-group">
+<label>Pangkat / Golongan</label>
+<input type="text" id="pangkat">
+</div>
+
+<div class="input-group">
+<label>Alamat Kepala Sekolah</label>
+<input type="text" id="alamat_kepsek">
+</div>
+
+<div class="input-group">
+<label>Email Kepala Sekolah</label>
+<input type="email" id="email_kepsek">
+</div>
+
+<div class="input-group">
+<label>No. HP</label>
+<input type="text" id="nohp">
+</div>
+
+</div>
+
+<button class="save-btn"
+        onclick="saveProfilSekolah()">
+
+Simpan Data
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL AKUN -->
+<div class="modal"
+     id="akunModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('akunModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Tambah Akun Pengguna
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Pengguna</label>
+<input type="text" id="nama_pengguna">
+</div>
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" id="username">
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email">
+</div>
+
+</div>
+
+<button class="save-btn"
+        onclick="saveAkun()">
+
+Buat Akun
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL UPLOAD -->
 <div class="modal"
      id="uploadModal">
 
@@ -531,17 +785,19 @@ Data Pengguna
 
 <div class="form-title">
 
-Upload CSV Guru & Tendik
+Upload Data Guru & Tendik
 
 </div>
 
-<div style="margin-bottom:20px;">
+<div style="margin-bottom:20px; line-height:1.8;">
 
-Silakan pilih file CSV
+Silakan unggah file format CSV.
 
 </div>
 
 <div class="input-group">
+
+<label>Pilih File CSV</label>
 
 <input type="file"
        id="csvFile"
@@ -564,7 +820,7 @@ Kirim File
 
 <script>
 
-// URL WEB APP APPS SCRIPT
+// API URL BARU HASIL DEPLOY
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
@@ -575,7 +831,7 @@ localStorage.getItem("loginUser");
 if(!loginUser){
 
 window.location.href =
-"login.html";
+"index.html";
 
 }
 
@@ -587,7 +843,7 @@ localStorage.removeItem(
 );
 
 window.location.href =
-"index.html";
+"login.html";
 
 }
 
@@ -606,10 +862,110 @@ document.getElementById(id)
 
 }
 
-// LOAD USER
-async function loadUsers(){
+// SAVE PROFIL
+async function saveProfilSekolah(){
 
-try{
+const data = {
+
+action:"saveProfilSekolah",
+
+nama_sekolah:
+document.getElementById("nama_sekolah").value,
+
+npsn:
+document.getElementById("npsn").value,
+
+alamat_sekolah:
+document.getElementById("alamat_sekolah").value,
+
+email_sekolah:
+document.getElementById("email_sekolah").value,
+
+nama_kepsek:
+document.getElementById("nama_kepsek").value,
+
+nip:
+document.getElementById("nip").value,
+
+pangkat:
+document.getElementById("pangkat").value,
+
+alamat_kepsek:
+document.getElementById("alamat_kepsek").value,
+
+email_kepsek:
+document.getElementById("email_kepsek").value,
+
+nohp:
+document.getElementById("nohp").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+}
+
+// SAVE AKUN
+async function saveAkun(){
+
+const data = {
+
+action:"saveAkun",
+
+nama_pengguna:
+document.getElementById("nama_pengguna").value,
+
+username:
+document.getElementById("username").value,
+
+password:
+document.getElementById("password").value,
+
+email:
+document.getElementById("email").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+loadUsers();
+
+}
+
+// LOAD USERS
+async function loadUsers(){
 
 const response =
 await fetch(
@@ -642,15 +998,9 @@ document.getElementById(
 "userTable"
 ).innerHTML = html;
 
-}catch(error){
-
-console.log(error);
-
 }
 
-}
-
-// UPLOAD CSV
+// UPLOAD CSV FINAL STABLE
 async function uploadCSV(){
 
 const fileInput =
@@ -662,7 +1012,7 @@ document.getElementById("uploadStatus");
 if(fileInput.files.length === 0){
 
 status.innerHTML =
-"Silakan pilih file CSV";
+"❌ Pilih file CSV terlebih dahulu";
 
 return;
 
@@ -672,21 +1022,20 @@ const file =
 fileInput.files[0];
 
 status.innerHTML =
-"Membaca file...";
+"⏳ Membaca file...";
 
 const reader =
 new FileReader();
 
-reader.onload =
-async function(e){
+reader.onload = async function(e){
 
 try{
 
-status.innerHTML =
-"Mengupload file...";
-
 const base64 =
 e.target.result;
+
+status.innerHTML =
+"⏳ Mengupload file...";
 
 const response =
 await fetch(API_URL,{
@@ -694,7 +1043,7 @@ await fetch(API_URL,{
 method:"POST",
 
 headers:{
-"Content-Type":"application/json"
+"Content-Type":"text/plain;charset=utf-8"
 },
 
 body:JSON.stringify({
@@ -716,56 +1065,25 @@ await response.json();
 
 if(result.status === "success"){
 
-status.innerHTML = `
+status.innerHTML =
+"✅ File berhasil diupload ke Folder Arsip";
 
-<div style="
-background:#16a34a;
-padding:14px;
-border-radius:14px;
-margin-top:15px;
-">
+}
+else{
 
-${result.message}
-
-</div>
-
-`;
-
-}else{
-
-status.innerHTML = `
-
-<div style="
-background:#dc2626;
-padding:14px;
-border-radius:14px;
-margin-top:15px;
-">
-
-${result.message}
-
-</div>
-
-`;
+status.innerHTML =
+"❌ " + result.message;
 
 }
 
-}catch(error){
+}
 
-status.innerHTML = `
+catch(error){
 
-<div style="
-background:#dc2626;
-padding:14px;
-border-radius:14px;
-margin-top:15px;
-">
+status.innerHTML =
+"❌ TypeError: Failed to fetch";
 
-${error}
-
-</div>
-
-`;
+console.log(error);
 
 }
 

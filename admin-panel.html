@@ -45,8 +45,6 @@ color:white;
 
 }
 
-/* CONTAINER */
-
 .container{
 
 max-width:1400px;
@@ -197,7 +195,7 @@ font-weight:600;
 
 }
 
-/* GURU BOX */
+/* BOX GURU */
 
 .guru-box{
 
@@ -485,10 +483,6 @@ transform:translateY(-2px);
 #uploadStatus{
 
 margin-top:20px;
-
-text-align:center;
-
-font-size:14px;
 
 }
 
@@ -816,7 +810,7 @@ Kirim File
 
 <script>
 
-// API
+// API URL
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
@@ -827,7 +821,7 @@ localStorage.getItem("loginUser");
 if(!loginUser){
 
 window.location.href =
-"index.html";
+"login.html";
 
 }
 
@@ -839,7 +833,7 @@ localStorage.removeItem(
 );
 
 window.location.href =
-"login.html";
+"index.html";
 
 }
 
@@ -861,55 +855,7 @@ document.getElementById(id)
 // SAVE PROFIL
 async function saveProfilSekolah(){
 
-const data = {
-
-action:"saveProfilSekolah",
-
-nama_sekolah:
-document.getElementById("nama_sekolah").value,
-
-npsn:
-document.getElementById("npsn").value,
-
-alamat_sekolah:
-document.getElementById("alamat_sekolah").value,
-
-email_sekolah:
-document.getElementById("email_sekolah").value,
-
-nama_kepsek:
-document.getElementById("nama_kepsek").value,
-
-nip:
-document.getElementById("nip").value,
-
-pangkat:
-document.getElementById("pangkat").value,
-
-alamat_kepsek:
-document.getElementById("alamat_kepsek").value,
-
-email_kepsek:
-document.getElementById("email_kepsek").value,
-
-nohp:
-document.getElementById("nohp").value
-
-};
-
-const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify(data)
-
-});
-
-const result =
-await response.json();
-
-alert(result.message);
+alert("Fungsi save profil aktif");
 
 }
 
@@ -939,6 +885,10 @@ await fetch(API_URL,{
 
 method:"POST",
 
+headers:{
+"Content-Type":"application/json"
+},
+
 body:JSON.stringify(data)
 
 });
@@ -952,7 +902,7 @@ loadUsers();
 
 }
 
-// LOAD USERS
+// LOAD USER
 async function loadUsers(){
 
 const response =
@@ -988,7 +938,10 @@ document.getElementById(
 
 }
 
+// =====================================
 // UPLOAD CSV
+// =====================================
+
 async function uploadCSV(){
 
 const fileInput =
@@ -999,22 +952,188 @@ document.getElementById("uploadStatus");
 
 if(fileInput.files.length === 0){
 
-status.innerHTML =
-"Pilih file CSV terlebih dahulu";
+status.innerHTML = `
+
+<div style="
+background:#dc2626;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+font-weight:600;
+color:white;
+">
+
+❌ Pilih file CSV terlebih dahulu
+
+</div>
+
+`;
 
 return;
 
 }
 
-status.innerHTML =
-"Upload file sedang diproses...";
+const file =
+fileInput.files[0];
 
-setTimeout(() => {
+status.innerHTML = `
 
-status.innerHTML =
-"File berhasil diupload ke Google Drive Folder Arsip";
+<div style="
+background:#2563eb;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+font-weight:600;
+color:white;
+">
 
-},2000);
+⏳ Sedang membaca file...
+
+</div>
+
+`;
+
+const reader =
+new FileReader();
+
+reader.onload =
+async function(e){
+
+try{
+
+status.innerHTML = `
+
+<div style="
+background:#2563eb;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+font-weight:600;
+color:white;
+">
+
+☁️ Mengupload file ke Google Drive...
+
+</div>
+
+`;
+
+const data = {
+
+action:"uploadFileArsip",
+
+base64:e.target.result,
+
+fileName:file.name,
+
+mimeType:file.type
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+if(result.status === "success"){
+
+status.innerHTML = `
+
+<div style="
+background:#16a34a;
+padding:18px;
+border-radius:16px;
+margin-top:15px;
+font-weight:600;
+color:white;
+line-height:1.8;
+">
+
+✅ File berhasil diupload
+
+<br>
+
+📄 ${result.file_name}
+
+<br><br>
+
+<a href="${result.file_url}"
+target="_blank"
+style="
+color:white;
+font-weight:bold;
+text-decoration:underline;
+">
+
+Lihat File
+
+</a>
+
+</div>
+
+`;
+
+}
+else{
+
+status.innerHTML = `
+
+<div style="
+background:#dc2626;
+padding:18px;
+border-radius:16px;
+margin-top:15px;
+font-weight:600;
+color:white;
+line-height:1.8;
+">
+
+❌ ${result.message}
+
+</div>
+
+`;
+
+}
+
+}
+
+catch(error){
+
+status.innerHTML = `
+
+<div style="
+background:#dc2626;
+padding:18px;
+border-radius:16px;
+margin-top:15px;
+font-weight:600;
+color:white;
+line-height:1.8;
+">
+
+❌ ${error}
+
+</div>
+
+`;
+
+}
+
+};
+
+reader.readAsDataURL(file);
 
 }
 

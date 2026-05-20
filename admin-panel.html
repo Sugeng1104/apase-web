@@ -360,7 +360,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:800px;
+max-width:900px;
 
 margin:auto;
 
@@ -653,6 +653,8 @@ Form Profil Sekolah
 
 <div class="form-grid">
 
+<!-- DATA SEKOLAH -->
+
 <div class="input-group">
 <label>Nama Sekolah</label>
 <input type="text" id="nama_sekolah">
@@ -664,7 +666,7 @@ Form Profil Sekolah
 </div>
 
 <div class="input-group">
-<label>Alamat</label>
+<label>Alamat Sekolah</label>
 <input type="text" id="alamat">
 </div>
 
@@ -689,8 +691,40 @@ Form Profil Sekolah
 </div>
 
 <div class="input-group">
-<label>Email</label>
+<label>Email Sekolah</label>
 <input type="email" id="email">
+</div>
+
+<!-- DATA KEPALA SEKOLAH -->
+
+<div class="input-group">
+<label>Nama Kepala Sekolah</label>
+<input type="text" id="nama_kepsek">
+</div>
+
+<div class="input-group">
+<label>NIP</label>
+<input type="text" id="nip">
+</div>
+
+<div class="input-group">
+<label>Pangkat / Golongan</label>
+<input type="text" id="pangkat">
+</div>
+
+<div class="input-group">
+<label>Alamat Kepala Sekolah</label>
+<input type="text" id="alamat_kepsek">
+</div>
+
+<div class="input-group">
+<label>Email Kepala Sekolah</label>
+<input type="email" id="email_kepsek">
+</div>
+
+<div class="input-group">
+<label>No. HP</label>
+<input type="text" id="nohp">
 </div>
 
 </div>
@@ -833,7 +867,7 @@ localStorage.removeItem(
 );
 
 window.location.href =
-"login.html";
+"index.html";
 
 }
 
@@ -859,6 +893,7 @@ const data = {
 
 action:"saveProfilSekolah",
 
+// DATA SEKOLAH
 nama_sekolah:
 document.getElementById("nama_sekolah").value,
 
@@ -881,7 +916,26 @@ Provinsi:
 document.getElementById("provinsi").value,
 
 email:
-document.getElementById("email").value
+document.getElementById("email").value,
+
+// DATA KEPALA SEKOLAH
+nama_kepsek:
+document.getElementById("nama_kepsek").value,
+
+nip:
+document.getElementById("nip").value,
+
+pangkat:
+document.getElementById("pangkat").value,
+
+alamat_kepsek:
+document.getElementById("alamat_kepsek").value,
+
+email_kepsek:
+document.getElementById("email_kepsek").value,
+
+nohp:
+document.getElementById("nohp").value
 
 };
 

@@ -424,13 +424,29 @@
 
 
     // =====================================
-    // CEK LOGIN
+    // AUTO REDIRECT JIKA SUDAH LOGIN
     // =====================================
 
-    if(localStorage.getItem("loginUser")){
+    const savedUser =
+    localStorage.getItem("loginUser");
 
-      window.location.href =
-      "dashboard.html";
+    if(savedUser){
+
+      // ADMIN
+      if(savedUser.toLowerCase() === "admin"){
+
+        window.location.href =
+        "admin-panel.html";
+
+      }
+
+      // USER BIASA
+      else{
+
+        window.location.href =
+        "dashboard.html";
+
+      }
 
     }
 
@@ -508,9 +524,27 @@
             result.username
           );
 
-          // REDIRECT
-          window.location.href =
-          "dashboard.html";
+          // =========================
+          // CEK ROLE ADMIN
+          // =========================
+
+          if(result.username.toLowerCase() === "admin"){
+
+            window.location.href =
+            "admin-panel.html";
+
+          }
+
+          // =========================
+          // USER BIASA
+          // =========================
+
+          else{
+
+            window.location.href =
+            "dashboard.html";
+
+          }
 
         }
 

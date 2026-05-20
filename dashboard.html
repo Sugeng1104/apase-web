@@ -4,14 +4,18 @@
 <head>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
   <title>Dashboard APASE WEB</title>
 
   <!-- GOOGLE FONT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
   <style>
 
@@ -98,6 +102,85 @@
       max-width:1500px;
 
       margin:auto;
+
+    }
+
+    /* ========================= */
+    /* TOPBAR */
+    /* ========================= */
+
+    .topbar{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      margin-bottom:25px;
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(20px);
+
+      border:
+      1px solid rgba(255,255,255,0.15);
+
+      border-radius:22px;
+
+      padding:18px 25px;
+
+      color:white;
+
+      box-shadow:
+      0 8px 25px rgba(0,0,0,0.2);
+
+    }
+
+    .user-info{
+
+      font-size:16px;
+
+      font-weight:500;
+
+    }
+
+    .user-info span{
+
+      font-weight:700;
+
+      color:#dbeafe;
+
+    }
+
+    .logout-btn{
+
+      padding:12px 22px;
+
+      border:none;
+
+      border-radius:14px;
+
+      background:#ef4444;
+
+      color:white;
+
+      font-size:14px;
+
+      font-weight:600;
+
+      cursor:pointer;
+
+      transition:.3s;
+
+    }
+
+    .logout-btn:hover{
+
+      background:#dc2626;
+
+      transform:translateY(-2px);
 
     }
 
@@ -359,6 +442,20 @@
 
     }
 
+    @media(max-width:700px){
+
+      .topbar{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        text-align:center;
+
+      }
+
+    }
+
     @media(max-width:500px){
 
       body{
@@ -407,11 +504,33 @@
   <!-- CONTAINER -->
   <div class="container">
 
+    <!-- TOPBAR -->
+    <div class="topbar">
+
+      <div class="user-info">
+
+        Login Sebagai :
+        <span id="loginName">
+          User
+        </span>
+
+      </div>
+
+      <button class="logout-btn"
+              onclick="logout()">
+
+        Logout
+
+      </button>
+
+    </div>
+
     <!-- HEADER -->
     <div class="header">
 
       <!-- LOGO KABUPATEN -->
-      <img src="assets/logo/kab.png" alt="Logo Kabupaten">
+      <img src="assets/logo/kab.png"
+           alt="Logo Kabupaten">
 
       <!-- TITLE -->
       <div class="header-title">
@@ -429,7 +548,8 @@
       </div>
 
       <!-- FOTO KEPSEK -->
-      <img src="assets/img/kepsek.png" alt="Kepala Sekolah">
+      <img src="assets/img/kepsek.png"
+           alt="Kepala Sekolah">
 
     </div>
 
@@ -437,118 +557,172 @@
     <div class="menu-grid">
 
       <!-- 1 -->
-      <a href="pages/data-kepsek.html" class="menu-card">
+      <a href="pages/data-kepsek.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr1.png" alt="">
+
+          <img src="assets/img/gbr1.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data Kepala Sekolah
+
         </div>
 
       </a>
 
       <!-- 2 -->
-      <a href="pages/data-sekolah.html" class="menu-card">
+      <a href="pages/data-sekolah.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr2.png" alt="">
+
+          <img src="assets/img/gbr2.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data Sekolah
+
         </div>
 
       </a>
 
       <!-- 3 -->
-      <a href="pages/data-guru.html" class="menu-card">
+      <a href="pages/data-guru.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr3.png" alt="">
+
+          <img src="assets/img/gbr3.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data Guru + Tendik
+
         </div>
 
       </a>
 
       <!-- 4 -->
-      <a href="pages/statistik-siswa.html" class="menu-card">
+      <a href="pages/statistik-siswa.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr4.png" alt="">
+
+          <img src="assets/img/gbr4.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data Statistik Siswa
+
         </div>
 
       </a>
 
       <!-- 5 -->
-      <a href="pages/absensi.html" class="menu-card">
+      <a href="pages/absensi.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr5.png" alt="">
+
+          <img src="assets/img/gbr5.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data Absensi Guru dan Staf
+
         </div>
 
       </a>
 
       <!-- 6 -->
-      <a href="pages/program-sekolah.html" class="menu-card">
+      <a href="pages/program-sekolah.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr6.png" alt="">
+
+          <img src="assets/img/gbr6.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Program Sekolah
+
         </div>
 
       </a>
 
       <!-- 7 -->
-      <a href="pages/perangkat.html" class="menu-card">
+      <a href="pages/perangkat.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr7.png" alt="">
+
+          <img src="assets/img/gbr7.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Perangkat Pembelajaran
+
         </div>
 
       </a>
 
       <!-- 8 -->
-      <a href="pages/supervisi.html" class="menu-card">
+      <a href="pages/supervisi.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr8.png" alt="">
+
+          <img src="assets/img/gbr8.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Administrasi Supervisi
+
         </div>
 
       </a>
 
       <!-- 9 -->
-      <a href="pages/e-kinerja.html" class="menu-card">
+      <a href="pages/e-kinerja.html"
+         class="menu-card">
 
         <div class="menu-icon">
-          <img src="assets/img/gbr9.png" alt="">
+
+          <img src="assets/img/gbr9.png"
+               alt="">
+
         </div>
 
         <div class="menu-title">
+
           Data E-Kinerja Guru dan Staf
+
         </div>
 
       </a>
@@ -565,6 +739,67 @@
     </div>
 
   </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    // =========================
+    // CEK LOGIN
+    // =========================
+
+    const loginUser =
+    localStorage.getItem(
+      "loginUser"
+    );
+
+    const loginNama =
+    localStorage.getItem(
+      "namaPengguna"
+    );
+
+    const userRole =
+    localStorage.getItem(
+      "userRole"
+    );
+
+    // BELUM LOGIN
+    if(!loginUser){
+
+      window.location.href =
+      "login.html";
+
+    }
+
+    // TAMPILKAN USER
+    document.getElementById(
+      "loginName"
+    ).innerText =
+    loginNama || loginUser;
+
+    // =========================
+    // LOGOUT
+    // =========================
+
+    function logout(){
+
+      localStorage.removeItem(
+        "loginUser"
+      );
+
+      localStorage.removeItem(
+        "namaPengguna"
+      );
+
+      localStorage.removeItem(
+        "userRole"
+      );
+
+      window.location.href =
+      "login.html";
+
+    }
+
+  </script>
 
 </body>
 </html>

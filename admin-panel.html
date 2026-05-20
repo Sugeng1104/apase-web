@@ -482,6 +482,48 @@ transform:translateY(-2px);
 
 }
 
+/* LOADING */
+
+.loading-animation{
+
+opacity:0.8;
+
+pointer-events:none;
+
+}
+
+.loading-dots::after{
+
+content:'';
+
+animation:dots 1.5s infinite;
+
+}
+
+@keyframes dots{
+
+0%{
+content:'';
+}
+
+25%{
+content:'.';
+}
+
+50%{
+content:'..';
+}
+
+75%{
+content:'...';
+}
+
+100%{
+content:'';
+}
+
+}
+
 #uploadStatus{
 
 margin-top:20px;
@@ -730,6 +772,7 @@ Form Profil Sekolah
 </div>
 
 <button class="save-btn"
+        id="saveProfilBtn"
         onclick="saveProfilSekolah()">
 
 Simpan Data
@@ -889,6 +932,22 @@ document.getElementById(id)
 // SAVE PROFIL
 async function saveProfilSekolah(){
 
+const btn =
+document.getElementById(
+"saveProfilBtn"
+);
+
+btn.innerHTML =
+'Sabar sedang proses<span class="loading-dots"></span>';
+
+btn.classList.add(
+"loading-animation"
+);
+
+btn.disabled = true;
+
+try{
+
 const data = {
 
 action:"saveProfilSekolah",
@@ -903,7 +962,7 @@ document.getElementById("npsn").value,
 alamat:
 document.getElementById("alamat").value,
 
-"desa_sekolah":
+desa_sekolah:
 document.getElementById("desa_sekolah").value,
 
 kecamatan:
@@ -956,6 +1015,26 @@ const result =
 await response.json();
 
 alert(result.message);
+
+}
+catch(error){
+
+alert(
+"Gagal menyimpan data"
+);
+
+console.log(error);
+
+}
+
+btn.innerHTML =
+"Simpan Data";
+
+btn.classList.remove(
+"loading-animation"
+);
+
+btn.disabled = false;
 
 }
 

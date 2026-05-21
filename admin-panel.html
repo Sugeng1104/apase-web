@@ -754,9 +754,37 @@ onclick="closeModal('siswaModal')">
 
 </span>
 
-<div class="form-title">
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+gap:20px;
+flex-wrap:wrap;
+">
+
+<div class="form-title"
+style="margin-bottom:0;">
 
 DATA PESERTA DIDIK
+
+</div>
+
+<button
+class="save-btn"
+style="
+width:auto;
+margin-top:0;
+padding:12px 22px;
+background:#2563eb;
+color:white;
+"
+onclick="updateSiswa()"
+id="updateSiswaBtn">
+
+Update Data
+
+</button>
 
 </div>
 
@@ -803,81 +831,6 @@ Memuat data siswa...
 </table>
 
 </div>
-
-</div>
-
-</div>
-
-<!-- MODAL EDIT PTK -->
-
-<div class="modal"
-id="editPTKModal">
-
-<div class="modal-content">
-
-<span class="close"
-onclick="closeModal('editPTKModal')">
-
-&times;
-
-</span>
-
-<div class="form-title">
-
-EDIT DATA PTK
-
-</div>
-
-<input type="hidden"
-id="edit_row">
-
-<div class="form-grid">
-
-<div class="input-group">
-<label>Nama</label>
-<input type="text"
-id="edit_nama">
-</div>
-
-<div class="input-group">
-<label>NIP</label>
-<input type="text"
-id="edit_nip">
-</div>
-
-<div class="input-group">
-<label>Pangkat</label>
-<input type="text"
-id="edit_pangkat">
-</div>
-
-<div class="input-group">
-<label>Tugas</label>
-<input type="text"
-id="edit_tugas">
-</div>
-
-<div class="input-group">
-<label>NUPTK</label>
-<input type="text"
-id="edit_nuptk">
-</div>
-
-<div class="input-group">
-<label>Status</label>
-<input type="text"
-id="edit_status">
-</div>
-
-</div>
-
-<button class="save-btn"
-id="updatePTKBtn"
-onclick="updatePTK()">
-
-Ubah Data PTK
-
-</button>
 
 </div>
 
@@ -1013,15 +966,13 @@ html += `
 
 <td>
 
-<button class="edit-btn"
-onclick='editPTK(${JSON.stringify(item)})'>
+<button class="edit-btn">
 
 Edit
 
 </button>
 
-<button class="delete-btn"
-onclick='deletePTK(${item.row})'>
+<button class="delete-btn">
 
 Hapus
 
@@ -1045,174 +996,6 @@ catch(error){
 console.log(error);
 
 }
-
-}
-
-// =====================================================
-// EDIT PTK
-// =====================================================
-
-function editPTK(data){
-
-openModal(
-"editPTKModal"
-);
-
-document.getElementById(
-"edit_row"
-).value = data.row;
-
-document.getElementById(
-"edit_nama"
-).value = data.nama;
-
-document.getElementById(
-"edit_nip"
-).value = data.nip;
-
-document.getElementById(
-"edit_pangkat"
-).value = data.pangkat;
-
-document.getElementById(
-"edit_tugas"
-).value = data.tugas;
-
-document.getElementById(
-"edit_nuptk"
-).value = data.nuptk;
-
-document.getElementById(
-"edit_status"
-).value = data.status;
-
-}
-
-// =====================================================
-// UPDATE PTK
-// =====================================================
-
-async function updatePTK(){
-
-const btn =
-document.getElementById(
-"updatePTKBtn"
-);
-
-btn.innerHTML =
-"Menyimpan...";
-
-const data = {
-
-action:"updatePTK",
-
-row:
-document.getElementById(
-"edit_row"
-).value,
-
-nama:
-document.getElementById(
-"edit_nama"
-).value,
-
-nip:
-document.getElementById(
-"edit_nip"
-).value,
-
-pangkat:
-document.getElementById(
-"edit_pangkat"
-).value,
-
-tugas:
-document.getElementById(
-"edit_tugas"
-).value,
-
-nuptk:
-document.getElementById(
-"edit_nuptk"
-).value,
-
-status:
-document.getElementById(
-"edit_status"
-).value
-
-};
-
-const response =
-await fetch(PTK_API,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify(data)
-
-});
-
-const result =
-await response.json();
-
-btn.innerHTML =
-"Berhasil";
-
-btn.style.background =
-"#16a34a";
-
-alert(result.message);
-
-closeModal(
-"editPTKModal"
-);
-
-loadPTK();
-
-}
-
-// =====================================================
-// DELETE PTK
-// =====================================================
-
-async function deletePTK(row){
-
-const yakin =
-confirm(
-"Yakin ingin menghapus data PTK?"
-);
-
-if(!yakin) return;
-
-const response =
-await fetch(PTK_API,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"deletePTK",
-
-row:row
-
-})
-
-});
-
-const result =
-await response.json();
-
-alert(result.message);
-
-loadPTK();
 
 }
 
@@ -1241,15 +1024,25 @@ html += `
 <tr>
 
 <td>${item.no}</td>
+
 <td contenteditable="true">${item.nis}</td>
+
 <td contenteditable="true">${item.nisn}</td>
+
 <td contenteditable="true">${item.nama}</td>
+
 <td contenteditable="true">${item.lp}</td>
+
 <td contenteditable="true">${item.kelas}</td>
+
 <td contenteditable="true">${item.tempat_lahir}</td>
+
 <td contenteditable="true">${item.tanggal_lahir}</td>
+
 <td contenteditable="true">${item.ayah}</td>
+
 <td contenteditable="true">${item.ibu}</td>
+
 <td contenteditable="true">${item.asal_tk}</td>
 
 <td>
@@ -1274,6 +1067,119 @@ document.getElementById(
 
 }
 catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// =====================================================
+// UPDATE SISWA
+// =====================================================
+
+async function updateSiswa(){
+
+const btn =
+document.getElementById(
+"updateSiswaBtn"
+);
+
+btn.innerHTML =
+"Menyimpan...";
+
+btn.style.background =
+"#f59e0b";
+
+const rows =
+document.querySelectorAll(
+"#siswaTable tr"
+);
+
+let data = [];
+
+rows.forEach((row,index)=>{
+
+const cols =
+row.querySelectorAll("td");
+
+if(cols.length >= 11){
+
+data.push({
+
+row:index + 2,
+
+nis:cols[1].innerText.trim(),
+
+nisn:cols[2].innerText.trim(),
+
+nama:cols[3].innerText.trim(),
+
+lp:cols[4].innerText.trim(),
+
+kelas:cols[5].innerText.trim(),
+
+tempat_lahir:
+cols[6].innerText.trim(),
+
+tanggal_lahir:
+cols[7].innerText.trim(),
+
+ayah:
+cols[8].innerText.trim(),
+
+ibu:
+cols[9].innerText.trim(),
+
+asal_tk:
+cols[10].innerText.trim()
+
+});
+
+}
+
+});
+
+try{
+
+const response =
+await fetch(SISWA_API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"updatePesertaDidik",
+
+data:data
+
+})
+
+});
+
+const result =
+await response.json();
+
+btn.innerHTML =
+"Berhasil Disimpan";
+
+btn.style.background =
+"#16a34a";
+
+alert(result.message);
+
+}
+catch(error){
+
+btn.innerHTML =
+"Gagal Update";
+
+btn.style.background =
+"#dc2626";
 
 console.log(error);
 

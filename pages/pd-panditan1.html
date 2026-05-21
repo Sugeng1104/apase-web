@@ -47,8 +47,6 @@ overflow-x:hidden;
 
 }
 
-/* CONTAINER */
-
 .container{
 
 max-width:1700px;
@@ -83,93 +81,72 @@ font-weight:700;
 
 }
 
-/* STATISTIK */
+/* STATISTIK BOX */
 
-.statistik-container{
+.statistik-row{
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(320px,1fr));
+repeat(auto-fit,minmax(220px,1fr));
 
-gap:25px;
+gap:20px;
 
 margin-bottom:35px;
 
 }
 
-.chart-box{
+.stat-box{
 
-background:white;
+background:
+rgba(255,255,255,0.12);
 
-border-radius:20px;
+backdrop-filter:blur(20px);
 
-padding:20px;
+border:
+1px solid rgba(255,255,255,0.18);
+
+border-radius:22px;
+
+padding:25px;
+
+cursor:pointer;
+
+transition:.3s;
 
 box-shadow:
-0 6px 20px rgba(0,0,0,0.15);
-
-}
-
-.chart-box h3{
-
-margin-bottom:20px;
-
-font-size:18px;
-
-color:#1e293b;
+0 8px 25px rgba(0,0,0,0.2);
 
 text-align:center;
 
-font-weight:700;
-
 }
 
-.total-card{
+.stat-box:hover{
+
+transform:translateY(-5px);
 
 background:
-linear-gradient(
-135deg,
-#facc15,
-#eab308
-);
-
-color:#1e293b;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-min-height:220px;
-
-border-radius:20px;
-
-box-shadow:
-0 6px 20px rgba(0,0,0,0.2);
+rgba(255,255,255,0.18);
 
 }
 
-.total-card h2{
+.stat-box h2{
 
-font-size:64px;
-
-font-weight:800;
+font-size:40px;
 
 margin-bottom:10px;
 
-}
-
-.total-card p{
-
-font-size:20px;
-
 font-weight:700;
 
-text-align:center;
+color:#facc15;
+
+}
+
+.stat-box p{
+
+font-size:16px;
+
+font-weight:600;
 
 }
 
@@ -260,7 +237,37 @@ background:#f8fafc;
 
 }
 
-/* TOMBOL */
+/* SEARCH */
+
+.search-box{
+
+margin-bottom:20px;
+
+}
+
+.search-box input{
+
+width:100%;
+
+padding:14px 18px;
+
+border:none;
+
+border-radius:14px;
+
+outline:none;
+
+font-size:15px;
+
+background:white;
+
+color:#1e293b;
+
+font-weight:500;
+
+}
+
+/* BUTTON */
 
 .button-container{
 
@@ -302,6 +309,79 @@ box-shadow:
 background:#fde047;
 
 transform:translateY(-2px);
+
+}
+
+/* MODAL */
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+z-index:999;
+
+left:0;
+top:0;
+
+width:100%;
+height:100%;
+
+background:
+rgba(0,0,0,0.7);
+
+padding:30px;
+
+overflow:auto;
+
+}
+
+.modal-content{
+
+background:white;
+
+max-width:850px;
+
+margin:auto;
+
+padding:30px;
+
+border-radius:25px;
+
+position:relative;
+
+}
+
+.close{
+
+position:absolute;
+
+right:25px;
+
+top:15px;
+
+font-size:32px;
+
+cursor:pointer;
+
+color:#1e293b;
+
+font-weight:700;
+
+}
+
+.modal-title{
+
+font-size:24px;
+
+font-weight:700;
+
+margin-bottom:25px;
+
+color:#1e293b;
+
+text-align:center;
 
 }
 
@@ -353,9 +433,53 @@ DATA PESERTA DIDIK
 
 <!-- STATISTIK -->
 
-<div class="statistik-container">
+<div class="statistik-row">
 
-<div class="stat-card total-card">
+<div class="stat-box"
+     onclick="openChart('kelas')">
+
+<h2 id="totalKelas">0</h2>
+
+<p>
+Statistik per Kelas
+</p>
+
+</div>
+
+<div class="stat-box"
+     onclick="openChart('gender')">
+
+<h2 id="totalGender">0</h2>
+
+<p>
+Laki-laki vs Perempuan
+</p>
+
+</div>
+
+<div class="stat-box"
+     onclick="openChart('kecamatan')">
+
+<h2 id="totalKecamatan">0</h2>
+
+<p>
+Statistik Kecamatan
+</p>
+
+</div>
+
+<div class="stat-box"
+     onclick="openChart('bantuan')">
+
+<h2 id="totalBantuan">0</h2>
+
+<p>
+Penerima Bantuan
+</p>
+
+</div>
+
+<div class="stat-box">
 
 <h2 id="totalSiswa">
 0
@@ -364,46 +488,6 @@ DATA PESERTA DIDIK
 <p>
 Total Keseluruhan Siswa
 </p>
-
-</div>
-
-<div class="chart-box">
-
-<h3>
-Statistik Jumlah Siswa per Kelas
-</h3>
-
-<canvas id="chartKelas"></canvas>
-
-</div>
-
-<div class="chart-box">
-
-<h3>
-Statistik Laki-laki vs Perempuan
-</h3>
-
-<canvas id="chartGender"></canvas>
-
-</div>
-
-<div class="chart-box">
-
-<h3>
-Statistik per Kecamatan
-</h3>
-
-<canvas id="chartKecamatan"></canvas>
-
-</div>
-
-<div class="chart-box">
-
-<h3>
-Statistik Penerima KIP / KKS / PKH
-</h3>
-
-<canvas id="chartBantuan"></canvas>
 
 </div>
 
@@ -416,6 +500,17 @@ Statistik Penerima KIP / KKS / PKH
 <div class="table-title">
 
 Daftar Peserta Didik
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input type="text"
+       id="searchInput"
+       placeholder="Cari Nama / NIS / Kelas..."
+       onkeyup="searchTable()">
 
 </div>
 
@@ -458,7 +553,7 @@ Memuat data peserta didik...
 
 </table>
 
-<!-- TOMBOL KEMBALI -->
+<!-- BUTTON -->
 
 <div class="button-container">
 
@@ -475,6 +570,33 @@ Kembali
 
 </div>
 
+<!-- MODAL GRAFIK -->
+
+<div class="modal"
+     id="chartModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal()">
+
+&times;
+
+</span>
+
+<div class="modal-title"
+     id="modalTitle">
+
+Grafik Statistik
+
+</div>
+
+<canvas id="popupChart"></canvas>
+
+</div>
+
+</div>
+
 <script>
 
 // =========================================
@@ -482,11 +604,18 @@ Kembali
 // =========================================
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
-
+"https://script.google.com/macros/s/ISI_URL_WEB_APP_ANDA/exec";
 
 // =========================================
-// LOAD DATA PESERTA DIDIK
+// GLOBAL DATA
+// =========================================
+
+let globalData = [];
+
+let popupChart = null;
+
+// =========================================
+// LOAD DATA
 // =========================================
 
 async function loadDataPesertaDidik(){
@@ -501,16 +630,12 @@ await fetch(
 const result =
 await response.json();
 
-const data =
+globalData =
 result.data;
 
 let html = "";
 
-// =========================================
-// TABEL
-// =========================================
-
-data.forEach(item=>{
+globalData.forEach(item=>{
 
 html += `
 
@@ -538,19 +663,14 @@ document.getElementById(
 "dataPesertaDidik"
 ).innerHTML = html;
 
-// =========================================
-// TOTAL SISWA
-// =========================================
-
+// TOTAL
 document.getElementById(
 "totalSiswa"
-).innerHTML = data.length;
+).innerHTML =
+globalData.length;
 
-// =========================================
-// BUAT GRAFIK
-// =========================================
-
-buatStatistik(data);
+// HITUNG
+hitungStatistik();
 
 }
 
@@ -563,7 +683,7 @@ document.getElementById(
 <tr>
 
 <td colspan="11"
-    class="loading">
+class="loading">
 
 Gagal memuat data
 
@@ -579,60 +699,32 @@ console.log(error);
 
 }
 
-
 // =========================================
-// BUAT STATISTIK
-// =========================================
-
-function buatStatistik(data){
-
-// =========================================
-// PER KELAS
+// HITUNG STATISTIK
 // =========================================
 
-let kelasMap = {};
+function hitungStatistik(){
 
-data.forEach(item=>{
+// KELAS
+let kelas = {};
 
-kelasMap[item.kelas] =
-(kelasMap[item.kelas] || 0) + 1;
+globalData.forEach(item=>{
+
+kelas[item.kelas] =
+(kelas[item.kelas] || 0) + 1;
 
 });
 
-new Chart(
-document.getElementById("chartKelas"),
-{
-type:"bar",
+document.getElementById(
+"totalKelas"
+).innerHTML =
+Object.keys(kelas).length;
 
-data:{
-labels:Object.keys(kelasMap),
-
-datasets:[{
-label:"Jumlah Siswa",
-data:Object.values(kelasMap),
-borderWidth:1
-}]
-},
-
-options:{
-responsive:true,
-plugins:{
-legend:{
-display:false
-}
-}
-}
-}
-);
-
-// =========================================
 // GENDER
-// =========================================
-
 let laki = 0;
 let perempuan = 0;
 
-data.forEach(item=>{
+globalData.forEach(item=>{
 
 if(
 String(item.lp).toUpperCase() === "L"
@@ -644,101 +736,238 @@ perempuan++;
 
 });
 
-new Chart(
-document.getElementById("chartGender"),
-{
-type:"pie",
+document.getElementById(
+"totalGender"
+).innerHTML =
+`${laki}/${perempuan}`;
 
-data:{
-labels:["Laki-laki","Perempuan"],
-
-datasets:[{
-data:[laki,perempuan]
-}]
-},
-
-options:{
-responsive:true
-}
-}
-);
-
-// =========================================
 // KECAMATAN
-// =========================================
+let kecamatan = {};
 
-let kecamatanMap = {};
+globalData.forEach(item=>{
 
-data.forEach(item=>{
-
-kecamatanMap[item.kecamatan] =
-(kecamatanMap[item.kecamatan] || 0) + 1;
+kecamatan[item.kecamatan] =
+(kecamatan[item.kecamatan] || 0) + 1;
 
 });
 
-new Chart(
-document.getElementById("chartKecamatan"),
-{
-type:"bar",
+document.getElementById(
+"totalKecamatan"
+).innerHTML =
+Object.keys(kecamatan).length;
 
-data:{
-labels:Object.keys(kecamatanMap),
+// BANTUAN
+let bantuan = 0;
 
-datasets:[{
-label:"Jumlah",
-data:Object.values(kecamatanMap),
-borderWidth:1
-}]
-},
+globalData.forEach(item=>{
 
-options:{
-responsive:true,
-plugins:{
-legend:{
-display:false
+if(item.kip || item.kks || item.pkh){
+bantuan++;
 }
+
+});
+
+document.getElementById(
+"totalBantuan"
+).innerHTML =
+bantuan;
+
 }
-}
-}
+
+// =========================================
+// POPUP CHART
+// =========================================
+
+function openChart(type){
+
+document.getElementById(
+"chartModal"
+).style.display = "block";
+
+const ctx =
+document.getElementById(
+"popupChart"
 );
 
-// =========================================
-// BANTUAN
-// =========================================
+if(popupChart){
+popupChart.destroy();
+}
+
+if(type === "kelas"){
+
+document.getElementById(
+"modalTitle"
+).innerHTML =
+"Statistik Jumlah Siswa per Kelas";
+
+let map = {};
+
+globalData.forEach(item=>{
+
+map[item.kelas] =
+(map[item.kelas] || 0) + 1;
+
+});
+
+popupChart = new Chart(ctx,{
+type:"bar",
+data:{
+labels:Object.keys(map),
+datasets:[{
+label:"Jumlah Siswa",
+data:Object.values(map)
+}]
+}
+});
+
+}
+
+if(type === "gender"){
+
+document.getElementById(
+"modalTitle"
+).innerHTML =
+"Statistik Laki-laki vs Perempuan";
+
+let laki = 0;
+let perempuan = 0;
+
+globalData.forEach(item=>{
+
+if(
+String(item.lp).toUpperCase() === "L"
+){
+laki++;
+}else{
+perempuan++;
+}
+
+});
+
+popupChart = new Chart(ctx,{
+type:"pie",
+data:{
+labels:["Laki-laki","Perempuan"],
+datasets:[{
+data:[laki,perempuan]
+}]
+}
+});
+
+}
+
+if(type === "kecamatan"){
+
+document.getElementById(
+"modalTitle"
+).innerHTML =
+"Statistik per Kecamatan";
+
+let map = {};
+
+globalData.forEach(item=>{
+
+map[item.kecamatan] =
+(map[item.kecamatan] || 0) + 1;
+
+});
+
+popupChart = new Chart(ctx,{
+type:"bar",
+data:{
+labels:Object.keys(map),
+datasets:[{
+label:"Jumlah",
+data:Object.values(map)
+}]
+}
+});
+
+}
+
+if(type === "bantuan"){
+
+document.getElementById(
+"modalTitle"
+).innerHTML =
+"Statistik Penerima KIP / KKS / PKH";
 
 let kip = 0;
 let kks = 0;
 let pkh = 0;
 
-data.forEach(item=>{
+globalData.forEach(item=>{
 
-if(item.kip && item.kip !== "-") kip++;
-if(item.kks && item.kks !== "-") kks++;
-if(item.pkh && item.pkh !== "-") pkh++;
+if(item.kip) kip++;
+if(item.kks) kks++;
+if(item.pkh) pkh++;
 
 });
 
-new Chart(
-document.getElementById("chartBantuan"),
-{
+popupChart = new Chart(ctx,{
 type:"doughnut",
-
 data:{
 labels:["KIP","KKS","PKH"],
-
 datasets:[{
 data:[kip,kks,pkh]
 }]
-},
+}
+});
 
-options:{
-responsive:true
 }
+
 }
+
+// =========================================
+// CLOSE MODAL
+// =========================================
+
+function closeModal(){
+
+document.getElementById(
+"chartModal"
+).style.display = "none";
+
+}
+
+// =========================================
+// SEARCH
+// =========================================
+
+function searchTable(){
+
+const input =
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
+
+const table =
+document.getElementById(
+"dataPesertaDidik"
 );
 
+const tr =
+table.getElementsByTagName("tr");
+
+for(let i = 0; i < tr.length; i++){
+
+const text =
+tr[i].textContent.toLowerCase();
+
+if(text.indexOf(input) > -1){
+
+tr[i].style.display = "";
+
+}
+else{
+
+tr[i].style.display = "none";
+
 }
 
+}
+
+}
 
 // =========================================
 // INIT

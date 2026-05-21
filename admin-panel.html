@@ -280,13 +280,15 @@ rgba(255,255,255,0.12);
 backdrop-filter:blur(20px);
 
 border:
-1px solid rgba(255,255,255,0.18);
+2px solid black;
 
 border-radius:30px;
 
 padding:25px;
 
 overflow-x:auto;
+
+margin-bottom:35px;
 
 }
 
@@ -306,6 +308,8 @@ width:100%;
 
 border-collapse:collapse;
 
+border:2px solid black;
+
 }
 
 th,
@@ -315,8 +319,8 @@ padding:15px;
 
 text-align:left;
 
-border-bottom:
-1px solid rgba(255,255,255,0.1);
+border:
+1px solid black;
 
 font-size:14px;
 
@@ -360,7 +364,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:900px;
+max-width:1000px;
 
 margin:auto;
 
@@ -538,6 +542,42 @@ line-height:1.8;
 
 }
 
+.action-btn{
+
+border:none;
+
+padding:10px 14px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+color:white;
+
+margin-right:5px;
+
+}
+
+.edit-btn{
+
+background:#2563eb;
+
+}
+
+.delete-btn{
+
+background:#dc2626;
+
+}
+
+.success-btn{
+
+background:#16a34a !important;
+
+}
+
 @media(max-width:768px){
 
 .header{
@@ -584,7 +624,6 @@ Logout
 <!-- MENU -->
 <div class="menu-grid">
 
-<!-- PROFIL -->
 <div class="menu-card"
      onclick="openModal('profilModal')">
 
@@ -602,7 +641,6 @@ Profil Sekolah
 
 </div>
 
-<!-- AKUN -->
 <div class="menu-card"
      onclick="openModal('akunModal')">
 
@@ -640,7 +678,41 @@ Unggah CSV
 
 </div>
 
-<!-- TABLE -->
+<!-- DATA PTK -->
+<div class="table-container">
+
+<div class="table-title">
+
+DATA PTK
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>NAMA</th>
+<th>NIP / NRPTT / NRTS</th>
+<th>TUGAS SEBAGAI</th>
+<th>NUPTK</th>
+<th>STATUS KEPEGAWAIAN</th>
+<th>AKSI</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ptkTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- DATA USER -->
 <div class="table-container">
 
 <div class="table-title">
@@ -674,14 +746,14 @@ Data Pengguna
 
 </div>
 
-<!-- MODAL PROFIL -->
+<!-- MODAL EDIT PTK -->
 <div class="modal"
-     id="profilModal">
+     id="editPTKModal">
 
 <div class="modal-content">
 
 <span class="close"
-      onclick="closeModal('profilModal')">
+      onclick="closeModal('editPTKModal')">
 
 &times;
 
@@ -689,197 +761,13 @@ Data Pengguna
 
 <div class="form-title">
 
-Form Profil Sekolah
+Edit Data PTK
 
 </div>
 
-<div class="form-grid">
-
-<!-- DATA SEKOLAH -->
-
-<div class="input-group">
-<label>Nama Sekolah</label>
-<input type="text" id="nama_sekolah">
-</div>
-
-<div class="input-group">
-<label>NPSN</label>
-<input type="text" id="npsn">
-</div>
-
-<div class="input-group">
-<label>Alamat Sekolah</label>
-<input type="text" id="alamat">
-</div>
-
-<div class="input-group">
-<label>Desa Sekolah</label>
-<input type="text" id="desa_sekolah">
-</div>
-
-<div class="input-group">
-<label>Kecamatan</label>
-<input type="text" id="kecamatan">
-</div>
-
-<div class="input-group">
-<label>Kabupaten</label>
-<input type="text" id="kabupaten">
-</div>
-
-<div class="input-group">
-<label>Provinsi</label>
-<input type="text" id="provinsi">
-</div>
-
-<div class="input-group">
-<label>Email Sekolah</label>
-<input type="email" id="email">
-</div>
-
-<!-- DATA KEPALA SEKOLAH -->
-
-<div class="input-group">
-<label>Nama Kepala Sekolah</label>
-<input type="text" id="nama_kepsek">
-</div>
-
-<div class="input-group">
-<label>NIP</label>
-<input type="text" id="nip">
-</div>
-
-<div class="input-group">
-<label>Pangkat / Golongan</label>
-<input type="text" id="pangkat">
-</div>
-
-<div class="input-group">
-<label>Alamat Kepala Sekolah</label>
-<input type="text" id="alamat_kepsek">
-</div>
-
-<div class="input-group">
-<label>Email Kepala Sekolah</label>
-<input type="email" id="email_kepsek">
-</div>
-
-<div class="input-group">
-<label>No. HP</label>
-<input type="text" id="nohp">
-</div>
+<div id="editPTKContent">
 
 </div>
-
-<button class="save-btn"
-        id="saveProfilBtn"
-        onclick="saveProfilSekolah()">
-
-Simpan Data
-
-</button>
-
-</div>
-
-</div>
-
-<!-- MODAL AKUN -->
-<div class="modal"
-     id="akunModal">
-
-<div class="modal-content">
-
-<span class="close"
-      onclick="closeModal('akunModal')">
-
-&times;
-
-</span>
-
-<div class="form-title">
-
-Tambah Akun Pengguna
-
-</div>
-
-<div class="form-grid">
-
-<div class="input-group">
-<label>Nama Pengguna</label>
-<input type="text" id="nama_pengguna">
-</div>
-
-<div class="input-group">
-<label>Username</label>
-<input type="text" id="username">
-</div>
-
-<div class="input-group">
-<label>Password</label>
-<input type="password" id="password">
-</div>
-
-<div class="input-group">
-<label>Email</label>
-<input type="email" id="email_akun">
-</div>
-
-</div>
-
-<button class="save-btn"
-        onclick="saveAkun()">
-
-Buat Akun
-
-</button>
-
-</div>
-
-</div>
-
-<!-- MODAL UPLOAD -->
-<div class="modal"
-     id="uploadModal">
-
-<div class="modal-content">
-
-<span class="close"
-      onclick="closeModal('uploadModal')">
-
-&times;
-
-</span>
-
-<div class="form-title">
-
-Upload Data Guru & Tendik
-
-</div>
-
-<div style="margin-bottom:20px; line-height:1.8;">
-
-Silakan unggah file format CSV.
-
-</div>
-
-<div class="input-group">
-
-<label>Pilih File CSV</label>
-
-<input type="file"
-       id="csvFile"
-       accept=".csv">
-
-</div>
-
-<button class="save-btn"
-        onclick="uploadCSV()">
-
-Kirim File
-
-</button>
-
-<div id="uploadStatus"></div>
 
 </div>
 
@@ -890,6 +778,10 @@ Kirim File
 // API URL
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+
+// API PTK
+const PTK_API =
+"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
 
 // LOGIN
 const loginUser =
@@ -929,158 +821,6 @@ document.getElementById(id)
 
 }
 
-// SAVE PROFIL
-async function saveProfilSekolah(){
-
-const btn =
-document.getElementById(
-"saveProfilBtn"
-);
-
-btn.innerHTML =
-'Sabar sedang proses<span class="loading-dots"></span>';
-
-btn.classList.add(
-"loading-animation"
-);
-
-btn.disabled = true;
-
-try{
-
-const data = {
-
-action:"saveProfilSekolah",
-
-// DATA SEKOLAH
-nama_sekolah:
-document.getElementById("nama_sekolah").value,
-
-npsn:
-document.getElementById("npsn").value,
-
-alamat:
-document.getElementById("alamat").value,
-
-desa_sekolah:
-document.getElementById("desa_sekolah").value,
-
-kecamatan:
-document.getElementById("kecamatan").value,
-
-kabupaten:
-document.getElementById("kabupaten").value,
-
-provinsi:
-document.getElementById("provinsi").value,
-
-email:
-document.getElementById("email").value,
-
-// DATA KEPALA SEKOLAH
-nama_kepsek:
-document.getElementById("nama_kepsek").value,
-
-nip:
-document.getElementById("nip").value,
-
-pangkat:
-document.getElementById("pangkat").value,
-
-alamat_kepsek:
-document.getElementById("alamat_kepsek").value,
-
-email_kepsek:
-document.getElementById("email_kepsek").value,
-
-nohp:
-document.getElementById("nohp").value
-
-};
-
-const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify(data)
-
-});
-
-const result =
-await response.json();
-
-alert(result.message);
-
-}
-catch(error){
-
-alert(
-"Gagal menyimpan data"
-);
-
-console.log(error);
-
-}
-
-btn.innerHTML =
-"Simpan Data";
-
-btn.classList.remove(
-"loading-animation"
-);
-
-btn.disabled = false;
-
-}
-
-// SAVE AKUN
-async function saveAkun(){
-
-const data = {
-
-action:"saveAkun",
-
-nama_pengguna:
-document.getElementById("nama_pengguna").value,
-
-username:
-document.getElementById("username").value,
-
-password:
-document.getElementById("password").value,
-
-email:
-document.getElementById("email_akun").value
-
-};
-
-const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify(data)
-
-});
-
-const result =
-await response.json();
-
-alert(result.message);
-
-loadUsers();
-
-}
-
 // LOAD USERS
 async function loadUsers(){
 
@@ -1117,101 +857,195 @@ document.getElementById(
 
 }
 
-// UPLOAD CSV
-async function uploadCSV(){
-
-const fileInput =
-document.getElementById("csvFile");
-
-const status =
-document.getElementById("uploadStatus");
-
-if(fileInput.files.length === 0){
-
-status.innerHTML =
-"❌ Pilih file CSV terlebih dahulu";
-
-return;
-
-}
-
-const file =
-fileInput.files[0];
-
-status.innerHTML =
-"⏳ Membaca file...";
-
-const reader =
-new FileReader();
-
-reader.onload = async function(e){
+// LOAD PTK
+async function loadPTK(){
 
 try{
 
-const base64 =
-e.target.result;
-
-status.innerHTML =
-"⏳ Mengupload file...";
-
 const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"uploadFileArsip",
-
-fileName:file.name,
-
-mimeType:file.type,
-
-base64:base64
-
-})
-
-});
+await fetch(PTK_API);
 
 const result =
 await response.json();
 
-if(result.status === "success"){
+window.allPTK =
+result.data;
 
-status.innerHTML =
-"✅ File berhasil diupload ke Folder Arsip";
+let html = "";
 
-}
-else{
+result.data.forEach((ptk,index)=>{
 
-status.innerHTML =
-"❌ " + result.message;
+html += `
 
-}
+<tr>
+
+<td>${ptk.nama}</td>
+<td>${ptk.nip}</td>
+<td>${ptk.tugas}</td>
+<td>${ptk.nuptk}</td>
+<td>${ptk.status}</td>
+
+<td>
+
+<button
+class="action-btn edit-btn"
+onclick="editPTK(${index})">
+
+Edit
+
+</button>
+
+<button
+class="action-btn delete-btn"
+onclick="hapusPTK(${index})">
+
+Hapus
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"ptkTable"
+).innerHTML = html;
 
 }
 
 catch(error){
 
-status.innerHTML =
-"❌ TypeError: Failed to fetch";
-
 console.log(error);
 
 }
 
-};
+}
 
-reader.readAsDataURL(file);
+// EDIT PTK
+function editPTK(index){
+
+const data =
+window.allPTK[index];
+
+let html = `
+
+<div class="form-grid">
+
+${buatField("Nama",data.nama,"nama")}
+${buatField("NIP",data.nip,"nip")}
+${buatField("Tempat Lahir",data.tempat_lahir,"tempat")}
+${buatField("Tanggal Lahir",data.tanggal_lahir,"tanggal")}
+${buatField("Pangkat",data.pangkat,"pangkat")}
+${buatField("Pendidikan",data.pendidikan,"pendidikan")}
+${buatField("Tugas",data.tugas,"tugas")}
+${buatField("Mulai",data.mulai,"mulai")}
+${buatField("NUPTK",data.nuptk,"nuptk")}
+${buatField("Alamat",data.alamat,"alamat")}
+${buatField("Status",data.status,"status")}
+
+</div>
+
+`;
+
+document.getElementById(
+"editPTKContent"
+).innerHTML = html;
+
+openModal(
+"editPTKModal"
+);
+
+}
+
+// FIELD
+function buatField(label,value,id){
+
+return `
+
+<div class="input-group">
+
+<label>
+${label}
+</label>
+
+<div style="
+background:rgba(255,255,255,0.08);
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+">
+
+${value || "-"}
+
+</div>
+
+<input type="text"
+       id="${id}"
+       placeholder="Data baru">
+
+<button
+class="action-btn edit-btn"
+id="btn_${id}"
+onclick="ubahField('${id}')">
+
+Ubah
+
+</button>
+
+</div>
+
+`;
+
+}
+
+// UBAH FIELD
+function ubahField(id){
+
+const btn =
+document.getElementById(
+"btn_" + id
+);
+
+btn.classList.remove(
+"edit-btn"
+);
+
+btn.classList.add(
+"success-btn"
+);
+
+btn.innerHTML =
+"Berhasil Diubah";
+
+}
+
+// HAPUS
+function hapusPTK(index){
+
+const yakin =
+confirm(
+"Yakin ingin menghapus data PTK?"
+);
+
+if(!yakin) return;
+
+window.allPTK.splice(index,1);
+
+loadPTK();
+
+alert(
+"Data berhasil dihapus"
+);
 
 }
 
 // INIT
 loadUsers();
+loadPTK();
 
 </script>
 

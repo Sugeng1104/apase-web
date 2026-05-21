@@ -1,20 +1,18 @@
+# FULL FINAL admin-panel.html
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Admin Panel APASE WEB</title>
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -26,41 +24,25 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-
 min-height:100vh;
-
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#1e3a8a,
-#2563eb
-);
-
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
 padding:30px;
-
 overflow-x:hidden;
-
 color:white;
-
 }
 
 .container{
-max-width:1500px;
+max-width:1700px;
 margin:auto;
 }
 
-/* HEADER */
-
 .header{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:35px;
 flex-wrap:wrap;
 gap:20px;
-
 }
 
 .header h1{
@@ -69,109 +51,61 @@ font-weight:700;
 }
 
 .logout-btn{
-
 padding:12px 22px;
-
 border:none;
-
 border-radius:14px;
-
 background:#ef4444;
-
 color:white;
-
 font-weight:600;
-
 cursor:pointer;
-
 transition:.3s;
-
 }
 
 .logout-btn:hover{
-
 background:#dc2626;
-
 transform:translateY(-2px);
-
 }
 
-/* MENU */
-
 .menu-grid{
-
 display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:30px;
-
 margin-bottom:35px;
-
 }
 
 .menu-card{
-
-background:
-rgba(255,255,255,0.12);
-
+background:rgba(255,255,255,0.12);
 backdrop-filter:blur(20px);
-
-border:
-1px solid rgba(255,255,255,0.18);
-
+border:1px solid rgba(255,255,255,0.18);
 border-radius:30px;
-
 padding:35px 25px;
-
 text-align:center;
-
 cursor:pointer;
-
 transition:.3s;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,0.2);
-
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 .menu-card:hover{
-
 transform:translateY(-10px);
-
-background:
-rgba(255,255,255,0.18);
-
+background:rgba(255,255,255,0.18);
 }
 
 .menu-icon{
-
 width:120px;
 height:120px;
-
 margin:auto auto 20px;
-
 border-radius:30px;
-
-background:
-rgba(255,255,255,0.15);
-
+background:rgba(255,255,255,0.15);
 display:flex;
-
 justify-content:center;
 align-items:center;
-
 overflow:hidden;
-
 }
 
 .menu-icon img{
-
 width:70%;
 height:70%;
 object-fit:contain;
-
 }
 
 .menu-title{
@@ -179,220 +113,99 @@ font-size:20px;
 font-weight:600;
 }
 
-/* BOX */
-
 .guru-box{
-
 width:100%;
-
 margin-bottom:35px;
-
 padding:25px 30px;
-
 border-radius:30px;
-
-background:
-linear-gradient(
-135deg,
-#f59e0b,
-#ea580c,
-#dc2626
-);
-
+background:linear-gradient(135deg,#f59e0b,#ea580c,#dc2626);
 display:flex;
-
 justify-content:space-between;
 align-items:center;
-
 flex-wrap:wrap;
-
 gap:20px;
-
-box-shadow:
-0 12px 30px rgba(0,0,0,0.25);
-
+box-shadow:0 12px 30px rgba(0,0,0,0.25);
 }
 
 .guru-title{
-
 font-size:28px;
 font-weight:700;
 letter-spacing:1px;
-
 }
 
 .upload-btn{
-
 padding:14px 24px;
-
 border:none;
-
 border-radius:16px;
-
 background:white;
-
 color:#dc2626;
-
 font-weight:700;
-
 cursor:pointer;
-
 transition:.3s;
-
 }
 
 .upload-btn:hover{
-
 transform:translateY(-2px);
-
 background:#fff7ed;
-
 }
 
-/* TABLE */
-
 .table-container{
-
-background:
-rgba(255,255,255,0.12);
-
+background:rgba(255,255,255,0.12);
 backdrop-filter:blur(20px);
-
-border:
-1px solid rgba(255,255,255,0.18);
-
+border:1px solid rgba(255,255,255,0.18);
 border-radius:30px;
-
 padding:25px;
-
 overflow-x:auto;
-
 margin-bottom:35px;
-
 }
 
 .table-title{
-
 font-size:24px;
-
 margin-bottom:20px;
-
 font-weight:600;
-
 }
 
 table{
-
 width:100%;
-
 border-collapse:collapse;
-
+background:white;
+color:black;
 }
 
-th,
-td{
-
-padding:15px;
-
+th,td{
+padding:14px;
 text-align:left;
-
-border-bottom:
-1px solid rgba(255,255,255,0.1);
-
+border:1px solid #000;
 font-size:14px;
-
 }
 
 th{
-
-background:
-rgba(255,255,255,0.1);
-
+background:#facc15;
 }
-
-/* BUTTON */
-
-.edit-btn{
-
-padding:8px 14px;
-
-border:none;
-
-border-radius:10px;
-
-background:#2563eb;
-
-color:white;
-
-cursor:pointer;
-
-margin-right:8px;
-
-font-weight:600;
-
-}
-
-.delete-btn{
-
-padding:8px 14px;
-
-border:none;
-
-border-radius:10px;
-
-background:#dc2626;
-
-color:white;
-
-cursor:pointer;
-
-font-weight:600;
-
-}
-
-/* MODAL */
 
 .modal{
-
 display:none;
-
 position:fixed;
-
 z-index:999;
-
 left:0;
 top:0;
-
 width:100%;
 height:100%;
-
 overflow:auto;
-
-background:
-rgba(0,0,0,0.6);
-
+background:rgba(0,0,0,0.7);
 padding:30px;
-
 }
 
 .modal-content{
-
 background:#1e293b;
-
 border-radius:30px;
-
-max-width:900px;
-
+max-width:95%;
 margin:auto;
-
 padding:35px;
-
 animation:fadeIn .3s ease;
-
 }
 
 @keyframes fadeIn{
-
 from{
 opacity:0;
 transform:translateY(-20px);
@@ -402,123 +215,40 @@ to{
 opacity:1;
 transform:translateY(0);
 }
-
 }
 
 .close{
-
 float:right;
-
 font-size:28px;
-
 cursor:pointer;
-
 }
 
 .form-title{
-
 font-size:28px;
-
 margin-bottom:25px;
-
 font-weight:700;
-
 }
 
-.form-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-
-gap:18px;
-
-}
-
-.input-group{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-.input-group label{
-
-margin-bottom:8px;
-
-font-size:14px;
-
-}
-
-.input-group input{
-
-padding:14px;
-
+.action-btn{
+padding:8px 14px;
 border:none;
-
-border-radius:14px;
-
-outline:none;
-
-background:
-rgba(255,255,255,0.1);
-
-color:white;
-
-}
-
-.save-btn{
-
-width:100%;
-
-margin-top:25px;
-
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
-background:white;
-
-color:#1e3a8a;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.save-btn:hover{
-
-background:#dbeafe;
-
-transform:translateY(-2px);
-
-}
-
-#uploadStatus{
-
-margin-top:20px;
-
-text-align:center;
-
-font-size:14px;
-
+border-radius:10px;
 font-weight:600;
+cursor:pointer;
+margin-bottom:5px;
+}
 
-line-height:1.8;
+.edit-btn{
+background:#2563eb;
+color:white;
+}
 
+.delete-btn{
+background:#dc2626;
+color:white;
 }
 
 @media(max-width:768px){
-
 .header{
 flex-direction:column;
 align-items:flex-start;
@@ -528,7 +258,6 @@ align-items:flex-start;
 flex-direction:column;
 align-items:flex-start;
 }
-
 }
 
 </style>
@@ -545,62 +274,52 @@ align-items:flex-start;
 ADMIN PANEL APASE WEB
 </h1>
 
-<button class="logout-btn"
-        onclick="logout()">
-
+<button class="logout-btn" onclick="logout()">
 Logout
-
 </button>
 
 </div>
 
-<!-- MENU -->
 <div class="menu-grid">
 
 <div class="menu-card">
-
 <div class="menu-icon">
-
 <img src="assets/img/profil-sekolah.png">
-
 </div>
-
 <div class="menu-title">
 Profil Sekolah
 </div>
-
 </div>
 
 <div class="menu-card">
-
 <div class="menu-icon">
-
 <img src="assets/img/akun-pengguna.png">
-
 </div>
-
 <div class="menu-title">
 Akun Pengguna
 </div>
-
 </div>
 
 </div>
 
-<!-- BOX -->
 <div class="guru-box">
-
 <div class="guru-title">
 DATA GURU DAN TENDIK
 </div>
-
 <button class="upload-btn">
 Unggah CSV
 </button>
-
 </div>
 
-<!-- TABLE USER -->
+<div class="guru-box">
+<div class="guru-title">
+STATISTIK SISWA
+</div>
+<button class="upload-btn" onclick="openSiswaModal()">
+Klik
+</button>
+</div>
+
 <div class="table-container">
 
 <div class="table-title">
@@ -608,124 +327,73 @@ Data Pengguna
 </div>
 
 <table>
-
 <thead>
-
 <tr>
-
 <th>Nama Pengguna</th>
 <th>Username</th>
 <th>Password</th>
 <th>Email</th>
-
 </tr>
-
 </thead>
-
-<tbody id="userTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-<!-- TABLE PTK -->
-<div class="table-container">
-
-<div class="table-title">
-DAFTAR PTK
-</div>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>NAMA</th>
-<th>NIP / NRPTT / NRTS</th>
-<th>PANGKAT / GOL. RUANG</th>
-<th>TUGAS SEBAGAI</th>
-<th>NUPTK</th>
-<th>STATUS KEPEGAWAIAN</th>
-<th>AKSI</th>
-
-</tr>
-
-</thead>
-
-<tbody id="ptkTable">
-
-</tbody>
-
+<tbody id="userTable"></tbody>
 </table>
 
 </div>
 
 </div>
 
-<!-- MODAL EDIT PTK -->
-<div class="modal"
-     id="editPTKModal">
+<!-- MODAL SISWA -->
+<div class="modal" id="siswaModal">
 
 <div class="modal-content">
 
-<span class="close"
-      onclick="closeModal('editPTKModal')">
-
+<span class="close" onclick="closeSiswaModal()">
 &times;
-
 </span>
 
 <div class="form-title">
-EDIT DATA PTK
+DATA SISWA
 </div>
 
-<input type="hidden" id="edit_row">
+<div style="overflow:auto;max-height:75vh;">
 
-<div class="form-grid">
+<table style="min-width:2400px;">
 
-<div class="input-group">
-<label>NAMA</label>
-<input type="text" id="edit_nama">
+<thead>
+<tr>
+<th>No</th>
+<th>NIS</th>
+<th>NISN</th>
+<th>Nama</th>
+<th>L/P</th>
+<th>Kelas</th>
+<th>Tempat Lahir</th>
+<th>Tgl Lahir</th>
+<th>Nomor KK</th>
+<th>Tgl Terbit</th>
+<th>Ayah</th>
+<th>Ibu</th>
+<th>Pekerjaan</th>
+<th>Alamat</th>
+<th>Desa</th>
+<th>Kecamatan</th>
+<th>Kabupaten</th>
+<th>Provinsi</th>
+<th>No KIS</th>
+<th>KPS</th>
+<th>KIP</th>
+<th>KKS</th>
+<th>PKH</th>
+<th>Asal TK</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="siswaTable"></tbody>
+
+</table>
+
 </div>
-
-<div class="input-group">
-<label>NIP / NRPTT / NRTS</label>
-<input type="text" id="edit_nip">
-</div>
-
-<div class="input-group">
-<label>PANGKAT / GOL. RUANG</label>
-<input type="text" id="edit_pangkat">
-</div>
-
-<div class="input-group">
-<label>TUGAS SEBAGAI</label>
-<input type="text" id="edit_tugas">
-</div>
-
-<div class="input-group">
-<label>NUPTK</label>
-<input type="text" id="edit_nuptk">
-</div>
-
-<div class="input-group">
-<label>STATUS KEPEGAWAIAN</label>
-<input type="text" id="edit_status">
-</div>
-
-</div>
-
-<button class="save-btn"
-        id="updatePTKBtn"
-        style="background:#2563eb;color:white;"
-        onclick="updatePTK()">
-
-Ubah Data
-
-</button>
 
 </div>
 
@@ -733,176 +401,127 @@ Ubah Data
 
 <script>
 
-// =====================================
-// API URL
-// =====================================
-
-// API USER
-const API_USER =
+// URL API USER
+const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// API PTK
-const API_PTK =
-"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
+// URL API SISWA
+const SISWA_API =
+"https://script.google.com/macros/s/ISI_URL_WEB_APP_SISWA_ANDA/exec";
 
-
-// =====================================
 // LOGIN
-// =====================================
-
 const loginUser =
 localStorage.getItem("loginUser");
 
 if(!loginUser){
-
-window.location.href =
-"index.html";
-
+window.location.href = "index.html";
 }
 
-
-// =====================================
 // LOGOUT
-// =====================================
-
 function logout(){
 
-localStorage.removeItem(
-"loginUser"
-);
-
-window.location.href =
-"index.html";
+localStorage.removeItem("loginUser");
+window.location.href = "index.html";
 
 }
 
-
-// =====================================
-// MODAL
-// =====================================
-
-function openModal(id){
-
-document.getElementById(id)
-.style.display = "block";
-
-}
-
-function closeModal(id){
-
-document.getElementById(id)
-.style.display = "none";
-
-}
-
-
-// =====================================
 // LOAD USERS
-// =====================================
-
 async function loadUsers(){
 
-try{
-
 const response =
-await fetch(
-`${API_USER}?action=getUsers`
-);
+await fetch(`${API_URL}?action=getUsers`);
 
 const result =
 await response.json();
 
 let html = "";
 
-if(result.data){
-
-result.data.forEach(user => {
+result.data.forEach(user=>{
 
 html += `
-
 <tr>
-
 <td>${user.nama}</td>
 <td>${user.username}</td>
 <td>${user.password}</td>
 <td>${user.email}</td>
-
 </tr>
-
 `;
 
 });
 
-}
-
-document.getElementById(
-"userTable"
-).innerHTML = html;
-
-}
-catch(error){
-
-console.log(error);
+document.getElementById("userTable").innerHTML = html;
 
 }
 
+// MODAL SISWA
+function openSiswaModal(){
+
+document.getElementById("siswaModal").style.display = "block";
+
+loadDataSiswa();
+
 }
 
+function closeSiswaModal(){
 
-// =====================================
-// LOAD PTK
-// =====================================
+document.getElementById("siswaModal").style.display = "none";
 
-async function loadPTK(){
+}
 
-try{
+// LOAD DATA SISWA
+async function loadDataSiswa(){
 
 const response =
-await fetch(
-`${API_PTK}?action=getDataPTK`
-);
+await fetch(`${SISWA_API}?action=getSiswa`);
 
 const result =
 await response.json();
 
 let html = "";
 
-if(result.data){
-
-result.data.forEach(ptk => {
+result.data.forEach(item=>{
 
 html += `
 
 <tr>
 
-<td>${ptk.nama}</td>
-
-<td>${ptk.nip}</td>
-
-<td>${ptk.pangkat}</td>
-
-<td>${ptk.tugas}</td>
-
-<td>${ptk.nuptk}</td>
-
-<td>${ptk.status}</td>
+<td contenteditable="true" id="no_${item.row}">${item.no}</td>
+<td contenteditable="true" id="nis_${item.row}">${item.nis}</td>
+<td contenteditable="true" id="nisn_${item.row}">${item.nisn}</td>
+<td contenteditable="true" id="nama_${item.row}">${item.nama}</td>
+<td contenteditable="true" id="lp_${item.row}">${item.lp}</td>
+<td contenteditable="true" id="kelas_${item.row}">${item.kelas}</td>
+<td contenteditable="true" id="tempat_${item.row}">${item.tempat_lahir}</td>
+<td contenteditable="true" id="tgl_${item.row}">${item.tanggal_lahir}</td>
+<td contenteditable="true" id="kk_${item.row}">${item.nomor_kk}</td>
+<td contenteditable="true" id="terbit_${item.row}">${item.tgl_terbit}</td>
+<td contenteditable="true" id="ayah_${item.row}">${item.ayah}</td>
+<td contenteditable="true" id="ibu_${item.row}">${item.ibu}</td>
+<td contenteditable="true" id="pekerjaan_${item.row}">${item.pekerjaan_ortu}</td>
+<td contenteditable="true" id="alamat_${item.row}">${item.alamat}</td>
+<td contenteditable="true" id="desa_${item.row}">${item.desa}</td>
+<td contenteditable="true" id="kecamatan_${item.row}">${item.kecamatan}</td>
+<td contenteditable="true" id="kabupaten_${item.row}">${item.kabupaten}</td>
+<td contenteditable="true" id="provinsi_${item.row}">${item.provinsi}</td>
+<td contenteditable="true" id="kis_${item.row}">${item.no_kis}</td>
+<td contenteditable="true" id="kps_${item.row}">${item.kps}</td>
+<td contenteditable="true" id="kip_${item.row}">${item.kip}</td>
+<td contenteditable="true" id="kks_${item.row}">${item.kks}</td>
+<td contenteditable="true" id="pkh_${item.row}">${item.pkh}</td>
+<td contenteditable="true" id="tk_${item.row}">${item.asal_tk}</td>
 
 <td>
 
-<button
-class="edit-btn"
-onclick='openEditPTK(${JSON.stringify(ptk)})'>
-
+<button class="action-btn edit-btn"
+onclick="updateSiswa(${item.row})">
 Edit
-
 </button>
 
-<button
-class="delete-btn"
-onclick='deletePTK(${ptk.row})'>
+<br>
 
+<button class="action-btn delete-btn"
+onclick="deleteSiswa(${item.row})">
 Hapus
-
 </button>
 
 </td>
@@ -913,102 +532,48 @@ Hapus
 
 });
 
-}
-
-document.getElementById(
-"ptkTable"
-).innerHTML = html;
-
-}
-catch(error){
-
-console.log(error);
+document.getElementById("siswaTable").innerHTML = html;
 
 }
 
-}
-
-
-// =====================================
-// OPEN EDIT PTK
-// =====================================
-
-function openEditPTK(ptk){
-
-openModal("editPTKModal");
-
-document.getElementById("edit_row").value =
-ptk.row;
-
-document.getElementById("edit_nama").value =
-ptk.nama || "";
-
-document.getElementById("edit_nip").value =
-ptk.nip || "";
-
-document.getElementById("edit_pangkat").value =
-ptk.pangkat || "";
-
-document.getElementById("edit_tugas").value =
-ptk.tugas || "";
-
-document.getElementById("edit_nuptk").value =
-ptk.nuptk || "";
-
-document.getElementById("edit_status").value =
-ptk.status || "";
-
-}
-
-
-// =====================================
-// UPDATE PTK
-// =====================================
-
-async function updatePTK(){
-
-const btn =
-document.getElementById(
-"updatePTKBtn"
-);
-
-btn.innerHTML =
-"Menyimpan...";
-
-btn.style.background =
-"#f59e0b";
+// UPDATE SISWA
+async function updateSiswa(row){
 
 const data = {
 
-action:"updatePTK",
+action:"updateSiswa",
 
-row:
-document.getElementById("edit_row").value,
+row:row,
 
-nama:
-document.getElementById("edit_nama").value,
-
-nip:
-document.getElementById("edit_nip").value,
-
-pangkat:
-document.getElementById("edit_pangkat").value,
-
-tugas:
-document.getElementById("edit_tugas").value,
-
-nuptk:
-document.getElementById("edit_nuptk").value,
-
-status:
-document.getElementById("edit_status").value
+no:document.getElementById(`no_${row}`).innerText,
+nis:document.getElementById(`nis_${row}`).innerText,
+nisn:document.getElementById(`nisn_${row}`).innerText,
+nama:document.getElementById(`nama_${row}`).innerText,
+lp:document.getElementById(`lp_${row}`).innerText,
+kelas:document.getElementById(`kelas_${row}`).innerText,
+tempat_lahir:document.getElementById(`tempat_${row}`).innerText,
+tanggal_lahir:document.getElementById(`tgl_${row}`).innerText,
+nomor_kk:document.getElementById(`kk_${row}`).innerText,
+tgl_terbit:document.getElementById(`terbit_${row}`).innerText,
+ayah:document.getElementById(`ayah_${row}`).innerText,
+ibu:document.getElementById(`ibu_${row}`).innerText,
+pekerjaan_ortu:document.getElementById(`pekerjaan_${row}`).innerText,
+alamat:document.getElementById(`alamat_${row}`).innerText,
+desa:document.getElementById(`desa_${row}`).innerText,
+kecamatan:document.getElementById(`kecamatan_${row}`).innerText,
+kabupaten:document.getElementById(`kabupaten_${row}`).innerText,
+provinsi:document.getElementById(`provinsi_${row}`).innerText,
+no_kis:document.getElementById(`kis_${row}`).innerText,
+kps:document.getElementById(`kps_${row}`).innerText,
+kip:document.getElementById(`kip_${row}`).innerText,
+kks:document.getElementById(`kks_${row}`).innerText,
+pkh:document.getElementById(`pkh_${row}`).innerText,
+asal_tk:document.getElementById(`tk_${row}`).innerText
 
 };
 
-try{
-
 const response =
-await fetch(API_PTK,{
+await fetch(SISWA_API,{
 
 method:"POST",
 
@@ -1023,64 +588,19 @@ body:JSON.stringify(data)
 const result =
 await response.json();
 
-if(result.status === "success"){
-
-btn.innerHTML =
-"Berhasil Diubah";
-
-btn.style.background =
-"#16a34a";
-
-loadPTK();
-
-setTimeout(()=>{
-
-closeModal("editPTKModal");
-
-btn.innerHTML =
-"Ubah Data";
-
-btn.style.background =
-"#2563eb";
-
-},1500);
-
-}
-else{
-
 alert(result.message);
 
 }
 
+// DELETE SISWA
+async function deleteSiswa(row){
+
+if(!confirm("Hapus data siswa ini?")){
+return;
 }
-catch(error){
-
-alert("Gagal update data");
-
-console.log(error);
-
-}
-
-}
-
-
-// =====================================
-// DELETE PTK
-// =====================================
-
-async function deletePTK(row){
-
-const konfirmasi =
-confirm(
-"Yakin ingin menghapus data PTK ini?"
-);
-
-if(!konfirmasi) return;
-
-try{
 
 const response =
-await fetch(API_PTK,{
+await fetch(SISWA_API,{
 
 method:"POST",
 
@@ -1089,11 +609,8 @@ headers:{
 },
 
 body:JSON.stringify({
-
-action:"deletePTK",
-
+action:"deleteSiswa",
 row:row
-
 })
 
 });
@@ -1103,28 +620,26 @@ await response.json();
 
 alert(result.message);
 
-loadPTK();
-
-}
-catch(error){
-
-alert("Gagal menghapus data");
-
-console.log(error);
+loadDataSiswa();
 
 }
 
-}
-
-
-// =====================================
 // INIT
-// =====================================
-
 loadUsers();
-loadPTK();
 
 </script>
 
 </body>
 </html>
+```
+
+# PENTING
+
+Ganti bagian ini:
+
+```javascript
+const SISWA_API =
+"https://script.google.com/macros/s/ISI_URL_WEB_APP_SISWA_ANDA/exec";
+```
+
+menjadi URL Web App CRUD SISWA milik Anda.

@@ -49,7 +49,7 @@ position:relative;
 
 }
 
-/* BACKGROUND BLUR */
+/* BACKGROUND */
 
 .blur1,
 .blur2{
@@ -60,7 +60,7 @@ border-radius:50%;
 
 filter:blur(100px);
 
-opacity:.5;
+opacity:.45;
 
 animation:float 10s ease-in-out infinite;
 
@@ -118,24 +118,22 @@ z-index:2;
 
 width:90%;
 
-max-width:850px;
+max-width:900px;
 
-text-align:center;
-
-padding:60px 40px;
+padding:60px 45px;
 
 border-radius:35px;
 
 background:
-rgba(255,255,255,0.1);
+rgba(255,255,255,0.10);
 
 backdrop-filter:blur(20px);
 
 border:
-1px solid rgba(255,255,255,0.2);
+1px solid rgba(255,255,255,0.18);
 
 box-shadow:
-0 8px 32px rgba(0,0,0,0.3);
+0 10px 35px rgba(0,0,0,0.3);
 
 color:white;
 
@@ -167,11 +165,11 @@ align-items:center;
 
 justify-content:center;
 
-gap:30px;
-
-margin-bottom:35px;
+gap:35px;
 
 flex-wrap:wrap;
+
+margin-bottom:40px;
 
 }
 
@@ -180,9 +178,12 @@ flex-wrap:wrap;
 .logo-sekolah{
 
 width:150px;
-height:150px;
+
+height:auto;
 
 object-fit:contain;
+
+display:block;
 
 filter:
 drop-shadow(
@@ -190,24 +191,26 @@ drop-shadow(
 );
 
 }
-      
+
 /* TEXT */
 
 .hero-text{
 
-text-align:left;
+flex:1;
+
+min-width:250px;
 
 }
 
 .header{
 
-font-size:52px;
+font-size:56px;
 
 font-weight:700;
 
 letter-spacing:2px;
 
-margin-bottom:15px;
+margin-bottom:18px;
 
 line-height:1.2;
 
@@ -215,7 +218,7 @@ line-height:1.2;
 
 .subtext{
 
-font-size:18px;
+font-size:19px;
 
 line-height:1.9;
 
@@ -225,12 +228,20 @@ opacity:.95;
 
 /* LOGIN BUTTON */
 
+.login-area{
+
+display:flex;
+
+justify-content:center;
+
+margin-top:15px;
+
+}
+
 .login-circle{
 
 width:150px;
 height:150px;
-
-margin:20px auto 0;
 
 border-radius:50%;
 
@@ -286,17 +297,29 @@ linear-gradient(
 
 margin-top:40px;
 
+text-align:center;
+
 font-size:14px;
 
-opacity:.75;
-
 line-height:1.8;
+
+opacity:.75;
 
 }
 
 /* RESPONSIVE */
 
 @media(max-width:768px){
+
+body{
+
+padding:15px;
+
+height:auto;
+
+min-height:100vh;
+
+}
 
 .container{
 
@@ -310,6 +333,8 @@ flex-direction:column;
 
 text-align:center;
 
+gap:25px;
+
 }
 
 .hero-text{
@@ -321,7 +346,6 @@ text-align:center;
 .logo-sekolah{
 
 width:120px;
-height:120px;
 
 }
 
@@ -364,10 +388,12 @@ font-size:22px;
 <!-- HERO -->
 <div class="hero-section">
 
+<!-- LOGO -->
 <img src="assets/logo/logo.png"
      alt="Logo Sekolah"
      class="logo-sekolah">
 
+<!-- TEXT -->
 <div class="hero-text">
 
 <div class="header">
@@ -389,12 +415,16 @@ Kec. Lumbang Kabupaten Pasuruan
 </div>
 
 <!-- LOGIN -->
+<div class="login-area">
+
 <a href="login.html"
    class="login-circle">
 
 LOGIN
 
 </a>
+
+</div>
 
 <!-- FOOTER -->
 <div class="footer">

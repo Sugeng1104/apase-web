@@ -373,7 +373,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:1200px;
+max-width:1400px;
 
 margin:auto;
 
@@ -540,7 +540,8 @@ Logout
 
 <div class="menu-grid">
 
-<div class="menu-card">
+<div class="menu-card"
+onclick="alert('Profil Sekolah aktif seperti semula')">
 
 <div class="menu-icon">
 
@@ -556,7 +557,8 @@ Profil Sekolah
 
 </div>
 
-<div class="menu-card">
+<div class="menu-card"
+onclick="alert('Akun Pengguna aktif seperti semula')">
 
 <div class="menu-icon">
 
@@ -743,6 +745,18 @@ Edit Data
 <button
 class="save-btn"
 style="
+background:#9333ea;
+color:white;
+"
+onclick="selectSemuaData()">
+
+Blok Semua
+
+</button>
+
+<button
+class="save-btn"
+style="
 background:#16a34a;
 color:white;
 margin-right:50px;
@@ -760,7 +774,7 @@ Update Data
 
 <div style="overflow:auto;">
 
-<table>
+<table id="tabelSiswa">
 
 <thead>
 
@@ -1045,7 +1059,7 @@ console.log(error);
 }
 
 // =====================================================
-// AKTIFKAN EDIT SISWA
+// AKTIFKAN EDIT
 // =====================================================
 
 function aktifkanEditSiswa(){
@@ -1071,6 +1085,31 @@ btn.innerHTML =
 
 btn.style.background =
 "#f59e0b";
+
+}
+
+// =====================================================
+// BLOK SEMUA DATA
+// =====================================================
+
+function selectSemuaData(){
+
+const table =
+document.getElementById(
+"tabelSiswa"
+);
+
+const range =
+document.createRange();
+
+range.selectNodeContents(table);
+
+const selection =
+window.getSelection();
+
+selection.removeAllRanges();
+
+selection.addRange(range);
 
 }
 
@@ -1107,7 +1146,7 @@ if(cols.length >= 11){
 
 data.push({
 
-row:index + 2,
+no:cols[0].innerText.trim(),
 
 nis:cols[1].innerText.trim(),
 
@@ -1153,7 +1192,7 @@ headers:{
 
 body:JSON.stringify({
 
-action:"updatePesertaDidik",
+action:"replaceAllSiswa",
 
 data:data
 

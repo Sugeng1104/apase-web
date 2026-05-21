@@ -1,1046 +1,229 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel APASE WEB</title>
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-
-min-height:100vh;
-
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#1e3a8a,
-#2563eb
-);
-
-padding:30px;
-
-overflow-x:hidden;
-
-color:white;
-
-}
-
-/* CONTAINER */
-
-.container{
-
-max-width:1400px;
-
-margin:auto;
-
-}
-
-/* HEADER */
-
-.header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:35px;
-
-flex-wrap:wrap;
-
-gap:20px;
-
-}
-
-.header h1{
-
-font-size:38px;
-
-font-weight:700;
-
-}
-
-.logout-btn{
-
-padding:12px 22px;
-
-border:none;
-
-border-radius:14px;
-
-background:#ef4444;
-
-color:white;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.logout-btn:hover{
-
-background:#dc2626;
-
-transform:translateY(-2px);
-
-}
-
-/* MENU */
-
-.menu-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-
-gap:30px;
-
-margin-bottom:35px;
-
-}
-
-.menu-card{
-
-background:
-rgba(255,255,255,0.12);
-
-backdrop-filter:blur(20px);
-
-border:
-1px solid rgba(255,255,255,0.18);
-
-border-radius:30px;
-
-padding:35px 25px;
-
-text-align:center;
-
-cursor:pointer;
-
-transition:.3s;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,0.2);
-
-}
-
-.menu-card:hover{
-
-transform:translateY(-10px);
-
-background:
-rgba(255,255,255,0.18);
-
-}
-
-.menu-icon{
-
-width:120px;
-height:120px;
-
-margin:auto auto 20px;
-
-border-radius:30px;
-
-background:
-rgba(255,255,255,0.15);
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-overflow:hidden;
-
-}
-
-.menu-icon img{
-
-width:70%;
-height:70%;
-
-object-fit:contain;
-
-}
-
-.menu-title{
-
-font-size:20px;
-
-font-weight:600;
-
-}
-
-/* GURU BOX */
-
-.guru-box{
-
-width:100%;
-
-margin-bottom:35px;
-
-padding:25px 30px;
-
-border-radius:30px;
-
-background:
-linear-gradient(
-135deg,
-#f59e0b,
-#ea580c,
-#dc2626
-);
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-flex-wrap:wrap;
-
-gap:20px;
-
-box-shadow:
-0 12px 30px rgba(0,0,0,0.25);
-
-}
-
-.guru-title{
-
-font-size:28px;
-
-font-weight:700;
-
-letter-spacing:1px;
-
-}
-
-.upload-btn{
-
-padding:14px 24px;
-
-border:none;
-
-border-radius:16px;
-
-background:white;
-
-color:#dc2626;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.upload-btn:hover{
-
-transform:translateY(-2px);
-
-background:#fff7ed;
-
-}
-
-/* TABLE */
-
-.table-container{
-
-background:
-rgba(255,255,255,0.12);
-
-backdrop-filter:blur(20px);
-
-border:
-2px solid black;
-
-border-radius:30px;
-
-padding:25px;
-
-overflow-x:auto;
-
-margin-bottom:35px;
-
-}
-
-.table-title{
-
-font-size:24px;
-
-margin-bottom:20px;
-
-font-weight:600;
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-border:2px solid black;
-
-}
-
-th,
-td{
-
-padding:15px;
-
-text-align:left;
-
-border:
-1px solid black;
-
-font-size:14px;
-
-}
-
-th{
-
-background:
-rgba(255,255,255,0.1);
-
-}
-
-/* MODAL */
-
-.modal{
-
-display:none;
-
-position:fixed;
-
-z-index:999;
-
-left:0;
-top:0;
-
-width:100%;
-height:100%;
-
-overflow:auto;
-
-background:
-rgba(0,0,0,0.6);
-
-padding:30px;
-
-}
-
-.modal-content{
-
-background:#1e293b;
-
-border-radius:30px;
-
-max-width:1000px;
-
-margin:auto;
-
-padding:35px;
-
-animation:fadeIn .3s ease;
-
-}
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(-20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.close{
-
-float:right;
-
-font-size:28px;
-
-cursor:pointer;
-
-}
-
-.form-title{
-
-font-size:28px;
-
-margin-bottom:25px;
-
-font-weight:700;
-
-}
-
-.form-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-
-gap:18px;
-
-}
-
-.input-group{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-.input-group label{
-
-margin-bottom:8px;
-
-font-size:14px;
-
-}
-
-.input-group input{
-
-padding:14px;
-
-border:none;
-
-border-radius:14px;
-
-outline:none;
-
-background:
-rgba(255,255,255,0.1);
-
-color:white;
-
-}
-
-.save-btn{
-
-width:100%;
-
-margin-top:25px;
-
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
-background:white;
-
-color:#1e3a8a;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.save-btn:hover{
-
-background:#dbeafe;
-
-transform:translateY(-2px);
-
-}
-
-/* LOADING */
-
-.loading-animation{
-
-opacity:0.8;
-
-pointer-events:none;
-
-}
-
-.loading-dots::after{
-
-content:'';
-
-animation:dots 1.5s infinite;
-
-}
-
-@keyframes dots{
-
-0%{
-content:'';
-}
-
-25%{
-content:'.';
-}
-
-50%{
-content:'..';
-}
-
-75%{
-content:'...';
-}
-
-100%{
-content:'';
-}
-
-}
-
-#uploadStatus{
-
-margin-top:20px;
-
-text-align:center;
-
-font-size:14px;
-
-font-weight:600;
-
-line-height:1.8;
-
-}
-
-.action-btn{
-
-border:none;
-
-padding:10px 14px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-font-weight:600;
-
-color:white;
-
-margin-right:5px;
-
-}
-
-.edit-btn{
-
-background:#2563eb;
-
-}
-
-.delete-btn{
-
-background:#dc2626;
-
-}
-
-.success-btn{
-
-background:#16a34a !important;
-
-}
-
-@media(max-width:768px){
-
-.header{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-}
-
-.guru-box{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-}
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);padding:30px;color:white;}
+.container{max-width:1400px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
+.logout-btn{padding:10px 20px;border:none;border-radius:10px;background:red;color:white;cursor:pointer;}
+
+.table-container{background:rgba(255,255,255,0.1);padding:20px;border-radius:20px;margin-bottom:30px;}
+table{width:100%;border-collapse:collapse;}
+th,td{border:1px solid black;padding:10px;}
+th{background:rgba(255,255,255,0.2);}
+
+.action-btn{padding:8px 12px;border:none;border-radius:8px;color:white;cursor:pointer;}
+.edit-btn{background:#2563eb;}
+.delete-btn{background:#dc2626;}
+
+.modal{display:none;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);}
+.modal-content{background:#1e293b;margin:5% auto;padding:20px;border-radius:20px;width:90%;max-width:800px;}
+
+.input-group{margin-bottom:10px;}
+.input-group input{width:100%;padding:10px;border-radius:10px;border:none;}
+
+.save-btn{padding:12px;background:white;color:black;border:none;border-radius:10px;width:100%;cursor:pointer;}
 </style>
 
 </head>
-
 <body>
 
 <div class="container">
 
 <div class="header">
-
-<h1>
-ADMIN PANEL APASE WEB
-</h1>
-
-<button class="logout-btn"
-        onclick="logout()">
-
-Logout
-
-</button>
-
+<h1>ADMIN PANEL APASE WEB</h1>
+<button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 
-<!-- MENU -->
-<div class="menu-grid">
-
-<div class="menu-card"
-     onclick="openModal('profilModal')">
-
-<div class="menu-icon">
-
-<img src="assets/img/profil-sekolah.png">
-
-</div>
-
-<div class="menu-title">
-
-Profil Sekolah
-
-</div>
-
-</div>
-
-<div class="menu-card"
-     onclick="openModal('akunModal')">
-
-<div class="menu-icon">
-
-<img src="assets/img/akun-pengguna.png">
-
-</div>
-
-<div class="menu-title">
-
-Akun Pengguna
-
-</div>
-
-</div>
-
-</div>
-
-<!-- DATA GURU -->
-<div class="guru-box">
-
-<div class="guru-title">
-
-DATA GURU DAN TENDIK
-
-</div>
-
-<button class="upload-btn"
-        onclick="openModal('uploadModal')">
-
-Unggah CSV
-
-</button>
-
-</div>
-
-<!-- DATA PTK -->
+<!-- PTK -->
 <div class="table-container">
-
-<div class="table-title">
-
-DATA PTK
-
-</div>
-
+<h2>DATA PTK</h2>
 <table>
-
 <thead>
-
 <tr>
-
-<th>NAMA</th>
-<th>NIP / NRPTT / NRTS</th>
-<th>TUGAS SEBAGAI</th>
+<th>Nama</th>
+<th>NIP</th>
+<th>Tugas</th>
 <th>NUPTK</th>
-<th>STATUS KEPEGAWAIAN</th>
-<th>AKSI</th>
-
+<th>Status</th>
+<th>Aksi</th>
 </tr>
-
 </thead>
-
-<tbody id="ptkTable">
-
-</tbody>
-
+<tbody id="ptkTable"></tbody>
 </table>
-
 </div>
 
-<!-- DATA USER -->
+<!-- USER -->
 <div class="table-container">
-
-<div class="table-title">
-
-Data Pengguna
-
-</div>
-
+<h2>Data User</h2>
 <table>
-
 <thead>
-
 <tr>
-
-<th>Nama Pengguna</th>
+<th>Nama</th>
 <th>Username</th>
 <th>Password</th>
 <th>Email</th>
-
 </tr>
-
 </thead>
-
-<tbody id="userTable">
-
-</tbody>
-
+<tbody id="userTable"></tbody>
 </table>
-
 </div>
 
 </div>
 
-<!-- MODAL EDIT PTK -->
-<div class="modal"
-     id="editPTKModal">
-
+<!-- MODAL -->
+<div class="modal" id="editModal">
 <div class="modal-content">
-
-<span class="close"
-      onclick="closeModal('editPTKModal')">
-
-&times;
-
-</span>
-
-<div class="form-title">
-
-Edit Data PTK
-
+<div id="formEdit"></div>
 </div>
-
-<div id="editPTKContent">
-
-</div>
-
-</div>
-
 </div>
 
 <script>
 
-// API URL
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+// API
+const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+const PTK_API = "https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec?action=getDataPTK";
 
-// API PTK
-const PTK_API =
-"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
+let selected = null;
 
 // LOGIN
-const loginUser =
-localStorage.getItem("loginUser");
-
-if(!loginUser){
-
-window.location.href =
-"index.html";
-
-}
+if(!localStorage.getItem("loginUser")) location.href="index.html";
 
 // LOGOUT
 function logout(){
-
-localStorage.removeItem(
-"loginUser"
-);
-
-window.location.href =
-"index.html";
-
+localStorage.removeItem("loginUser");
+location.href="index.html";
 }
 
-// MODAL
-function openModal(id){
-
-document.getElementById(id)
-.style.display = "block";
-
-}
-
-function closeModal(id){
-
-document.getElementById(id)
-.style.display = "none";
-
-}
-
-// LOAD USERS
+// LOAD USER
 async function loadUsers(){
+const r=await fetch(API_URL+"?action=getUsers");
+const j=await r.json();
 
-const response =
-await fetch(
-`${API_URL}?action=getUsers`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(user => {
-
-html += `
-
-<tr>
-
-<td>${user.nama}</td>
-<td>${user.username}</td>
-<td>${user.password}</td>
-<td>${user.email}</td>
-
-</tr>
-
-`;
-
+let html="";
+j.data.forEach(u=>{
+html+=`<tr>
+<td>${u.nama}</td>
+<td>${u.username}</td>
+<td>${u.password}</td>
+<td>${u.email}</td>
+</tr>`;
 });
-
-document.getElementById(
-"userTable"
-).innerHTML = html;
-
+userTable.innerHTML=html;
 }
 
-// LOAD PTK
+// LOAD PTK ✅ FIX
 async function loadPTK(){
+const r=await fetch(PTK_API);
+const j=await r.json();
 
-try{
+window.dataPTK=j.data;
 
-const response =
-await fetch(PTK_API);
-
-const result =
-await response.json();
-
-window.allPTK =
-result.data;
-
-let html = "";
-
-result.data.forEach((ptk,index)=>{
-
-html += `
-
-<tr>
-
-<td>${ptk.nama}</td>
-<td>${ptk.nip}</td>
-<td>${ptk.tugas}</td>
-<td>${ptk.nuptk}</td>
-<td>${ptk.status}</td>
-
+let html="";
+j.data.forEach((d,i)=>{
+html+=`<tr>
+<td>${d.nama}</td>
+<td>${d.nip}</td>
+<td>${d.tugas}</td>
+<td>${d.nuptk}</td>
+<td>${d.status}</td>
 <td>
-
-<button
-class="action-btn edit-btn"
-onclick="editPTK(${index})">
-
-Edit
-
-</button>
-
-<button
-class="action-btn delete-btn"
-onclick="hapusPTK(${index})">
-
-Hapus
-
-</button>
-
+<button class="action-btn edit-btn" onclick="edit(${i})">Edit</button>
+<button class="action-btn delete-btn" onclick="hapus(${i})">Hapus</button>
 </td>
+</tr>`;
+});
+ptkTable.innerHTML=html;
+}
 
-</tr>
+// EDIT
+function edit(i){
+selected=dataPTK[i];
 
+let f=`
+<h3>Edit PTK</h3>
+
+${input("nama","Nama")}
+${input("nip","NIP")}
+${input("tempat_lahir","Tempat")}
+${input("tanggal_lahir","Tanggal")}
+${input("pangkat","Pangkat")}
+${input("pendidikan","Pendidikan")}
+${input("tugas","Tugas")}
+${input("mulai","Mulai")}
+${input("nuptk","NUPTK")}
+${input("alamat","Alamat")}
+${input("status","Status")}
+
+<button class="save-btn" onclick="save()">Simpan</button>
 `;
+formEdit.innerHTML=f;
+editModal.style.display="block";
+}
 
+// INPUT
+function input(id,label){
+return `<div class="input-group">
+<label>${label}</label>
+<input id="${id}" value="${selected[id]||""}">
+</div>`;
+}
+
+// SAVE ✅
+async function save(){
+
+const data={
+action:"updatePTK",
+row:selected.row,
+no:selected.no,
+nama:v("nama"),
+nip:v("nip"),
+tempat_lahir:v("tempat_lahir"),
+tanggal_lahir:v("tanggal_lahir"),
+pangkat:v("pangkat"),
+pendidikan:v("pendidikan"),
+tugas:v("tugas"),
+mulai:v("mulai"),
+nuptk:v("nuptk"),
+alamat:v("alamat"),
+status:v("status")
+};
+
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(data)
 });
 
-document.getElementById(
-"ptkTable"
-).innerHTML = html;
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-// EDIT PTK
-function editPTK(index){
-
-const data =
-window.allPTK[index];
-
-let html = `
-
-<div class="form-grid">
-
-${buatField("Nama",data.nama,"nama")}
-${buatField("NIP",data.nip,"nip")}
-${buatField("Tempat Lahir",data.tempat_lahir,"tempat")}
-${buatField("Tanggal Lahir",data.tanggal_lahir,"tanggal")}
-${buatField("Pangkat",data.pangkat,"pangkat")}
-${buatField("Pendidikan",data.pendidikan,"pendidikan")}
-${buatField("Tugas",data.tugas,"tugas")}
-${buatField("Mulai",data.mulai,"mulai")}
-${buatField("NUPTK",data.nuptk,"nuptk")}
-${buatField("Alamat",data.alamat,"alamat")}
-${buatField("Status",data.status,"status")}
-
-</div>
-
-`;
-
-document.getElementById(
-"editPTKContent"
-).innerHTML = html;
-
-openModal(
-"editPTKModal"
-);
-
-}
-
-// FIELD
-function buatField(label,value,id){
-
-return `
-
-<div class="input-group">
-
-<label>
-${label}
-</label>
-
-<div style="
-background:rgba(255,255,255,0.08);
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-">
-
-${value || "-"}
-
-</div>
-
-<input type="text"
-       id="${id}"
-       placeholder="Data baru">
-
-<button
-class="action-btn edit-btn"
-id="btn_${id}"
-onclick="ubahField('${id}')">
-
-Ubah
-
-</button>
-
-</div>
-
-`;
-
-}
-
-// UBAH FIELD
-function ubahField(id){
-
-const btn =
-document.getElementById(
-"btn_" + id
-);
-
-btn.classList.remove(
-"edit-btn"
-);
-
-btn.classList.add(
-"success-btn"
-);
-
-btn.innerHTML =
-"Berhasil Diubah";
-
-}
-
-// HAPUS
-function hapusPTK(index){
-
-const yakin =
-confirm(
-"Yakin ingin menghapus data PTK?"
-);
-
-if(!yakin) return;
-
-window.allPTK.splice(index,1);
-
+alert("Berhasil disimpan");
+editModal.style.display="none";
 loadPTK();
+}
 
-alert(
-"Data berhasil dihapus"
-);
+function v(id){return document.getElementById(id).value}
 
+// DELETE ✅
+async function hapus(i){
+if(!confirm("Yakin hapus?"))return;
+
+let d=dataPTK[i];
+
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+action:"deletePTK",
+row:d.row
+})
+});
+
+alert("Data dihapus");
+loadPTK();
 }
 
 // INIT

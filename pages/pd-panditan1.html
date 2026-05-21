@@ -16,6 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 
 *{
@@ -41,9 +43,11 @@ padding:30px;
 
 color:white;
 
-overflow-x:auto;
+overflow-x:hidden;
 
 }
+
+/* CONTAINER */
 
 .container{
 
@@ -52,6 +56,8 @@ max-width:1700px;
 margin:auto;
 
 }
+
+/* HEADER */
 
 .header{
 
@@ -69,40 +75,105 @@ gap:20px;
 
 }
 
-.title{
+.header h1{
 
-font-size:36px;
+font-size:38px;
 
 font-weight:700;
 
 }
 
-.search-box{
+/* STATISTIK */
+
+.statistik-container{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.chart-box{
+
+background:white;
+
+border-radius:20px;
+
+padding:20px;
+
+box-shadow:
+0 6px 20px rgba(0,0,0,0.15);
+
+}
+
+.chart-box h3{
+
+margin-bottom:20px;
+
+font-size:18px;
+
+color:#1e293b;
+
+text-align:center;
+
+font-weight:700;
+
+}
+
+.total-card{
+
+background:
+linear-gradient(
+135deg,
+#facc15,
+#eab308
+);
+
+color:#1e293b;
 
 display:flex;
 
-gap:15px;
+flex-direction:column;
 
-flex-wrap:wrap;
+justify-content:center;
+
+align-items:center;
+
+min-height:220px;
+
+border-radius:20px;
+
+box-shadow:
+0 6px 20px rgba(0,0,0,0.2);
+
+}
+
+.total-card h2{
+
+font-size:64px;
+
+font-weight:800;
+
+margin-bottom:10px;
 
 }
 
-.search-box input,
-.search-box select{
+.total-card p{
 
-padding:14px 18px;
+font-size:20px;
 
-border:none;
+font-weight:700;
 
-border-radius:14px;
-
-outline:none;
-
-font-size:14px;
-
-min-width:220px;
+text-align:center;
 
 }
+
+/* TABLE */
 
 .table-container{
 
@@ -114,24 +185,22 @@ backdrop-filter:blur(20px);
 border:
 1px solid rgba(255,255,255,0.18);
 
-border-radius:30px;
+border-radius:25px;
 
 padding:25px;
 
-overflow:auto;
+overflow-x:auto;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,0.2);
-
-position:relative;
+0 8px 30px rgba(0,0,0,0.2);
 
 }
 
 .table-title{
 
-font-size:24px;
+font-size:26px;
 
-font-weight:600;
+font-weight:700;
 
 margin-bottom:20px;
 
@@ -143,87 +212,88 @@ width:100%;
 
 border-collapse:collapse;
 
-min-width:1500px;
+min-width:1200px;
 
-}
+background:white;
 
-th,
-td{
+border-radius:16px;
 
-padding:14px;
-
-text-align:left;
-
-border-bottom:
-1px solid rgba(255,255,255,0.1);
-
-font-size:14px;
+overflow:hidden;
 
 }
 
 th{
 
-background:
-#facc15;
+background:#facc15;
 
-color:#111827;
+color:#1e293b;
+
+padding:16px;
+
+font-size:14px;
 
 font-weight:700;
+
+text-align:left;
+
+border-bottom:
+2px solid #eab308;
+
+}
+
+td{
+
+padding:14px;
+
+font-size:14px;
+
+color:#1e293b;
+
+border-bottom:
+1px solid #e5e7eb;
 
 }
 
 tr:hover{
 
-background:
-rgba(255,255,255,0.06);
+background:#f8fafc;
 
 }
 
-.loading{
+/* TOMBOL */
 
-text-align:center;
+.button-container{
 
-padding:30px;
-
-font-size:16px;
-
-}
-
-/* BUTTON KEMBALI */
-
-.back-container{
+margin-top:25px;
 
 display:flex;
 
 justify-content:flex-end;
 
-margin-top:25px;
-
 }
 
 .back-btn{
 
-padding:14px 26px;
+padding:14px 28px;
 
 border:none;
 
-border-radius:16px;
+border-radius:14px;
 
 background:#facc15;
 
-color:#111827;
-
-font-weight:700;
+color:#1e293b;
 
 font-size:15px;
+
+font-weight:700;
 
 cursor:pointer;
 
 transition:.3s;
 
-text-decoration:none;
-
-display:inline-block;
+box-shadow:
+0 4px 15px rgba(0,0,0,0.2);
 
 }
 
@@ -235,26 +305,29 @@ transform:translateY(-2px);
 
 }
 
+/* LOADING */
+
+.loading{
+
+text-align:center;
+
+font-size:18px;
+
+padding:40px;
+
+font-weight:600;
+
+}
+
 /* RESPONSIVE */
 
 @media(max-width:768px){
 
-.title{
+.header{
 
-font-size:28px;
+flex-direction:column;
 
-}
-
-.search-box{
-
-width:100%;
-
-}
-
-.search-box input,
-.search-box select{
-
-width:100%;
+align-items:flex-start;
 
 }
 
@@ -268,42 +341,81 @@ width:100%;
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header">
 
-<div class="title">
+<h1>
 DATA PESERTA DIDIK
-</div>
-
-<div class="search-box">
-
-<input type="text"
-       id="searchInput"
-       placeholder="Cari nama siswa...">
-
-<select id="filterKelas">
-
-<option value="">
-Semua Kelas
-</option>
-
-</select>
+</h1>
 
 </div>
 
+<!-- STATISTIK -->
+
+<div class="statistik-container">
+
+<div class="stat-card total-card">
+
+<h2 id="totalSiswa">
+0
+</h2>
+
+<p>
+Total Keseluruhan Siswa
+</p>
+
 </div>
+
+<div class="chart-box">
+
+<h3>
+Statistik Jumlah Siswa per Kelas
+</h3>
+
+<canvas id="chartKelas"></canvas>
+
+</div>
+
+<div class="chart-box">
+
+<h3>
+Statistik Laki-laki vs Perempuan
+</h3>
+
+<canvas id="chartGender"></canvas>
+
+</div>
+
+<div class="chart-box">
+
+<h3>
+Statistik per Kecamatan
+</h3>
+
+<canvas id="chartKecamatan"></canvas>
+
+</div>
+
+<div class="chart-box">
+
+<h3>
+Statistik Penerima KIP / KKS / PKH
+</h3>
+
+<canvas id="chartBantuan"></canvas>
+
+</div>
+
+</div>
+
+<!-- TABLE -->
 
 <div class="table-container">
 
 <div class="table-title">
 
 Daftar Peserta Didik
-
-</div>
-
-<div id="loading"
-     class="loading">
-
-Memuat data siswa...
 
 </div>
 
@@ -320,7 +432,7 @@ Memuat data siswa...
 <th>L/P</th>
 <th>Kelas</th>
 <th>Tempat Lahir</th>
-<th>Tgl Lahir</th>
+<th>Tanggal Lahir</th>
 <th>Ayah</th>
 <th>Ibu</th>
 <th>Asal Sekolah (TK)</th>
@@ -329,26 +441,33 @@ Memuat data siswa...
 
 </thead>
 
-<tbody id="siswaTable">
+<tbody id="dataPesertaDidik">
+
+<tr>
+
+<td colspan="11"
+    class="loading">
+
+Memuat data peserta didik...
+
+</td>
+
+</tr>
 
 </tbody>
 
 </table>
 
-</table>
+<!-- TOMBOL KEMBALI -->
 
-</div>
+<div class="button-container">
 
-<!-- BUTTON KEMBALI -->
-
-<div class="back-container">
-
-<a href="https://sugeng1104.github.io/apase-web/dashboard.html"
-   class="back-btn">
+<button class="back-btn"
+onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
 
 Kembali
 
-</a>
+</button>
 
 </div>
 
@@ -358,24 +477,19 @@ Kembali
 
 <script>
 
-// =====================================
-// URL WEB APP APPS SCRIPT
-// =====================================
+// =========================================
+// API URL
+// =========================================
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
+"https://script.google.com/macros/s/AKfycbxK9lWw0eV4p7mM9xv5c6b1tR4Y8nQ2W3Z6X7A8B9C0D1E2F3G4/exec";
 
-// =====================================
-// DATA GLOBAL
-// =====================================
 
-let siswaData = [];
+// =========================================
+// LOAD DATA PESERTA DIDIK
+// =========================================
 
-// =====================================
-// LOAD DATA SISWA
-// =====================================
-
-async function loadSiswa(){
+async function loadDataPesertaDidik(){
 
 try{
 
@@ -387,68 +501,32 @@ await fetch(
 const result =
 await response.json();
 
-document.getElementById(
-"loading"
-).style.display = "none";
-
-if(result.status === "success"){
-
-siswaData =
+const data =
 result.data;
-
-renderTable(
-siswaData
-);
-
-loadFilterKelas();
-
-}
-else{
-
-alert(
-"Gagal memuat data siswa"
-);
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-alert(
-"Gagal koneksi ke server"
-);
-
-}
-
-}
-
-// =====================================
-// RENDER TABLE
-// =====================================
-
-function renderTable(data){
 
 let html = "";
 
-data.forEach((item,index)=>{
+// =========================================
+// TABEL
+// =========================================
+
+data.forEach(item=>{
 
 html += `
 
 <tr>
 
-<td>${index + 1}</td>
-<td>${item.nis || ""}</td>
-<td>${item.nisn || ""}</td>
-<td>${item.nama || ""}</td>
-<td>${item.lp || ""}</td>
-<td>${item.kelas || ""}</td>
-<td>${item.tempat_lahir || ""}</td>
-<td>${item.tgl_lahir || ""}</td>
-<td>${item.ayah || ""}</td>
-<td>${item.ibu || ""}</td>
-<td>${item.asal_tk || ""}</td>
+<td>${item.no}</td>
+<td>${item.nis}</td>
+<td>${item.nisn}</td>
+<td>${item.nama}</td>
+<td>${item.lp}</td>
+<td>${item.kelas}</td>
+<td>${item.tempat_lahir}</td>
+<td>${item.tanggal_lahir}</td>
+<td>${item.ayah}</td>
+<td>${item.ibu}</td>
+<td>${item.asal_tk}</td>
 
 </tr>
 
@@ -457,117 +535,216 @@ html += `
 });
 
 document.getElementById(
-"siswaTable"
+"dataPesertaDidik"
 ).innerHTML = html;
 
-}
+// =========================================
+// TOTAL SISWA
+// =========================================
 
-// =====================================
-// FILTER KELAS
-// =====================================
+document.getElementById(
+"totalSiswa"
+).innerHTML = data.length;
 
-function loadFilterKelas(){
+// =========================================
+// BUAT GRAFIK
+// =========================================
 
-const kelasSet =
-new Set();
-
-siswaData.forEach(item => {
-
-if(item.kelas){
-
-kelasSet.add(item.kelas);
+buatStatistik(data);
 
 }
 
-});
+catch(error){
 
-let html =
-'<option value="">Semua Kelas</option>';
+document.getElementById(
+"dataPesertaDidik"
+).innerHTML = `
 
-[...kelasSet]
-.sort()
-.forEach(kelas => {
+<tr>
 
-html += `
+<td colspan="11"
+    class="loading">
 
-<option value="${kelas}">
-${kelas}
-</option>
+Gagal memuat data
+
+</td>
+
+</tr>
 
 `;
 
-});
-
-document.getElementById(
-"filterKelas"
-).innerHTML = html;
+console.log(error);
 
 }
 
-// =====================================
-// SEARCH
-// =====================================
+}
 
-document.getElementById(
-"searchInput"
-).addEventListener(
-"keyup",
-filterData
-);
 
-// =====================================
-// FILTER KELAS
-// =====================================
+// =========================================
+// BUAT STATISTIK
+// =========================================
 
-document.getElementById(
-"filterKelas"
-).addEventListener(
-"change",
-filterData
-);
+function buatStatistik(data){
 
-// =====================================
-// FILTER DATA
-// =====================================
+// =========================================
+// PER KELAS
+// =========================================
 
-function filterData(){
+let kelasMap = {};
 
-const keyword =
-document.getElementById(
-"searchInput"
-).value.toLowerCase();
+data.forEach(item=>{
 
-const kelas =
-document.getElementById(
-"filterKelas"
-).value;
-
-const filtered =
-siswaData.filter(item => {
-
-const cocokNama =
-(item.nama || "")
-.toLowerCase()
-.includes(keyword);
-
-const cocokKelas =
-kelas === "" ||
-item.kelas === kelas;
-
-return cocokNama &&
-cocokKelas;
+kelasMap[item.kelas] =
+(kelasMap[item.kelas] || 0) + 1;
 
 });
 
-renderTable(filtered);
+new Chart(
+document.getElementById("chartKelas"),
+{
+type:"bar",
+
+data:{
+labels:Object.keys(kelasMap),
+
+datasets:[{
+label:"Jumlah Siswa",
+data:Object.values(kelasMap),
+borderWidth:1
+}]
+},
+
+options:{
+responsive:true,
+plugins:{
+legend:{
+display:false
+}
+}
+}
+}
+);
+
+// =========================================
+// GENDER
+// =========================================
+
+let laki = 0;
+let perempuan = 0;
+
+data.forEach(item=>{
+
+if(
+String(item.lp).toUpperCase() === "L"
+){
+laki++;
+}else{
+perempuan++;
+}
+
+});
+
+new Chart(
+document.getElementById("chartGender"),
+{
+type:"pie",
+
+data:{
+labels:["Laki-laki","Perempuan"],
+
+datasets:[{
+data:[laki,perempuan]
+}]
+},
+
+options:{
+responsive:true
+}
+}
+);
+
+// =========================================
+// KECAMATAN
+// =========================================
+
+let kecamatanMap = {};
+
+data.forEach(item=>{
+
+kecamatanMap[item.kecamatan] =
+(kecamatanMap[item.kecamatan] || 0) + 1;
+
+});
+
+new Chart(
+document.getElementById("chartKecamatan"),
+{
+type:"bar",
+
+data:{
+labels:Object.keys(kecamatanMap),
+
+datasets:[{
+label:"Jumlah",
+data:Object.values(kecamatanMap),
+borderWidth:1
+}]
+},
+
+options:{
+responsive:true,
+plugins:{
+legend:{
+display:false
+}
+}
+}
+}
+);
+
+// =========================================
+// BANTUAN
+// =========================================
+
+let kip = 0;
+let kks = 0;
+let pkh = 0;
+
+data.forEach(item=>{
+
+if(item.kip && item.kip !== "-") kip++;
+if(item.kks && item.kks !== "-") kks++;
+if(item.pkh && item.pkh !== "-") pkh++;
+
+});
+
+new Chart(
+document.getElementById("chartBantuan"),
+{
+type:"doughnut",
+
+data:{
+labels:["KIP","KKS","PKH"],
+
+datasets:[{
+data:[kip,kks,pkh]
+}]
+},
+
+options:{
+responsive:true
+}
+}
+);
 
 }
 
-// =====================================
+
+// =========================================
 // INIT
-// =====================================
+// =========================================
 
-loadSiswa();
+loadDataPesertaDidik();
 
 </script>
 

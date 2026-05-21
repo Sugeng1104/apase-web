@@ -1,33 +1,565 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>Admin Panel APASE WEB</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
 
 <style>
-/* ==== SEMUA CSS KAMU TETAP ==== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{min-height:100vh;background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);padding:30px;color:white;}
-.container{max-width:1400px;margin:auto;}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px;flex-wrap:wrap;}
-.logout-btn{padding:12px 22px;border:none;border-radius:14px;background:#ef4444;color:white;cursor:pointer;}
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-bottom:35px;}
-.menu-card{background:rgba(255,255,255,0.12);padding:35px;border-radius:30px;text-align:center;cursor:pointer;}
-.table-container{background:rgba(255,255,255,0.12);padding:25px;border-radius:30px;}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:15px;border-bottom:1px solid rgba(255,255,255,0.1);}
-.modal{display:none;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.6);}
-.modal-content{background:#1e293b;padding:30px;border-radius:20px;max-width:900px;margin:50px auto;}
-.input-group input{padding:14px;border-radius:14px;background:rgba(255,255,255,0.1);color:white;border:none;}
-.save-btn{width:100%;padding:14px;background:white;border:none;border-radius:14px;}
-.action-btn{padding:8px 12px;border:none;border-radius:10px;color:white;cursor:pointer;}
-.edit-btn{background:#2563eb;}
-.delete-btn{background:#dc2626;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e3a8a,
+#2563eb
+);
+
+padding:30px;
+
+overflow-x:hidden;
+
+color:white;
+
+}
+
+/* CONTAINER */
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:35px;
+
+flex-wrap:wrap;
+
+gap:20px;
+
+}
+
+.header h1{
+
+font-size:38px;
+
+font-weight:700;
+
+}
+
+.logout-btn{
+
+padding:12px 22px;
+
+border:none;
+
+border-radius:14px;
+
+background:#ef4444;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.logout-btn:hover{
+
+background:#dc2626;
+
+transform:translateY(-2px);
+
+}
+
+/* MENU */
+
+.menu-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:30px;
+
+margin-bottom:35px;
+
+}
+
+.menu-card{
+
+background:
+rgba(255,255,255,0.12);
+
+backdrop-filter:blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.18);
+
+border-radius:30px;
+
+padding:35px 25px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.3s;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.2);
+
+}
+
+.menu-card:hover{
+
+transform:translateY(-10px);
+
+background:
+rgba(255,255,255,0.18);
+
+}
+
+.menu-icon{
+
+width:120px;
+height:120px;
+
+margin:auto auto 20px;
+
+border-radius:30px;
+
+background:
+rgba(255,255,255,0.15);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+overflow:hidden;
+
+}
+
+.menu-icon img{
+
+width:70%;
+height:70%;
+
+object-fit:contain;
+
+}
+
+.menu-title{
+
+font-size:20px;
+
+font-weight:600;
+
+}
+
+/* GURU BOX */
+
+.guru-box{
+
+width:100%;
+
+margin-bottom:35px;
+
+padding:25px 30px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+135deg,
+#f59e0b,
+#ea580c,
+#dc2626
+);
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:20px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,0.25);
+
+}
+
+.guru-title{
+
+font-size:28px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.upload-btn{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:white;
+
+color:#dc2626;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+transform:translateY(-2px);
+
+background:#fff7ed;
+
+}
+
+/* TABLE */
+
+.table-container{
+
+background:
+rgba(255,255,255,0.12);
+
+backdrop-filter:blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.18);
+
+border-radius:30px;
+
+padding:25px;
+
+overflow-x:auto;
+
+}
+
+.table-title{
+
+font-size:24px;
+
+margin-bottom:20px;
+
+font-weight:600;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+th,
+td{
+
+padding:15px;
+
+text-align:left;
+
+border-bottom:
+1px solid rgba(255,255,255,0.1);
+
+font-size:14px;
+
+}
+
+th{
+
+background:
+rgba(255,255,255,0.1);
+
+}
+
+/* MODAL */
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+z-index:999;
+
+left:0;
+top:0;
+
+width:100%;
+height:100%;
+
+overflow:auto;
+
+background:
+rgba(0,0,0,0.6);
+
+padding:30px;
+
+}
+
+.modal-content{
+
+background:#1e293b;
+
+border-radius:30px;
+
+max-width:900px;
+
+margin:auto;
+
+padding:35px;
+
+animation:fadeIn .3s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.close{
+
+float:right;
+
+font-size:28px;
+
+cursor:pointer;
+
+}
+
+.form-title{
+
+font-size:28px;
+
+margin-bottom:25px;
+
+font-weight:700;
+
+}
+
+.form-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:18px;
+
+}
+
+.input-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.input-group label{
+
+margin-bottom:8px;
+
+font-size:14px;
+
+}
+
+.input-group input{
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+outline:none;
+
+background:
+rgba(255,255,255,0.1);
+
+color:white;
+
+}
+
+.save-btn{
+
+width:100%;
+
+margin-top:25px;
+
+padding:15px;
+
+border:none;
+
+border-radius:16px;
+
+background:white;
+
+color:#1e3a8a;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.save-btn:hover{
+
+background:#dbeafe;
+
+transform:translateY(-2px);
+
+}
+
+/* LOADING */
+
+.loading-animation{
+
+opacity:0.8;
+
+pointer-events:none;
+
+}
+
+.loading-dots::after{
+
+content:'';
+
+animation:dots 1.5s infinite;
+
+}
+
+@keyframes dots{
+
+0%{
+content:'';
+}
+
+25%{
+content:'.';
+}
+
+50%{
+content:'..';
+}
+
+75%{
+content:'...';
+}
+
+100%{
+content:'';
+}
+
+}
+
+#uploadStatus{
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:14px;
+
+font-weight:600;
+
+line-height:1.8;
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.guru-box{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -35,68 +567,653 @@ th,td{padding:15px;border-bottom:1px solid rgba(255,255,255,0.1);}
 <div class="container">
 
 <div class="header">
-<h1>ADMIN PANEL APASE WEB</h1>
-<button class="logout-btn" onclick="logout()">Logout</button>
+
+<h1>
+ADMIN PANEL APASE WEB
+</h1>
+
+<button class="logout-btn"
+        onclick="logout()">
+
+Logout
+
+</button>
+
 </div>
 
 <!-- MENU -->
 <div class="menu-grid">
-<div class="menu-card" onclick="openModal('profilModal')">Profil Sekolah</div>
-<div class="menu-card" onclick="openModal('akunModal')">Akun Pengguna</div>
+
+<!-- PROFIL -->
+<div class="menu-card"
+     onclick="openModal('profilModal')">
+
+<div class="menu-icon">
+
+<img src="assets/img/profil-sekolah.png">
+
 </div>
 
-<!-- PTK BARU -->
-<div class="table-container">
-<div class="table-title">DATA GURU & TENDIK</div>
-<table>
-<thead>
-<tr>
-<th>Nama</th>
-<th>NIP</th>
-<th>Tugas</th>
-<th>NUPTK</th>
-<th>Status</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="ptkTable"></tbody>
-</table>
+<div class="menu-title">
+
+Profil Sekolah
+
 </div>
 
-<!-- USER -->
+</div>
+
+<!-- AKUN -->
+<div class="menu-card"
+     onclick="openModal('akunModal')">
+
+<div class="menu-icon">
+
+<img src="assets/img/akun-pengguna.png">
+
+</div>
+
+<div class="menu-title">
+
+Akun Pengguna
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DATA GURU -->
+<div class="guru-box">
+
+<div class="guru-title">
+
+DATA GURU DAN TENDIK
+
+</div>
+
+<button class="upload-btn"
+        onclick="openModal('uploadModal')">
+
+Unggah CSV
+
+</button>
+
+</div>
+
+<!-- TABLE -->
 <div class="table-container">
-<div class="table-title">Data Pengguna</div>
+
+<div class="table-title">
+
+Data Pengguna
+
+</div>
+
 <table>
+
 <thead>
+
 <tr>
-<th>Nama</th>
+
+<th>Nama Pengguna</th>
 <th>Username</th>
 <th>Password</th>
 <th>Email</th>
+
 </tr>
+
 </thead>
-<tbody id="userTable"></tbody>
+
+<tbody id="userTable">
+
+</tbody>
+
 </table>
-</div>
 
 </div>
 
-<!-- MODAL EDIT PTK -->
-<div class="modal" id="editPTKModal">
+</div>
+
+<!-- MODAL PROFIL -->
+<div class="modal"
+     id="profilModal">
+
 <div class="modal-content">
-<div id="editPTKContent"></div>
+
+<span class="close"
+      onclick="closeModal('profilModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Form Profil Sekolah
+
 </div>
+
+<div class="form-grid">
+
+<!-- DATA SEKOLAH -->
+
+<div class="input-group">
+<label>Nama Sekolah</label>
+<input type="text" id="nama_sekolah">
+</div>
+
+<div class="input-group">
+<label>NPSN</label>
+<input type="text" id="npsn">
+</div>
+
+<div class="input-group">
+<label>Alamat Sekolah</label>
+<input type="text" id="alamat">
+</div>
+
+<div class="input-group">
+<label>Desa Sekolah</label>
+<input type="text" id="desa_sekolah">
+</div>
+
+<div class="input-group">
+<label>Kecamatan</label>
+<input type="text" id="kecamatan">
+</div>
+
+<div class="input-group">
+<label>Kabupaten</label>
+<input type="text" id="kabupaten">
+</div>
+
+<div class="input-group">
+<label>Provinsi</label>
+<input type="text" id="provinsi">
+</div>
+
+<div class="input-group">
+<label>Email Sekolah</label>
+<input type="email" id="email">
+</div>
+
+<!-- DATA KEPALA SEKOLAH -->
+
+<div class="input-group">
+<label>Nama Kepala Sekolah</label>
+<input type="text" id="nama_kepsek">
+</div>
+
+<div class="input-group">
+<label>NIP</label>
+<input type="text" id="nip">
+</div>
+
+<div class="input-group">
+<label>Pangkat / Golongan</label>
+<input type="text" id="pangkat">
+</div>
+
+<div class="input-group">
+<label>Alamat Kepala Sekolah</label>
+<input type="text" id="alamat_kepsek">
+</div>
+
+<div class="input-group">
+<label>Email Kepala Sekolah</label>
+<input type="email" id="email_kepsek">
+</div>
+
+<div class="input-group">
+<label>No. HP</label>
+<input type="text" id="nohp">
+</div>
+
+</div>
+
+<button class="save-btn"
+        id="saveProfilBtn"
+        onclick="saveProfilSekolah()">
+
+Simpan Data
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL AKUN -->
+<div class="modal"
+     id="akunModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('akunModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Tambah Akun Pengguna
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Pengguna</label>
+<input type="text" id="nama_pengguna">
+</div>
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" id="username">
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email_akun">
+</div>
+
+</div>
+
+<button class="save-btn"
+        onclick="saveAkun()">
+
+Buat Akun
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL UPLOAD -->
+<div class="modal"
+     id="uploadModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('uploadModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Upload Data Guru & Tendik
+
+</div>
+
+<div style="margin-bottom:20px; line-height:1.8;">
+
+Silakan unggah file format CSV.
+
+</div>
+
+<div class="input-group">
+
+<label>Pilih File CSV</label>
+
+<input type="file"
+       id="csvFile"
+       accept=".csv">
+
+</div>
+
+<button class="save-btn"
+        onclick="uploadCSV()">
+
+Kirim File
+
+</button>
+
+<div id="uploadStatus"></div>
+
+</div>
+
 </div>
 
 <script>
 
-// ================= API =================
-const API_URL = "...exec"; // tetap
-const PTK_API = "https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec?action=getDataPTK";
-
-let selectedPTK=null;
+// API URL
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
 // LOGIN
-if(!localStorage.getItem("loginUser")) location.href="index.html";
+const loginUser =
+localStorage.getItem("loginUser");
+
+if(!loginUser){
+
+window.location.href =
+"index.html";
+
+}
 
 // LOGOUT
+function logout(){
+
+localStorage.removeItem(
+"loginUser"
+);
+
+window.location.href =
+"index.html";
+
+}
+
+// MODAL
+function openModal(id){
+
+document.getElementById(id)
+.style.display = "block";
+
+}
+
+function closeModal(id){
+
+document.getElementById(id)
+.style.display = "none";
+
+}
+
+// SAVE PROFIL
+async function saveProfilSekolah(){
+
+const btn =
+document.getElementById(
+"saveProfilBtn"
+);
+
+btn.innerHTML =
+'Sabar sedang proses<span class="loading-dots"></span>';
+
+btn.classList.add(
+"loading-animation"
+);
+
+btn.disabled = true;
+
+try{
+
+const data = {
+
+action:"saveProfilSekolah",
+
+// DATA SEKOLAH
+nama_sekolah:
+document.getElementById("nama_sekolah").value,
+
+npsn:
+document.getElementById("npsn").value,
+
+alamat:
+document.getElementById("alamat").value,
+
+desa_sekolah:
+document.getElementById("desa_sekolah").value,
+
+kecamatan:
+document.getElementById("kecamatan").value,
+
+kabupaten:
+document.getElementById("kabupaten").value,
+
+provinsi:
+document.getElementById("provinsi").value,
+
+email:
+document.getElementById("email").value,
+
+// DATA KEPALA SEKOLAH
+nama_kepsek:
+document.getElementById("nama_kepsek").value,
+
+nip:
+document.getElementById("nip").value,
+
+pangkat:
+document.getElementById("pangkat").value,
+
+alamat_kepsek:
+document.getElementById("alamat_kepsek").value,
+
+email_kepsek:
+document.getElementById("email_kepsek").value,
+
+nohp:
+document.getElementById("nohp").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+}
+catch(error){
+
+alert(
+"Gagal menyimpan data"
+);
+
+console.log(error);
+
+}
+
+btn.innerHTML =
+"Simpan Data";
+
+btn.classList.remove(
+"loading-animation"
+);
+
+btn.disabled = false;
+
+}
+
+// SAVE AKUN
+async function saveAkun(){
+
+const data = {
+
+action:"saveAkun",
+
+nama_pengguna:
+document.getElementById("nama_pengguna").value,
+
+username:
+document.getElementById("username").value,
+
+password:
+document.getElementById("password").value,
+
+email:
+document.getElementById("email_akun").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+loadUsers();
+
+}
+
+// LOAD USERS
+async function loadUsers(){
+
+const response =
+await fetch(
+`${API_URL}?action=getUsers`
+);
+
+const result =
+await response.json();
+
+let html = "";
+
+result.data.forEach(user => {
+
+html += `
+
+<tr>
+
+<td>${user.nama}</td>
+<td>${user.username}</td>
+<td>${user.password}</td>
+<td>${user.email}</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"userTable"
+).innerHTML = html;
+
+}
+
+// UPLOAD CSV
+async function uploadCSV(){
+
+const fileInput =
+document.getElementById("csvFile");
+
+const status =
+document.getElementById("uploadStatus");
+
+if(fileInput.files.length === 0){
+
+status.innerHTML =
+"❌ Pilih file CSV terlebih dahulu";
+
+return;
+
+}
+
+const file =
+fileInput.files[0];
+
+status.innerHTML =
+"⏳ Membaca file...";
+
+const reader =
+new FileReader();
+
+reader.onload = async function(e){
+
+try{
+
+const base64 =
+e.target.result;
+
+status.innerHTML =
+"⏳ Mengupload file...";
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"uploadFileArsip",
+
+fileName:file.name,
+
+mimeType:file.type,
+
+base64:base64
+
+})
+
+});
+
+const result =
+await response.json();
+
+if(result.status === "success"){
+
+status.innerHTML =
+"✅ File berhasil diupload ke Folder Arsip";
+
+}
+else{
+
+status.innerHTML =
+"❌ " + result.message;
+
+}
+
+}
+
+catch(error){
+
+status.innerHTML =
+"❌ TypeError: Failed to fetch";
+
+console.log(error);
+
+}
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+// INIT
+loadUsers();
+
+</script>
+
+</body>
+</html>

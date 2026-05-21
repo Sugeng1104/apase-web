@@ -6,15 +6,15 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>Admin Panel APASE WEB</title>
 
 <link rel="preconnect"
-      href="https://fonts.googleapis.com">
+href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+rel="stylesheet">
 
 <style>
 
@@ -44,8 +44,6 @@ overflow-x:hidden;
 color:white;
 
 }
-
-/* CONTAINER */
 
 .container{
 
@@ -419,67 +417,13 @@ font-weight:700;
 
 }
 
-.form-grid{
+.save-btn{
 
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-
-gap:18px;
-
-}
-
-.input-group{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-.input-group label{
-
-margin-bottom:8px;
-
-font-size:14px;
-
-}
-
-.input-group input{
-
-padding:14px;
+padding:12px 22px;
 
 border:none;
 
 border-radius:14px;
-
-outline:none;
-
-background:
-rgba(255,255,255,0.1);
-
-color:white;
-
-}
-
-.save-btn{
-
-width:100%;
-
-margin-top:25px;
-
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
-background:white;
-
-color:#1e3a8a;
-
-font-size:16px;
 
 font-weight:700;
 
@@ -491,7 +435,7 @@ transition:.3s;
 
 .save-btn:hover{
 
-background:#dbeafe;
+transform:translateY(-2px);
 
 }
 
@@ -532,6 +476,16 @@ color:white;
 font-weight:600;
 
 cursor:pointer;
+
+}
+
+/* EDITABLE */
+
+td[contenteditable="true"]{
+
+background:#dbeafe;
+
+outline:2px solid #2563eb;
 
 }
 
@@ -586,8 +540,7 @@ Logout
 
 <div class="menu-grid">
 
-<div class="menu-card"
-onclick="openModal('profilModal')">
+<div class="menu-card">
 
 <div class="menu-icon">
 
@@ -603,8 +556,7 @@ Profil Sekolah
 
 </div>
 
-<div class="menu-card"
-onclick="openModal('akunModal')">
+<div class="menu-card">
 
 <div class="menu-icon">
 
@@ -632,8 +584,7 @@ DATA GURU DAN TENDIK
 
 </div>
 
-<button class="upload-btn"
-onclick="openModal('uploadModal')">
+<button class="upload-btn">
 
 Unggah CSV
 
@@ -770,14 +721,31 @@ DATA PESERTA DIDIK
 
 </div>
 
+<div style="
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+">
+
 <button
 class="save-btn"
 style="
-width:auto;
-margin-top:0;
-padding:12px 22px;
 background:#2563eb;
 color:white;
+"
+onclick="aktifkanEditSiswa()"
+id="editSiswaBtn">
+
+Edit Data
+
+</button>
+
+<button
+class="save-btn"
+style="
+background:#16a34a;
+color:white;
+margin-right:50px;
 "
 onclick="updateSiswa()"
 id="updateSiswaBtn">
@@ -785,6 +753,8 @@ id="updateSiswaBtn">
 Update Data
 
 </button>
+
+</div>
 
 </div>
 
@@ -1025,25 +995,25 @@ html += `
 
 <td>${item.no}</td>
 
-<td contenteditable="true">${item.nis}</td>
+<td contenteditable="false">${item.nis}</td>
 
-<td contenteditable="true">${item.nisn}</td>
+<td contenteditable="false">${item.nisn}</td>
 
-<td contenteditable="true">${item.nama}</td>
+<td contenteditable="false">${item.nama}</td>
 
-<td contenteditable="true">${item.lp}</td>
+<td contenteditable="false">${item.lp}</td>
 
-<td contenteditable="true">${item.kelas}</td>
+<td contenteditable="false">${item.kelas}</td>
 
-<td contenteditable="true">${item.tempat_lahir}</td>
+<td contenteditable="false">${item.tempat_lahir}</td>
 
-<td contenteditable="true">${item.tanggal_lahir}</td>
+<td contenteditable="false">${item.tanggal_lahir}</td>
 
-<td contenteditable="true">${item.ayah}</td>
+<td contenteditable="false">${item.ayah}</td>
 
-<td contenteditable="true">${item.ibu}</td>
+<td contenteditable="false">${item.ibu}</td>
 
-<td contenteditable="true">${item.asal_tk}</td>
+<td contenteditable="false">${item.asal_tk}</td>
 
 <td>
 
@@ -1071,6 +1041,36 @@ catch(error){
 console.log(error);
 
 }
+
+}
+
+// =====================================================
+// AKTIFKAN EDIT SISWA
+// =====================================================
+
+function aktifkanEditSiswa(){
+
+const cells =
+document.querySelectorAll(
+"#siswaTable td[contenteditable]"
+);
+
+cells.forEach(cell=>{
+
+cell.contentEditable = "true";
+
+});
+
+const btn =
+document.getElementById(
+"editSiswaBtn"
+);
+
+btn.innerHTML =
+"Mode Edit Aktif";
+
+btn.style.background =
+"#f59e0b";
 
 }
 

@@ -81,6 +81,41 @@ font-weight:700;
 
 }
 
+/* BUTTON */
+
+.back-btn{
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:14px;
+
+background:#facc15;
+
+color:#1e293b;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+box-shadow:
+0 4px 15px rgba(0,0,0,0.2);
+
+}
+
+.back-btn:hover{
+
+background:#fde047;
+
+transform:translateY(-2px);
+
+}
+
 /* STATISTIK */
 
 .statistik-row{
@@ -315,51 +350,6 @@ background:#f8fafc;
 
 }
 
-/* BUTTON */
-
-.button-container{
-
-margin-top:25px;
-
-display:flex;
-
-justify-content:flex-end;
-
-}
-
-.back-btn{
-
-padding:14px 28px;
-
-border:none;
-
-border-radius:14px;
-
-background:#facc15;
-
-color:#1e293b;
-
-font-size:15px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-box-shadow:
-0 4px 15px rgba(0,0,0,0.2);
-
-}
-
-.back-btn:hover{
-
-background:#fde047;
-
-transform:translateY(-2px);
-
-}
-
 /* MODAL */
 
 .modal{
@@ -484,6 +474,13 @@ align-items:stretch;
 <h1>
 DATA PESERTA DIDIK
 </h1>
+
+<button class="back-btn"
+onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
+
+Kembali
+
+</button>
 
 </div>
 
@@ -625,19 +622,6 @@ Memuat data peserta didik...
 </tbody>
 
 </table>
-
-<!-- BUTTON -->
-
-<div class="button-container">
-
-<button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
-
-Kembali
-
-</button>
-
-</div>
 
 </div>
 

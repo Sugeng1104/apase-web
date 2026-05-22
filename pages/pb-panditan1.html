@@ -47,7 +47,7 @@ gap:20px;
 .title-box h1{font-size:38px;}
 .title-box p{opacity:.8;font-size:15px;}
 
-/* BUTTON BACK */
+/* BACK */
 .back-btn{
 padding:12px 22px;
 background:#facc15;
@@ -100,7 +100,6 @@ text-align:left;
 opacity:0;
 transform:translateY(20px);
 animation:fadeIn .5s forwards;
-transition:.3s;
 }
 
 .menu-btn:hover{
@@ -108,22 +107,11 @@ background:rgba(255,255,255,0.25);
 transform:translateY(-4px);
 }
 
-.menu-btn:nth-child(1){animation-delay:.05s;}
-.menu-btn:nth-child(2){animation-delay:.1s;}
-.menu-btn:nth-child(3){animation-delay:.15s;}
-.menu-btn:nth-child(4){animation-delay:.2s;}
-.menu-btn:nth-child(5){animation-delay:.25s;}
-.menu-btn:nth-child(6){animation-delay:.3s;}
-.menu-btn:nth-child(7){animation-delay:.35s;}
-.menu-btn:nth-child(8){animation-delay:.4s;}
-.menu-btn:nth-child(9){animation-delay:.45s;}
-.menu-btn:nth-child(10){animation-delay:.5s;}
-
 @keyframes fadeIn{
 to{opacity:1;transform:translateY(0);}
 }
 
-/* POPUP */
+/* POPUP FIX SCROLL 🔥 */
 .popup{
 display:none;
 position:fixed;
@@ -132,6 +120,9 @@ background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
 padding:20px;
+
+/* 🔥 INI YANG FIX SCROLL */
+overflow-y:auto;
 }
 
 .popup-content{
@@ -140,6 +131,11 @@ padding:30px;
 border-radius:25px;
 width:100%;
 max-width:700px;
+
+/* 🔥 FIX SCROLL DALAM POPUP */
+max-height:90vh;
+overflow-y:auto;
+
 animation:pop .25s ease;
 }
 
@@ -159,22 +155,13 @@ color:white;
 font-weight:700;
 cursor:pointer;
 margin-bottom:15px;
-transition:.3s;
 }
 
-.folder-btn:disabled{
-opacity:.5;
-cursor:not-allowed;
-}
-
-/* STATUS */
 .folder-status{
 text-align:center;
 color:#facc15;
 margin-bottom:15px;
 font-weight:600;
-min-height:20px;
-transition:.3s;
 }
 
 /* UPLOAD */
@@ -183,7 +170,6 @@ background:rgba(255,255,255,0.08);
 padding:15px;
 border-radius:15px;
 margin-bottom:12px;
-animation:fadeIn .4s;
 }
 
 .upload-btn{
@@ -195,11 +181,6 @@ background:#2563eb;
 color:white;
 font-weight:700;
 cursor:pointer;
-transition:.3s;
-}
-
-.upload-btn:hover{
-transform:scale(1.02);
 }
 
 .status-text{
@@ -299,7 +280,7 @@ Tutup
 
 const API_URL="https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-/* SINKRON DASHBOARD */
+/* LOGIN */
 const loginUser=localStorage.getItem("loginUser");
 const namaPengguna=localStorage.getItem("namaPengguna")||loginUser;
 
@@ -321,7 +302,7 @@ function tutup(){
 document.getElementById("popup").style.display="none";
 }
 
-/* BUAT FOLDER */
+/* FOLDER */
 async function buatFolder(){
 
 const status=document.getElementById("status");
@@ -343,20 +324,13 @@ const data=await res.json();
 
 if(data.status==="success"){
 folderId=data.folderId;
-
-status.innerText="✅ Folder siap digunakan";
-
-btn.innerText="✔ Folder Aktif";
-
+status.innerText="✅ Folder aktif";
+btn.innerText="✔ Folder Ready";
 renderUpload();
 }
-else{
-status.innerText="❌ Gagal";
-btn.disabled=false;
-}
 }
 
-/* RENDER UPLOAD */
+/* UPLOAD RENDER */
 function renderUpload(){
 
 const el=document.getElementById("uploadArea");

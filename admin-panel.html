@@ -207,14 +207,6 @@ padding:25px 30px;
 
 border-radius:30px;
 
-background:
-linear-gradient(
-135deg,
-#f59e0b,
-#ea580c,
-#dc2626
-);
-
 display:flex;
 
 justify-content:space-between;
@@ -227,6 +219,42 @@ gap:20px;
 
 box-shadow:
 0 12px 30px rgba(0,0,0,0.25);
+
+}
+
+.orange-box{
+
+background:
+linear-gradient(
+135deg,
+#f59e0b,
+#ea580c,
+#dc2626
+);
+
+}
+
+.blue-box{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#1d4ed8,
+#1e40af
+);
+
+}
+
+.purple-box{
+
+background:
+linear-gradient(
+135deg,
+#9333ea,
+#7e22ce,
+#6b21a8
+);
 
 }
 
@@ -250,7 +278,7 @@ border-radius:16px;
 
 background:white;
 
-color:#dc2626;
+color:#1e293b;
 
 font-weight:700;
 
@@ -521,64 +549,75 @@ cursor:pointer;
 
 }
 
-td[contenteditable="true"]{
+.perangkat-grid{
 
-background:#dbeafe;
+display:grid;
 
-outline:1px solid #2563eb;
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
 
-cursor:text;
+gap:20px;
 
-user-select:text;
-
-}
-
-#tabelSiswa{
-
-user-select:text;
+margin-top:25px;
 
 }
 
-#tabelSiswa td{
+.perangkat-card{
 
-white-space:nowrap;
+padding:20px;
 
-}
+border-radius:22px;
 
-.loading-animation{
+display:flex;
 
-opacity:0.7;
+justify-content:space-between;
 
-pointer-events:none;
+align-items:center;
 
-}
+gap:15px;
 
-.loading-dots::after{
+flex-wrap:wrap;
 
-content:'';
-animation:dots 1.5s infinite;
-
-}
-
-@keyframes dots{
-
-0%{content:'';}
-25%{content:'.';}
-50%{content:'..';}
-75%{content:'...';}
-100%{content:'';}
+box-shadow:
+0 8px 20px rgba(0,0,0,0.2);
 
 }
 
-#uploadStatus{
+.perangkat-name{
 
-margin-top:20px;
+font-size:18px;
 
-font-size:14px;
+font-weight:700;
 
-font-weight:600;
+color:white;
 
-line-height:1.8;
+}
+
+.lihat-folder-btn{
+
+padding:10px 18px;
+
+border:none;
+
+border-radius:12px;
+
+background:#2563eb;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.lihat-folder-btn:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-2px);
 
 }
 
@@ -625,6 +664,8 @@ Logout
 
 </div>
 
+<!-- MENU -->
+
 <div class="menu-grid">
 
 <div class="menu-card"
@@ -663,7 +704,9 @@ Akun Pengguna
 
 </div>
 
-<div class="guru-box">
+<!-- PTK -->
+
+<div class="guru-box orange-box">
 
 <div class="guru-title">
 
@@ -680,7 +723,9 @@ Unggah CSV
 
 </div>
 
-<div class="guru-box">
+<!-- SISWA -->
+
+<div class="guru-box blue-box">
 
 <div class="guru-title">
 
@@ -696,6 +741,27 @@ Klik
 </button>
 
 </div>
+
+<!-- PERANGKAT GURU -->
+
+<div class="guru-box purple-box">
+
+<div class="guru-title">
+
+PERANGKAT GURU
+
+</div>
+
+<button class="upload-btn"
+onclick="loadPerangkatGuru()">
+
+Lihat
+
+</button>
+
+</div>
+
+<!-- USER TABLE -->
 
 <div class="table-container">
 
@@ -725,6 +791,8 @@ Data Pengguna
 </table>
 
 </div>
+
+<!-- PTK -->
 
 <div class="table-container">
 
@@ -771,6 +839,35 @@ Memuat data PTK...
 
 </div>
 
+<!-- MODAL PERANGKAT -->
+
+<div class="modal"
+id="perangkatModal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeModal('perangkatModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+PERANGKAT GURU
+
+</div>
+
+<div id="perangkatContainer"
+class="perangkat-grid">
+
+</div>
+
+</div>
+
+</div>
+
 <!-- MODAL PROFIL -->
 
 <div class="modal"
@@ -795,72 +892,42 @@ Form Profil Sekolah
 
 <div class="input-group">
 <label>Nama Sekolah</label>
-<input type="text" id="nama_sekolah">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>NPSN</label>
-<input type="text" id="npsn">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Alamat Sekolah</label>
-<input type="text" id="alamat">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Desa Sekolah</label>
-<input type="text" id="desa_sekolah">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Kecamatan</label>
-<input type="text" id="kecamatan">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Kabupaten</label>
-<input type="text" id="kabupaten">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Provinsi</label>
-<input type="text" id="provinsi">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Email Sekolah</label>
-<input type="email" id="email">
-</div>
-
-<div class="input-group">
-<label>Nama Kepala Sekolah</label>
-<input type="text" id="nama_kepsek">
-</div>
-
-<div class="input-group">
-<label>NIP</label>
-<input type="text" id="nip">
-</div>
-
-<div class="input-group">
-<label>Pangkat / Golongan</label>
-<input type="text" id="pangkat">
-</div>
-
-<div class="input-group">
-<label>Alamat Kepala Sekolah</label>
-<input type="text" id="alamat_kepsek">
-</div>
-
-<div class="input-group">
-<label>Email Kepala Sekolah</label>
-<input type="email" id="email_kepsek">
-</div>
-
-<div class="input-group">
-<label>No HP</label>
-<input type="text" id="nohp">
+<input type="email">
 </div>
 
 </div>
@@ -871,9 +938,7 @@ width:100%;
 margin-top:25px;
 background:white;
 color:#1e3a8a;
-"
-id="saveProfilBtn"
-onclick="saveProfilSekolah()">
+">
 
 Simpan Data
 
@@ -907,22 +972,22 @@ Tambah Akun Pengguna
 
 <div class="input-group">
 <label>Nama Pengguna</label>
-<input type="text" id="nama_pengguna">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Username</label>
-<input type="text" id="username">
+<input type="text">
 </div>
 
 <div class="input-group">
 <label>Password</label>
-<input type="password" id="password">
+<input type="password">
 </div>
 
 <div class="input-group">
 <label>Email</label>
-<input type="email" id="email_akun">
+<input type="email">
 </div>
 
 </div>
@@ -933,8 +998,7 @@ width:100%;
 margin-top:25px;
 background:white;
 color:#1e3a8a;
-"
-onclick="saveAkun()">
+">
 
 Buat Akun
 
@@ -975,7 +1039,6 @@ Silakan unggah file format CSV.
 <label>Pilih File CSV</label>
 
 <input type="file"
-id="csvFile"
 accept=".csv">
 
 </div>
@@ -986,14 +1049,11 @@ width:100%;
 margin-top:25px;
 background:white;
 color:#1e3a8a;
-"
-onclick="uploadCSV()">
+">
 
 Kirim File
 
 </button>
-
-<div id="uploadStatus"></div>
 
 </div>
 
@@ -1013,74 +1073,15 @@ onclick="closeModal('siswaModal')">
 
 </span>
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-gap:20px;
-flex-wrap:wrap;
-">
-
-<div class="form-title"
-style="margin-bottom:0;">
+<div class="form-title">
 
 DATA SISWA
 
 </div>
 
-<div style="
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-">
-
-<button
-class="save-btn"
-style="
-background:#7c3aed;
-color:white;
-"
-onclick="ubahDataSiswa()">
-
-Ubah Data
-
-</button>
-
-<button
-class="save-btn"
-style="
-background:#2563eb;
-color:white;
-"
-onclick="aktifkanEditSiswa()"
-id="editSiswaBtn">
-
-Edit Data
-
-</button>
-
-<button
-class="save-btn"
-style="
-background:#16a34a;
-color:white;
-margin-right:50px;
-"
-onclick="updateSiswa()"
-id="updateSiswaBtn">
-
-Update Data
-
-</button>
-
-</div>
-
-</div>
-
 <div style="overflow:auto;">
 
-<table id="tabelSiswa">
+<table>
 
 <thead>
 
@@ -1092,12 +1093,6 @@ Update Data
 <th>Nama Murid</th>
 <th>L/P</th>
 <th>Kelas</th>
-<th>Tempat Lahir</th>
-<th>Tgl Lahir</th>
-<th>Ayah</th>
-<th>Ibu</th>
-<th>Asal TK</th>
-<th>Aksi</th>
 
 </tr>
 
@@ -1107,7 +1102,7 @@ Update Data
 
 <tr>
 
-<td colspan="12"
+<td colspan="6"
 style="text-align:center;">
 
 Memuat data siswa...
@@ -1130,12 +1125,6 @@ Memuat data siswa...
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
-
-const PTK_API =
-"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
-
-const SISWA_API =
-"https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
 
 const loginUser =
 localStorage.getItem("loginUser");
@@ -1172,34 +1161,11 @@ document.getElementById(id)
 
 }
 
-function ubahDataSiswa(){
-
-window.open(
-"https://docs.google.com/spreadsheets/d/1gupLRef2SIK3lyfZdyMld_eiAZa-K7cs0EG4SvGkGL0/edit?usp=sharing",
-"_blank"
-);
-
-}
-
-async function saveProfilSekolah(){
-
-alert("Data profil berhasil disimpan");
-
-}
-
-async function saveAkun(){
-
-alert("Akun berhasil dibuat");
-
-}
-
-async function uploadCSV(){
-
-alert("Fitur upload aktif");
-
-}
+/* LOAD USERS */
 
 async function loadUsers(){
+
+try{
 
 const response =
 await fetch(
@@ -1217,10 +1183,10 @@ html += `
 
 <tr>
 
-<td>${user.nama}</td>
-<td>${user.username}</td>
-<td>${user.password}</td>
-<td>${user.email}</td>
+<td>${user.nama || '-'}</td>
+<td>${user.username || '-'}</td>
+<td>${user.password || '-'}</td>
+<td>${user.email || '-'}</td>
 
 </tr>
 
@@ -1232,59 +1198,7 @@ document.getElementById(
 "userTable"
 ).innerHTML = html;
 
-}
-
-async function loadPTK(){
-
-try{
-
-const response =
-await fetch(
-`${PTK_API}?action=getDataPTK`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(item=>{
-
-html += `
-
-<tr>
-
-<td>${item.nama || '-'}</td>
-<td>${item.nip || '-'}</td>
-<td>${item.pangkat || '-'}</td>
-<td>${item.tugas || '-'}</td>
-<td>${item.nuptk || '-'}</td>
-<td>${item.status || '-'}</td>
-
-<td>
-
-<button class="edit-btn">
-Edit
-</button>
-
-<button class="delete-btn">
-Hapus
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"ptkTable"
-).innerHTML = html;
-
-}
-catch(error){
+}catch(error){
 
 console.log(error);
 
@@ -1292,17 +1206,62 @@ console.log(error);
 
 }
 
-async function loadSiswa(){
+/* RANDOM COLOR */
+
+function randomColor(){
+
+const colors = [
+
+"linear-gradient(135deg,#2563eb,#1d4ed8)",
+"linear-gradient(135deg,#16a34a,#15803d)",
+"linear-gradient(135deg,#dc2626,#b91c1c)",
+"linear-gradient(135deg,#9333ea,#7e22ce)",
+"linear-gradient(135deg,#ea580c,#c2410c)",
+"linear-gradient(135deg,#0891b2,#0e7490)"
+
+];
+
+return colors[
+Math.floor(Math.random()*colors.length)
+];
+
+}
+
+/* LOAD PERANGKAT */
+
+async function loadPerangkatGuru(){
+
+openModal('perangkatModal');
+
+const container =
+document.getElementById(
+"perangkatContainer"
+);
+
+container.innerHTML =
+"<div>Memuat data...</div>";
 
 try{
 
 const response =
 await fetch(
-`${SISWA_API}?action=getPesertaDidik`
+`${API_URL}?action=getPerangkatGuru`
 );
 
 const result =
 await response.json();
+
+if(
+!result.data ||
+result.data.length === 0
+){
+
+container.innerHTML =
+"<div>Belum ada perangkat guru.</div>";
+
+return;
+
+}
 
 let html = "";
 
@@ -1310,94 +1269,43 @@ result.data.forEach(item=>{
 
 html += `
 
-<tr>
+<div class="perangkat-card"
+style="background:${randomColor()}">
 
-<td>${item.no}</td>
+<div class="perangkat-name">
 
-<td contenteditable="false">${item.nis}</td>
+${item.nama}
 
-<td contenteditable="false">${item.nisn}</td>
+</div>
 
-<td contenteditable="false">${item.nama}</td>
+<button
+class="lihat-folder-btn"
+onclick="window.open('${item.folder}','_blank')">
 
-<td contenteditable="false">${item.lp}</td>
-
-<td contenteditable="false">${item.kelas}</td>
-
-<td contenteditable="false">${item.tempat_lahir}</td>
-
-<td contenteditable="false">${item.tanggal_lahir}</td>
-
-<td contenteditable="false">${item.ayah}</td>
-
-<td contenteditable="false">${item.ibu}</td>
-
-<td contenteditable="false">${item.asal_tk}</td>
-
-<td>
-
-<button class="delete-btn">
-
-Hapus
+Lihat
 
 </button>
 
-</td>
-
-</tr>
+</div>
 
 `;
 
 });
 
-document.getElementById(
-"siswaTable"
-).innerHTML = html;
+container.innerHTML = html;
 
-}
-catch(error){
+}catch(error){
+
+container.innerHTML =
+"Gagal memuat data";
 
 console.log(error);
 
 }
-
-}
-
-function aktifkanEditSiswa(){
-
-const cells =
-document.querySelectorAll(
-"#siswaTable td[contenteditable]"
-);
-
-cells.forEach(cell=>{
-
-cell.contentEditable = "true";
-
-});
-
-const btn =
-document.getElementById(
-"editSiswaBtn"
-);
-
-btn.innerHTML =
-"Mode Edit Aktif";
-
-btn.style.background =
-"#f59e0b";
-
-}
-
-async function updateSiswa(){
-
-alert("Data siswa berhasil diperbarui");
 
 }
 
 loadUsers();
-loadPTK();
-loadSiswa();
 
 </script>
 

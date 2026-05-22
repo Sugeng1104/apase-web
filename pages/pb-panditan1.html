@@ -111,7 +111,7 @@ transform:translateY(-4px);
 to{opacity:1;transform:translateY(0);}
 }
 
-/* POPUP FIX SCROLL 🔥 */
+/* POPUP FIX SCROLL */
 .popup{
 display:none;
 position:fixed;
@@ -120,8 +120,6 @@ background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
 padding:20px;
-
-/* 🔥 INI YANG FIX SCROLL */
 overflow-y:auto;
 }
 
@@ -131,11 +129,8 @@ padding:30px;
 border-radius:25px;
 width:100%;
 max-width:700px;
-
-/* 🔥 FIX SCROLL DALAM POPUP */
 max-height:90vh;
 overflow-y:auto;
-
 animation:pop .25s ease;
 }
 
@@ -155,6 +150,10 @@ color:white;
 font-weight:700;
 cursor:pointer;
 margin-bottom:15px;
+}
+
+.folder-btn.hidden{
+display:none;
 }
 
 .folder-status{
@@ -294,23 +293,44 @@ const daftarBuku=[
 "Buku BTQ","Modul Ajar","Nilai Siswa","Jurnal Harian","Buku BK"
 ];
 
-function openPopup(){
+/* OPEN POPUP + AUTO CHECK STATUS SHEET */
+async function openPopup(){
 document.getElementById("popup").style.display="flex";
+
+const res = await fetch(API_URL+"?action=checkPBStatus&nama_pengguna="+namaPengguna);
+const data = await res.json();
+
+if(data.exists){
+
+folderId = "already";
+
+document.getElementById("status").innerText =
+"✅ Data sudah ada, langsung upload";
+
+document.getElementById("btnFolder").classList.add("hidden");
+
+renderUpload();
+
+}else{
+
+document.getElementById("btnFolder").classList.remove("hidden");
+document.getElementById("status").innerText="Folder belum dibuat";
+
+}
+
 }
 
 function tutup(){
 document.getElementById("popup").style.display="none";
 }
 
-/* FOLDER */
+/* CREATE FOLDER */
 async function buatFolder(){
 
 const status=document.getElementById("status");
 const btn=document.getElementById("btnFolder");
 
 status.innerText="⏳ Membuat folder...";
-
-btn.disabled=true;
 
 const res=await fetch(API_URL,{
 method:"POST",
@@ -323,14 +343,19 @@ nama_pengguna:namaPengguna
 const data=await res.json();
 
 if(data.status==="success"){
+
 folderId=data.folderId;
-status.innerText="✅ Folder aktif";
-btn.innerText="✔ Folder Ready";
+
+status.innerText="✅ Folder siap & langsung upload";
+
+btn.classList.add("hidden");
+
 renderUpload();
 }
+
 }
 
-/* UPLOAD RENDER */
+/* RENDER UPLOAD */
 function renderUpload(){
 
 const el=document.getElementById("uploadArea");
@@ -348,6 +373,7 @@ el.innerHTML+=`
 `;
 
 });
+
 }
 
 /* UPLOAD */

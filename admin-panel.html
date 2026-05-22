@@ -373,7 +373,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:1400px;
+max-width:1500px;
 
 margin:auto;
 
@@ -529,9 +529,29 @@ td[contenteditable="true"]{
 
 background:#dbeafe;
 
-outline:2px solid #2563eb;
+outline:1px solid #2563eb;
+
+cursor:text;
+
+user-select:text;
 
 }
+
+/* SISWA TABLE */
+
+#tabelSiswa{
+
+user-select:text;
+
+}
+
+#tabelSiswa td{
+
+white-space:nowrap;
+
+}
+
+/* LOADING */
 
 .loading-animation{
 
@@ -1031,7 +1051,7 @@ flex-wrap:wrap;
 <div class="form-title"
 style="margin-bottom:0;">
 
-DATA PESERTA DIDIK
+DATA SISWA
 
 </div>
 
@@ -1051,18 +1071,6 @@ onclick="aktifkanEditSiswa()"
 id="editSiswaBtn">
 
 Edit Data
-
-</button>
-
-<button
-class="save-btn"
-style="
-background:#9333ea;
-color:white;
-"
-onclick="selectSemuaData()">
-
-Blok Semua
 
 </button>
 
@@ -1531,29 +1539,6 @@ btn.innerHTML =
 
 btn.style.background =
 "#f59e0b";
-
-}
-
-// BLOK SEMUA DATA
-
-function selectSemuaData(){
-
-const table =
-document.getElementById(
-"tabelSiswa"
-);
-
-const range =
-document.createRange();
-
-range.selectNodeContents(table);
-
-const selection =
-window.getSelection();
-
-selection.removeAllRanges();
-
-selection.addRange(range);
 
 }
 

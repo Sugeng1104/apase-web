@@ -256,6 +256,8 @@ align-items:center;
 
 padding:20px;
 
+overflow:auto;
+
 }
 
 .popup-content{
@@ -266,13 +268,15 @@ padding:35px;
 
 border-radius:30px;
 
-max-width:450px;
+max-width:520px;
 
 width:100%;
 
 text-align:center;
 
 animation:popupShow .3s ease;
+
+position:relative;
 
 }
 
@@ -333,6 +337,146 @@ transition:.3s;
 .close-btn:hover{
 
 background:#fde047;
+
+}
+
+/* UPLOAD */
+
+.folder-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:16px;
+
+background:#22c55e;
+
+color:white;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+margin-bottom:20px;
+
+transition:.3s;
+
+}
+
+.folder-btn:hover{
+
+background:#16a34a;
+
+}
+
+.folder-status{
+
+margin-bottom:20px;
+
+font-size:14px;
+
+font-weight:600;
+
+color:#facc15;
+
+line-height:1.8;
+
+}
+
+.upload-box{
+
+display:none;
+
+margin-top:10px;
+
+}
+
+.upload-label{
+
+display:block;
+
+margin-bottom:10px;
+
+font-weight:600;
+
+font-size:15px;
+
+text-align:left;
+
+}
+
+.file-input{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+color:#1e293b;
+
+margin-bottom:20px;
+
+}
+
+.kirim-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:16px;
+
+background:#64748b;
+
+color:white;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:not-allowed;
+
+transition:.3s;
+
+}
+
+.kirim-btn.active{
+
+background:#2563eb;
+
+cursor:pointer;
+
+}
+
+.kirim-btn.active:hover{
+
+background:#1d4ed8;
+
+}
+
+.upload-status{
+
+margin-top:18px;
+
+font-size:14px;
+
+font-weight:600;
+
+line-height:1.8;
+
+color:#facc15;
 
 }
 
@@ -494,7 +638,7 @@ onclick="showPopup('Buku BK')">
 </button>
 
 <button class="menu-btn"
-onclick="showPopup('Unggah Berkas')">
+onclick="openUploadPopup()">
 
 ⬆️ Unggah Berkas
 
@@ -506,7 +650,7 @@ onclick="showPopup('Unggah Berkas')">
 
 </div>
 
-<!-- POPUP -->
+<!-- POPUP INFO -->
 
 <div class="popup"
 id="popup">
@@ -536,7 +680,85 @@ Tutup
 
 </div>
 
+<!-- POPUP UPLOAD -->
+
+<div class="popup"
+id="uploadPopup">
+
+<div class="popup-content">
+
+<h2>
+
+Unggah Berkas Guru
+
+</h2>
+
+<button class="folder-btn"
+onclick="buatFolder()">
+
+📁 Buat Folder Saya
+
+</button>
+
+<div class="folder-status"
+id="folderStatus">
+
+Folder belum dibuat
+
+</div>
+
+<div class="upload-box"
+id="uploadBox">
+
+<label class="upload-label">
+
+Pilih File Berkas
+
+</label>
+
+<input type="file"
+       id="fileInput"
+       class="file-input">
+
+<button class="kirim-btn"
+        id="kirimBtn"
+        disabled
+        onclick="uploadFile()">
+
+Kirim Berkas
+
+</button>
+
+<div class="upload-status"
+     id="uploadStatus">
+
+</div>
+
+</div>
+
+<button class="close-btn"
+onclick="closeUploadPopup()">
+
+Tutup
+
+</button>
+
+</div>
+
+</div>
+
 <script>
+
+// API URL
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+
+// LOGIN USER
+const loginUser =
+localStorage.getItem("loginUser") || "guru";
+
+const namaPengguna =
+localStorage.getItem("namaPengguna") || loginUser;
 
 // SHOW POPUP
 
@@ -567,6 +789,236 @@ document.getElementById(
 
 }
 
+// OPEN UPLOAD POPUP
+
+function openUploadPopup(){
+
+document.getElementById(
+"uploadPopup"
+).style.display = "flex";
+
+}
+
+// CLOSE UPLOAD POPUP
+
+function closeUploadPopup(){
+
+document.getElementById(
+"uploadPopup"
+).style.display = "none";
+
+}
+
+// AKTIFKAN TOMBOL KIRIM
+
+document.getElementById(
+"fileInput"
+).addEventListener(
+"change",
+function(){
+
+const btn =
+document.getElementById(
+"kirimBtn"
+);
+
+if(this.files.length > 0){
+
+btn.disabled = false;
+
+btn.classList.add(
+"active"
+);
+
+}else{
+
+btn.disabled = true;
+
+btn.classList.remove(
+"active"
+);
+
+}
+
+}
+);
+
+// BUAT FOLDER
+
+async function buatFolder(){
+
+const status =
+document.getElementById(
+"folderStatus"
+);
+
+status.innerHTML =
+"⏳ Sedang membuat folder...";
+
+try{
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"createFolderGuru",
+
+nama:namaPengguna
+
+})
+
+});
+
+const result =
+await response.json();
+
+if(result.status === "success"){
+
+status.innerHTML =
+`✅ Folder berhasil dibuat : ${namaPengguna}`;
+
+document.getElementById(
+"uploadBox"
+).style.display = "block";
+
+}else{
+
+status.innerHTML =
+"❌ " + result.message;
+
+}
+
+}
+
+catch(error){
+
+status.innerHTML =
+"❌ Gagal membuat folder";
+
+console.log(error);
+
+}
+
+}
+
+// UPLOAD FILE
+
+async function uploadFile(){
+
+const fileInput =
+document.getElementById(
+"fileInput"
+);
+
+const status =
+document.getElementById(
+"uploadStatus"
+);
+
+if(fileInput.files.length === 0){
+
+status.innerHTML =
+"❌ Pilih file terlebih dahulu";
+
+return;
+
+}
+
+const file =
+fileInput.files[0];
+
+status.innerHTML =
+"⏳ Membaca file...";
+
+const reader =
+new FileReader();
+
+reader.onload = async function(e){
+
+try{
+
+const base64 =
+e.target.result;
+
+status.innerHTML =
+"⏳ Mengupload file...";
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"uploadFileGuru",
+
+nama:namaPengguna,
+
+fileName:file.name,
+
+mimeType:file.type,
+
+base64:base64
+
+})
+
+});
+
+const result =
+await response.json();
+
+if(result.status === "success"){
+
+status.innerHTML =
+"✅ File berhasil diupload";
+
+fileInput.value = "";
+
+document.getElementById(
+"kirimBtn"
+).disabled = true;
+
+document.getElementById(
+"kirimBtn"
+).classList.remove(
+"active"
+);
+
+}else{
+
+status.innerHTML =
+"❌ " + result.message;
+
+}
+
+}
+
+catch(error){
+
+status.innerHTML =
+"❌ Upload gagal";
+
+console.log(error);
+
+}
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
 // CLOSE CLICK OUTSIDE
 
 window.onclick = function(event){
@@ -574,9 +1026,18 @@ window.onclick = function(event){
 const popup =
 document.getElementById("popup");
 
+const uploadPopup =
+document.getElementById("uploadPopup");
+
 if(event.target === popup){
 
 popup.style.display = "none";
+
+}
+
+if(event.target === uploadPopup){
+
+uploadPopup.style.display = "none";
 
 }
 

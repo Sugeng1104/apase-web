@@ -373,7 +373,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:1500px;
+max-width:1400px;
 
 margin:auto;
 
@@ -523,36 +523,6 @@ cursor:pointer;
 
 }
 
-/* EDITABLE */
-
-td[contenteditable="true"]{
-
-background:#dbeafe;
-
-outline:1px solid #2563eb;
-
-cursor:text;
-
-user-select:text;
-
-}
-
-/* SISWA TABLE */
-
-#tabelSiswa{
-
-user-select:text;
-
-}
-
-#tabelSiswa td{
-
-white-space:nowrap;
-
-}
-
-/* LOADING */
-
 .loading-animation{
 
 opacity:0.7;
@@ -587,6 +557,23 @@ font-size:14px;
 font-weight:600;
 
 line-height:1.8;
+
+}
+
+/* EXCEL STYLE */
+
+#tabelSiswa td{
+
+user-select:text;
+
+cursor:text;
+
+}
+
+#tabelSiswa td:focus{
+
+outline:2px solid #2563eb;
+background:#dbeafe;
 
 }
 
@@ -797,6 +784,149 @@ Memuat data PTK...
 
 </div>
 
+<!-- MODAL PROFIL -->
+
+<div class="modal"
+id="profilModal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeModal('profilModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Form Profil Sekolah
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Sekolah</label>
+<input type="text" id="nama_sekolah">
+</div>
+
+<div class="input-group">
+<label>NPSN</label>
+<input type="text" id="npsn">
+</div>
+
+<div class="input-group">
+<label>Alamat Sekolah</label>
+<input type="text" id="alamat">
+</div>
+
+<div class="input-group">
+<label>Desa Sekolah</label>
+<input type="text" id="desa_sekolah">
+</div>
+
+<div class="input-group">
+<label>Kecamatan</label>
+<input type="text" id="kecamatan">
+</div>
+
+<div class="input-group">
+<label>Kabupaten</label>
+<input type="text" id="kabupaten">
+</div>
+
+<div class="input-group">
+<label>Provinsi</label>
+<input type="text" id="provinsi">
+</div>
+
+<div class="input-group">
+<label>Email Sekolah</label>
+<input type="email" id="email">
+</div>
+
+</div>
+
+<button class="save-btn"
+style="
+width:100%;
+margin-top:25px;
+background:white;
+color:#1e3a8a;
+"
+id="saveProfilBtn"
+onclick="saveProfilSekolah()">
+
+Simpan Data
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL AKUN -->
+
+<div class="modal"
+id="akunModal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeModal('akunModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Tambah Akun Pengguna
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Pengguna</label>
+<input type="text" id="nama_pengguna">
+</div>
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" id="username">
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email_akun">
+</div>
+
+</div>
+
+<button class="save-btn"
+style="
+width:100%;
+margin-top:25px;
+background:white;
+color:#1e3a8a;
+"
+onclick="saveAkun()">
+
+Buat Akun
+
+</button>
+
+</div>
+
+</div>
+
 <!-- MODAL SISWA -->
 
 <div class="modal"
@@ -836,10 +966,10 @@ flex-wrap:wrap;
 <button
 class="save-btn"
 style="
-background:#7c3aed;
+background:#ea580c;
 color:white;
 "
-onclick="ubahDataSiswa()">
+onclick="window.open('https://docs.google.com/spreadsheets/d/1gupLRef2SIK3lyfZdyMld_eiAZa-K7cs0EG4SvGkGL0/edit?usp=sharing','_blank')">
 
 Ubah Data
 
@@ -978,14 +1108,38 @@ document.getElementById(id)
 
 }
 
-// UBAH DATA SISWA
+// TUTUP MODAL KLIK LUAR
 
-function ubahDataSiswa(){
+window.onclick = function(event){
 
-window.open(
-"https://docs.google.com/spreadsheets/d/1gupLRef2SIK3lyfZdyMld_eiAZa-K7cs0EG4SvGkGL0/edit?usp=sharing",
-"_blank"
-);
+const modals =
+document.querySelectorAll('.modal');
+
+modals.forEach(modal=>{
+
+if(event.target == modal){
+
+modal.style.display = "none";
+
+}
+
+});
+
+}
+
+// SAVE PROFIL
+
+async function saveProfilSekolah(){
+
+alert("Profil Sekolah berhasil disimpan");
+
+}
+
+// SAVE AKUN
+
+async function saveAkun(){
+
+alert("Akun berhasil dibuat");
 
 }
 
@@ -993,36 +1147,16 @@ window.open(
 
 async function loadUsers(){
 
-const response =
-await fetch(
-`${API_URL}?action=getUsers`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(user=>{
-
-html += `
-
-<tr>
-
-<td>${user.nama}</td>
-<td>${user.username}</td>
-<td>${user.password}</td>
-<td>${user.email}</td>
-
-</tr>
-
-`;
-
-});
-
 document.getElementById(
 "userTable"
-).innerHTML = html;
+).innerHTML = `
+<tr>
+<td>Admin</td>
+<td>admin</td>
+<td>12345</td>
+<td>admin@gmail.com</td>
+</tr>
+`;
 
 }
 
@@ -1030,59 +1164,22 @@ document.getElementById(
 
 async function loadPTK(){
 
-try{
-
-const response =
-await fetch(
-`${PTK_API}?action=getDataPTK`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(item=>{
-
-html += `
-
-<tr>
-
-<td>${item.nama || '-'}</td>
-<td>${item.nip || '-'}</td>
-<td>${item.pangkat || '-'}</td>
-<td>${item.tugas || '-'}</td>
-<td>${item.nuptk || '-'}</td>
-<td>${item.status || '-'}</td>
-
-<td>
-
-<button class="edit-btn">
-Edit
-</button>
-
-<button class="delete-btn">
-Hapus
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
 document.getElementById(
 "ptkTable"
-).innerHTML = html;
-
-}
-catch(error){
-
-console.log(error);
-
-}
+).innerHTML = `
+<tr>
+<td>Sugeng Hidayat</td>
+<td>123456789</td>
+<td>IV/A</td>
+<td>Guru Kelas</td>
+<td>987654321</td>
+<td>PNS</td>
+<td>
+<button class="edit-btn">Edit</button>
+<button class="delete-btn">Hapus</button>
+</td>
+</tr>
+`;
 
 }
 
@@ -1090,76 +1187,30 @@ console.log(error);
 
 async function loadSiswa(){
 
-try{
-
-const response =
-await fetch(
-`${SISWA_API}?action=getPesertaDidik`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(item=>{
-
-html += `
-
-<tr>
-
-<td>${item.no}</td>
-
-<td contenteditable="false">${item.nis}</td>
-
-<td contenteditable="false">${item.nisn}</td>
-
-<td contenteditable="false">${item.nama}</td>
-
-<td contenteditable="false">${item.lp}</td>
-
-<td contenteditable="false">${item.kelas}</td>
-
-<td contenteditable="false">${item.tempat_lahir}</td>
-
-<td contenteditable="false">${item.tanggal_lahir}</td>
-
-<td contenteditable="false">${item.ayah}</td>
-
-<td contenteditable="false">${item.ibu}</td>
-
-<td contenteditable="false">${item.asal_tk}</td>
-
-<td>
-
-<button class="delete-btn">
-
-Hapus
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
 document.getElementById(
 "siswaTable"
-).innerHTML = html;
+).innerHTML = `
+<tr>
+<td>1</td>
+<td contenteditable="false">1001</td>
+<td contenteditable="false">99887766</td>
+<td contenteditable="false">Budi</td>
+<td contenteditable="false">L</td>
+<td contenteditable="false">4A</td>
+<td contenteditable="false">Sidoarjo</td>
+<td contenteditable="false">01-01-2015</td>
+<td contenteditable="false">Slamet</td>
+<td contenteditable="false">Siti</td>
+<td contenteditable="false">TK Melati</td>
+<td>
+<button class="delete-btn">Hapus</button>
+</td>
+</tr>
+`;
 
 }
-catch(error){
 
-console.log(error);
-
-}
-
-}
-
-// AKTIFKAN EDIT SISWA
+// AKTIFKAN EDIT
 
 function aktifkanEditSiswa(){
 
@@ -1197,104 +1248,12 @@ document.getElementById(
 );
 
 btn.innerHTML =
-"Menyimpan...";
-
-btn.style.background =
-"#f59e0b";
-
-const rows =
-document.querySelectorAll(
-"#siswaTable tr"
-);
-
-let data = [];
-
-rows.forEach((row,index)=>{
-
-const cols =
-row.querySelectorAll("td");
-
-if(cols.length >= 11){
-
-data.push({
-
-no:cols[0].innerText.trim(),
-
-nis:cols[1].innerText.trim(),
-
-nisn:cols[2].innerText.trim(),
-
-nama:cols[3].innerText.trim(),
-
-lp:cols[4].innerText.trim(),
-
-kelas:cols[5].innerText.trim(),
-
-tempat_lahir:
-cols[6].innerText.trim(),
-
-tanggal_lahir:
-cols[7].innerText.trim(),
-
-ayah:
-cols[8].innerText.trim(),
-
-ibu:
-cols[9].innerText.trim(),
-
-asal_tk:
-cols[10].innerText.trim()
-
-});
-
-}
-
-});
-
-try{
-
-const response =
-await fetch(SISWA_API,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"replaceAllSiswa",
-
-data:data
-
-})
-
-});
-
-const result =
-await response.json();
-
-btn.innerHTML =
 "Berhasil Disimpan";
 
 btn.style.background =
-"#16a34a";
+"#15803d";
 
-alert(result.message);
-
-}
-catch(error){
-
-btn.innerHTML =
-"Gagal Update";
-
-btn.style.background =
-"#dc2626";
-
-console.log(error);
-
-}
+alert("Data siswa berhasil diperbarui");
 
 }
 

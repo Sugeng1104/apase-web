@@ -6,15 +6,15 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>Admin Panel APASE WEB</title>
 
 <link rel="preconnect"
-href="https://fonts.googleapis.com">
+      href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+      rel="stylesheet">
 
 <style>
 
@@ -45,9 +45,11 @@ color:white;
 
 }
 
+/* CONTAINER */
+
 .container{
 
-max-width:1600px;
+max-width:1400px;
 
 margin:auto;
 
@@ -195,7 +197,7 @@ font-weight:600;
 
 }
 
-/* BALOK */
+/* GURU BOX */
 
 .guru-box{
 
@@ -306,39 +308,26 @@ width:100%;
 
 border-collapse:collapse;
 
-min-width:1200px;
+}
 
-background:white;
+th,
+td{
 
-border-radius:18px;
+padding:15px;
 
-overflow:hidden;
+text-align:left;
+
+border-bottom:
+1px solid rgba(255,255,255,0.1);
+
+font-size:14px;
 
 }
 
 th{
 
-padding:15px;
-
-background:#facc15;
-
-color:#1e293b;
-
-border:2px solid black;
-
-font-size:14px;
-
-}
-
-td{
-
-padding:14px;
-
-border:2px solid black;
-
-font-size:14px;
-
-color:#1e293b;
+background:
+rgba(255,255,255,0.1);
 
 }
 
@@ -361,7 +350,7 @@ height:100%;
 overflow:auto;
 
 background:
-rgba(0,0,0,0.7);
+rgba(0,0,0,0.6);
 
 padding:30px;
 
@@ -373,7 +362,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:1400px;
+max-width:900px;
 
 margin:auto;
 
@@ -417,13 +406,67 @@ font-weight:700;
 
 }
 
-.save-btn{
+.form-grid{
 
-padding:12px 22px;
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:18px;
+
+}
+
+.input-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.input-group label{
+
+margin-bottom:8px;
+
+font-size:14px;
+
+}
+
+.input-group input{
+
+padding:14px;
 
 border:none;
 
 border-radius:14px;
+
+outline:none;
+
+background:
+rgba(255,255,255,0.1);
+
+color:white;
+
+}
+
+.save-btn{
+
+width:100%;
+
+margin-top:25px;
+
+padding:15px;
+
+border:none;
+
+border-radius:16px;
+
+background:white;
+
+color:#1e3a8a;
+
+font-size:16px;
 
 font-weight:700;
 
@@ -435,61 +478,67 @@ transition:.3s;
 
 .save-btn:hover{
 
+background:#dbeafe;
+
 transform:translateY(-2px);
 
 }
 
-/* BUTTON AKSI */
+/* LOADING */
 
-.edit-btn{
+.loading-animation{
 
-padding:8px 14px;
+opacity:0.8;
 
-border:none;
+pointer-events:none;
 
-border-radius:10px;
+}
 
-background:#2563eb;
+.loading-dots::after{
 
-color:white;
+content:'';
+
+animation:dots 1.5s infinite;
+
+}
+
+@keyframes dots{
+
+0%{
+content:'';
+}
+
+25%{
+content:'.';
+}
+
+50%{
+content:'..';
+}
+
+75%{
+content:'...';
+}
+
+100%{
+content:'';
+}
+
+}
+
+#uploadStatus{
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:14px;
 
 font-weight:600;
 
-cursor:pointer;
-
-margin-right:6px;
+line-height:1.8;
 
 }
-
-.delete-btn{
-
-padding:8px 14px;
-
-border:none;
-
-border-radius:10px;
-
-background:#dc2626;
-
-color:white;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-/* EDITABLE */
-
-td[contenteditable="true"]{
-
-background:#dbeafe;
-
-outline:2px solid #2563eb;
-
-}
-
-/* RESPONSIVE */
 
 @media(max-width:768px){
 
@@ -528,7 +577,7 @@ ADMIN PANEL APASE WEB
 </h1>
 
 <button class="logout-btn"
-onclick="logout()">
+        onclick="logout()">
 
 Logout
 
@@ -540,8 +589,10 @@ Logout
 
 <div class="menu-grid">
 
+<!-- PROFIL SEKOLAH -->
+
 <div class="menu-card"
-onclick="alert('Profil Sekolah aktif seperti semula')">
+     onclick="openModal('profilModal')">
 
 <div class="menu-icon">
 
@@ -557,8 +608,10 @@ Profil Sekolah
 
 </div>
 
+<!-- AKUN PENGGUNA -->
+
 <div class="menu-card"
-onclick="alert('Akun Pengguna aktif seperti semula')">
+     onclick="openModal('akunModal')">
 
 <div class="menu-icon">
 
@@ -586,7 +639,8 @@ DATA GURU DAN TENDIK
 
 </div>
 
-<button class="upload-btn">
+<button class="upload-btn"
+        onclick="openModal('uploadModal')">
 
 Unggah CSV
 
@@ -594,26 +648,7 @@ Unggah CSV
 
 </div>
 
-<!-- STATISTIK SISWA -->
-
-<div class="guru-box">
-
-<div class="guru-title">
-
-STATISTIK SISWA
-
-</div>
-
-<button class="upload-btn"
-onclick="openModal('siswaModal')">
-
-Klik
-
-</button>
-
-</div>
-
-<!-- DATA PENGGUNA -->
+<!-- TABLE -->
 
 <div class="table-container">
 
@@ -646,175 +681,213 @@ Data Pengguna
 
 </div>
 
-<!-- DAFTAR PTK -->
-
-<div class="table-container">
-
-<div class="table-title">
-
-DAFTAR PTK
-
 </div>
 
-<table>
-
-<thead>
-
-<tr>
-
-<th>NAMA</th>
-<th>NIP / NRPTT / NRTS</th>
-<th>PANGKAT / GOL. RUANG</th>
-<th>TUGAS SEBAGAI</th>
-<th>NUPTK</th>
-<th>STATUS KEPEGAWAIAN</th>
-<th>AKSI</th>
-
-</tr>
-
-</thead>
-
-<tbody id="ptkTable">
-
-<tr>
-
-<td colspan="7"
-style="text-align:center;">
-
-Memuat data PTK...
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<!-- MODAL SISWA -->
+<!-- MODAL PROFIL -->
 
 <div class="modal"
-id="siswaModal">
+     id="profilModal">
 
 <div class="modal-content">
 
 <span class="close"
-onclick="closeModal('siswaModal')">
+      onclick="closeModal('profilModal')">
 
 &times;
 
 </span>
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-gap:20px;
-flex-wrap:wrap;
-">
+<div class="form-title">
 
-<div class="form-title"
-style="margin-bottom:0;">
-
-DATA PESERTA DIDIK
+Form Profil Sekolah
 
 </div>
 
-<div style="
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-">
+<div class="form-grid">
 
-<button
-class="save-btn"
-style="
-background:#2563eb;
-color:white;
-"
-onclick="aktifkanEditSiswa()"
-id="editSiswaBtn">
+<div class="input-group">
+<label>Nama Sekolah</label>
+<input type="text" id="nama_sekolah">
+</div>
 
-Edit Data
+<div class="input-group">
+<label>NPSN</label>
+<input type="text" id="npsn">
+</div>
+
+<div class="input-group">
+<label>Alamat Sekolah</label>
+<input type="text" id="alamat">
+</div>
+
+<div class="input-group">
+<label>Desa Sekolah</label>
+<input type="text" id="desa_sekolah">
+</div>
+
+<div class="input-group">
+<label>Kecamatan</label>
+<input type="text" id="kecamatan">
+</div>
+
+<div class="input-group">
+<label>Kabupaten</label>
+<input type="text" id="kabupaten">
+</div>
+
+<div class="input-group">
+<label>Provinsi</label>
+<input type="text" id="provinsi">
+</div>
+
+<div class="input-group">
+<label>Email Sekolah</label>
+<input type="email" id="email">
+</div>
+
+<div class="input-group">
+<label>Nama Kepala Sekolah</label>
+<input type="text" id="nama_kepsek">
+</div>
+
+<div class="input-group">
+<label>NIP</label>
+<input type="text" id="nip">
+</div>
+
+<div class="input-group">
+<label>Pangkat / Golongan</label>
+<input type="text" id="pangkat">
+</div>
+
+<div class="input-group">
+<label>Alamat Kepala Sekolah</label>
+<input type="text" id="alamat_kepsek">
+</div>
+
+<div class="input-group">
+<label>Email Kepala Sekolah</label>
+<input type="email" id="email_kepsek">
+</div>
+
+<div class="input-group">
+<label>No HP</label>
+<input type="text" id="nohp">
+</div>
+
+</div>
+
+<button class="save-btn"
+        id="saveProfilBtn"
+        onclick="saveProfilSekolah()">
+
+Simpan Data
 
 </button>
 
-<button
-class="save-btn"
-style="
-background:#9333ea;
-color:white;
-"
-onclick="selectSemuaData()">
+</div>
 
-Blok Semua
+</div>
+
+<!-- MODAL AKUN -->
+
+<div class="modal"
+     id="akunModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('akunModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Tambah Akun Pengguna
+
+</div>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>Nama Pengguna</label>
+<input type="text" id="nama_pengguna">
+</div>
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" id="username">
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email_akun">
+</div>
+
+</div>
+
+<button class="save-btn"
+        onclick="saveAkun()">
+
+Buat Akun
 
 </button>
 
-<button
-class="save-btn"
-style="
-background:#16a34a;
-color:white;
-margin-right:50px;
-"
-onclick="updateSiswa()"
-id="updateSiswaBtn">
+</div>
 
-Update Data
+</div>
+
+<!-- MODAL UPLOAD -->
+
+<div class="modal"
+     id="uploadModal">
+
+<div class="modal-content">
+
+<span class="close"
+      onclick="closeModal('uploadModal')">
+
+&times;
+
+</span>
+
+<div class="form-title">
+
+Upload Data Guru & Tendik
+
+</div>
+
+<div style="margin-bottom:20px; line-height:1.8;">
+
+Silakan unggah file format CSV.
+
+</div>
+
+<div class="input-group">
+
+<label>Pilih File CSV</label>
+
+<input type="file"
+       id="csvFile"
+       accept=".csv">
+
+</div>
+
+<button class="save-btn"
+        onclick="uploadCSV()">
+
+Kirim File
 
 </button>
 
-</div>
-
-</div>
-
-<div style="overflow:auto;">
-
-<table id="tabelSiswa">
-
-<thead>
-
-<tr>
-
-<th>No</th>
-<th>NIS</th>
-<th>NISN</th>
-<th>Nama Murid</th>
-<th>L/P</th>
-<th>Kelas</th>
-<th>Tempat Lahir</th>
-<th>Tgl Lahir</th>
-<th>Ayah</th>
-<th>Ibu</th>
-<th>Asal TK</th>
-<th>Aksi</th>
-
-</tr>
-
-</thead>
-
-<tbody id="siswaTable">
-
-<tr>
-
-<td colspan="12"
-style="text-align:center;">
-
-Memuat data siswa...
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+<div id="uploadStatus"></div>
 
 </div>
 
@@ -822,23 +895,11 @@ Memuat data siswa...
 
 <script>
 
-// =====================================================
-// URL API
-// =====================================================
-
+// API URL
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-const PTK_API =
-"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
-
-const SISWA_API =
-"https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
-
-// =====================================================
 // LOGIN
-// =====================================================
-
 const loginUser =
 localStorage.getItem("loginUser");
 
@@ -849,6 +910,7 @@ window.location.href =
 
 }
 
+// LOGOUT
 function logout(){
 
 localStorage.removeItem(
@@ -860,28 +922,216 @@ window.location.href =
 
 }
 
-// =====================================================
 // MODAL
-// =====================================================
-
 function openModal(id){
 
-document.getElementById(id)
-.style.display = "block";
+const modal =
+document.getElementById(id);
+
+if(modal){
+
+modal.style.display = "block";
+
+}
 
 }
 
 function closeModal(id){
 
-document.getElementById(id)
-.style.display = "none";
+const modal =
+document.getElementById(id);
+
+if(modal){
+
+modal.style.display = "none";
 
 }
 
-// =====================================================
-// LOAD USERS
-// =====================================================
+}
 
+window.onclick = function(event){
+
+const modals =
+document.querySelectorAll(".modal");
+
+modals.forEach(modal=>{
+
+if(event.target === modal){
+
+modal.style.display = "none";
+
+}
+
+});
+
+};
+
+// SAVE PROFIL
+async function saveProfilSekolah(){
+
+const btn =
+document.getElementById(
+"saveProfilBtn"
+);
+
+btn.innerHTML =
+'Sabar sedang proses<span class="loading-dots"></span>';
+
+btn.classList.add(
+"loading-animation"
+);
+
+btn.disabled = true;
+
+try{
+
+const data = {
+
+action:"saveProfilSekolah",
+
+nama_sekolah:
+document.getElementById("nama_sekolah").value,
+
+npsn:
+document.getElementById("npsn").value,
+
+alamat:
+document.getElementById("alamat").value,
+
+desa_sekolah:
+document.getElementById("desa_sekolah").value,
+
+kecamatan:
+document.getElementById("kecamatan").value,
+
+kabupaten:
+document.getElementById("kabupaten").value,
+
+provinsi:
+document.getElementById("provinsi").value,
+
+email:
+document.getElementById("email").value,
+
+nama_kepsek:
+document.getElementById("nama_kepsek").value,
+
+nip:
+document.getElementById("nip").value,
+
+pangkat:
+document.getElementById("pangkat").value,
+
+alamat_kepsek:
+document.getElementById("alamat_kepsek").value,
+
+email_kepsek:
+document.getElementById("email_kepsek").value,
+
+nohp:
+document.getElementById("nohp").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+closeModal('profilModal');
+
+}
+catch(error){
+
+alert(
+"Gagal menyimpan data"
+);
+
+console.log(error);
+
+}
+
+btn.innerHTML =
+"Simpan Data";
+
+btn.classList.remove(
+"loading-animation"
+);
+
+btn.disabled = false;
+
+}
+
+// SAVE AKUN
+async function saveAkun(){
+
+try{
+
+const data = {
+
+action:"saveAkun",
+
+nama_pengguna:
+document.getElementById("nama_pengguna").value,
+
+username:
+document.getElementById("username").value,
+
+password:
+document.getElementById("password").value,
+
+email:
+document.getElementById("email_akun").value
+
+};
+
+const response =
+await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+closeModal('akunModal');
+
+loadUsers();
+
+}
+catch(error){
+
+alert("Gagal membuat akun");
+
+console.log(error);
+
+}
+
+}
+
+// LOAD USERS
 async function loadUsers(){
 
 const response =
@@ -894,7 +1144,7 @@ await response.json();
 
 let html = "";
 
-result.data.forEach(user=>{
+result.data.forEach(user => {
 
 html += `
 
@@ -917,272 +1167,45 @@ document.getElementById(
 
 }
 
-// =====================================================
-// LOAD PTK
-// =====================================================
+// UPLOAD CSV
+async function uploadCSV(){
 
-async function loadPTK(){
+const fileInput =
+document.getElementById("csvFile");
+
+const status =
+document.getElementById("uploadStatus");
+
+if(fileInput.files.length === 0){
+
+status.innerHTML =
+"❌ Pilih file CSV terlebih dahulu";
+
+return;
+
+}
+
+const file =
+fileInput.files[0];
+
+status.innerHTML =
+"⏳ Membaca file...";
+
+const reader =
+new FileReader();
+
+reader.onload = async function(e){
 
 try{
 
-const response =
-await fetch(
-`${PTK_API}?action=getDataPTK`
-);
+const base64 =
+e.target.result;
 
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(item=>{
-
-html += `
-
-<tr>
-
-<td>${item.nama || '-'}</td>
-<td>${item.nip || '-'}</td>
-<td>${item.pangkat || '-'}</td>
-<td>${item.tugas || '-'}</td>
-<td>${item.nuptk || '-'}</td>
-<td>${item.status || '-'}</td>
-
-<td>
-
-<button class="edit-btn">
-
-Edit
-
-</button>
-
-<button class="delete-btn">
-
-Hapus
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"ptkTable"
-).innerHTML = html;
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-// =====================================================
-// LOAD SISWA
-// =====================================================
-
-async function loadSiswa(){
-
-try{
+status.innerHTML =
+"⏳ Mengupload file...";
 
 const response =
-await fetch(
-`${SISWA_API}?action=getPesertaDidik`
-);
-
-const result =
-await response.json();
-
-let html = "";
-
-result.data.forEach(item=>{
-
-html += `
-
-<tr>
-
-<td>${item.no}</td>
-
-<td contenteditable="false">${item.nis}</td>
-
-<td contenteditable="false">${item.nisn}</td>
-
-<td contenteditable="false">${item.nama}</td>
-
-<td contenteditable="false">${item.lp}</td>
-
-<td contenteditable="false">${item.kelas}</td>
-
-<td contenteditable="false">${item.tempat_lahir}</td>
-
-<td contenteditable="false">${item.tanggal_lahir}</td>
-
-<td contenteditable="false">${item.ayah}</td>
-
-<td contenteditable="false">${item.ibu}</td>
-
-<td contenteditable="false">${item.asal_tk}</td>
-
-<td>
-
-<button class="delete-btn">
-
-Hapus
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"siswaTable"
-).innerHTML = html;
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-// =====================================================
-// AKTIFKAN EDIT
-// =====================================================
-
-function aktifkanEditSiswa(){
-
-const cells =
-document.querySelectorAll(
-"#siswaTable td[contenteditable]"
-);
-
-cells.forEach(cell=>{
-
-cell.contentEditable = "true";
-
-});
-
-const btn =
-document.getElementById(
-"editSiswaBtn"
-);
-
-btn.innerHTML =
-"Mode Edit Aktif";
-
-btn.style.background =
-"#f59e0b";
-
-}
-
-// =====================================================
-// BLOK SEMUA DATA
-// =====================================================
-
-function selectSemuaData(){
-
-const table =
-document.getElementById(
-"tabelSiswa"
-);
-
-const range =
-document.createRange();
-
-range.selectNodeContents(table);
-
-const selection =
-window.getSelection();
-
-selection.removeAllRanges();
-
-selection.addRange(range);
-
-}
-
-// =====================================================
-// UPDATE SISWA
-// =====================================================
-
-async function updateSiswa(){
-
-const btn =
-document.getElementById(
-"updateSiswaBtn"
-);
-
-btn.innerHTML =
-"Menyimpan...";
-
-btn.style.background =
-"#f59e0b";
-
-const rows =
-document.querySelectorAll(
-"#siswaTable tr"
-);
-
-let data = [];
-
-rows.forEach((row,index)=>{
-
-const cols =
-row.querySelectorAll("td");
-
-if(cols.length >= 11){
-
-data.push({
-
-no:cols[0].innerText.trim(),
-
-nis:cols[1].innerText.trim(),
-
-nisn:cols[2].innerText.trim(),
-
-nama:cols[3].innerText.trim(),
-
-lp:cols[4].innerText.trim(),
-
-kelas:cols[5].innerText.trim(),
-
-tempat_lahir:
-cols[6].innerText.trim(),
-
-tanggal_lahir:
-cols[7].innerText.trim(),
-
-ayah:
-cols[8].innerText.trim(),
-
-ibu:
-cols[9].innerText.trim(),
-
-asal_tk:
-cols[10].innerText.trim()
-
-});
-
-}
-
-});
-
-try{
-
-const response =
-await fetch(SISWA_API,{
+await fetch(API_URL,{
 
 method:"POST",
 
@@ -1192,9 +1215,13 @@ headers:{
 
 body:JSON.stringify({
 
-action:"replaceAllSiswa",
+action:"uploadFileArsip",
 
-data:data
+fileName:file.name,
+
+mimeType:file.type,
+
+base64:base64
 
 })
 
@@ -1203,36 +1230,37 @@ data:data
 const result =
 await response.json();
 
-btn.innerHTML =
-"Berhasil Disimpan";
+if(result.status === "success"){
 
-btn.style.background =
-"#16a34a";
+status.innerHTML =
+"✅ File berhasil diupload ke Folder Arsip";
 
-alert(result.message);
+}
+else{
+
+status.innerHTML =
+"❌ " + result.message;
+
+}
 
 }
 catch(error){
 
-btn.innerHTML =
-"Gagal Update";
-
-btn.style.background =
-"#dc2626";
+status.innerHTML =
+"❌ TypeError: Failed to fetch";
 
 console.log(error);
 
 }
 
+};
+
+reader.readAsDataURL(file);
+
 }
 
-// =====================================================
 // INIT
-// =====================================================
-
 loadUsers();
-loadPTK();
-loadSiswa();
 
 </script>
 

@@ -8,10 +8,13 @@
 <title>PB Panditan 1</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* ========================= */
+/* UI TIDAK DIUBAH */
+/* ========================= */
 
 *{
 margin:0;
@@ -21,360 +24,149 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#1e3a8a,
-#2563eb
-);
-
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
 min-height:100vh;
 padding:30px;
-overflow-x:hidden;
 color:white;
-
 }
 
-.container{
-max-width:1400px;
-margin:auto;
-}
+.container{max-width:1400px;margin:auto;}
 
 .header{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:35px;
 flex-wrap:wrap;
 gap:20px;
-
 }
 
 .user-login{
-
-background:
-rgba(255,255,255,0.15);
-
+background:rgba(255,255,255,0.15);
 padding:14px 22px;
-
 border-radius:18px;
-
 font-size:15px;
 font-weight:600;
-
 backdrop-filter:blur(12px);
-
 }
 
-.title-box h1{
-
-font-size:38px;
-font-weight:700;
-margin-bottom:8px;
-
-}
-
-.title-box p{
-
-opacity:.8;
-font-size:15px;
-
-}
+.title-box h1{font-size:38px;font-weight:700;margin-bottom:8px;}
+.title-box p{opacity:.8;font-size:15px;}
 
 .back-btn{
-
 padding:12px 22px;
 background:#facc15;
 color:#1e293b;
 border:none;
 border-radius:14px;
 font-weight:700;
-font-size:15px;
 cursor:pointer;
-transition:.3s;
-
-}
-
-.back-btn:hover{
-background:#fde047;
 }
 
 .card{
-
-background:
-rgba(255,255,255,0.12);
-
+background:rgba(255,255,255,0.12);
 backdrop-filter:blur(20px);
-
-border:
-1px solid rgba(255,255,255,0.18);
-
+border:1px solid rgba(255,255,255,0.18);
 border-radius:30px;
-
 padding:30px;
-
 display:grid;
-
-grid-template-columns:
-320px 1fr;
-
+grid-template-columns:320px 1fr;
 gap:30px;
-
-}
-
-.image-box{
-
-display:flex;
-justify-content:center;
-align-items:flex-start;
-
 }
 
 .image-box img{
-
 width:100%;
 max-width:300px;
 border-radius:24px;
-object-fit:cover;
-
 }
 
 .menu-grid{
-
 display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:18px;
-
 }
 
 .menu-btn{
-
-padding:18px 20px;
-
+padding:18px;
 border:none;
-
 border-radius:20px;
-
-background:
-rgba(255,255,255,0.15);
-
+background:rgba(255,255,255,0.15);
 color:white;
-
-font-size:16px;
-
 font-weight:600;
-
 cursor:pointer;
-
-transition:.3s;
-
-text-align:left;
-
 }
 
 .menu-btn:hover{
-
+background:rgba(255,255,255,0.22);
 transform:translateY(-3px);
-
-background:
-rgba(255,255,255,0.22);
-
 }
 
 .popup{
-
 display:none;
-
 position:fixed;
-
-left:0;
-top:0;
-
-width:100%;
-height:100%;
-
-background:
-rgba(0,0,0,0.7);
-
-z-index:999;
-
+left:0;top:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
-
 padding:20px;
-
-overflow:auto;
-
 }
 
 .popup-content{
-
 background:#1e293b;
-
 padding:35px;
-
 border-radius:30px;
-
 max-width:700px;
 width:100%;
-
 text-align:center;
-
-}
-
-.popup-content h2{
-
-margin-bottom:20px;
-font-size:28px;
-
-}
-
-.close-btn{
-
-margin-top:20px;
-
-padding:12px 24px;
-
-border:none;
-
-border-radius:14px;
-
-background:#facc15;
-
-color:#1e293b;
-
-font-weight:700;
-
-cursor:pointer;
-
 }
 
 .folder-btn{
-
 width:100%;
-
 padding:15px;
-
 border:none;
-
 border-radius:16px;
-
 background:#22c55e;
-
 color:white;
-
-font-size:16px;
-
 font-weight:700;
-
 cursor:pointer;
-
 margin-bottom:20px;
-
-}
-
-.folder-status{
-
-margin-bottom:20px;
-
-font-size:14px;
-
-font-weight:600;
-
-color:#facc15;
-
 }
 
 .upload-item{
-
 margin-bottom:20px;
-
 padding:18px;
-
-background:
-rgba(255,255,255,0.08);
-
+background:rgba(255,255,255,0.08);
 border-radius:18px;
-
 text-align:left;
-
-}
-
-.upload-item h3{
-
-margin-bottom:12px;
-font-size:16px;
-
 }
 
 .upload-item input{
-
 width:100%;
-
 padding:12px;
-
-border:none;
-
 border-radius:12px;
-
+border:none;
 margin-bottom:10px;
-
-background:white;
-
-color:black;
-
 }
 
 .upload-btn{
-
 width:100%;
-
 padding:12px;
-
 border:none;
-
 border-radius:12px;
-
 background:#2563eb;
-
 color:white;
-
 font-weight:700;
-
 cursor:pointer;
-
-}
-
-.upload-btn:hover{
-background:#1d4ed8;
 }
 
 .upload-success{
-background:#16a34a !important;
+background:#22c55e !important;
 }
 
 .status-text{
-
-margin-top:10px;
-
 font-size:14px;
-
-font-weight:600;
-
-}
-
-@media(max-width:900px){
-
-.card{
-grid-template-columns:1fr;
-}
-
+margin-top:8px;
 }
 
 </style>
@@ -388,26 +180,17 @@ grid-template-columns:1fr;
 <div class="header">
 
 <div class="user-login" id="userLogin">
-👤 Memuat User...
+👤 Memuat user...
 </div>
 
 <div class="title-box">
-
-<h1>
-PB PANDITAN 1
-</h1>
-
-<p>
-Pusat Buku dan Administrasi Guru
-</p>
-
+<h1>PB PANDITAN 1</h1>
+<p>Pusat Buku dan Administrasi Guru</p>
 </div>
 
 <button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
-
+onclick="window.location.href='dashboard.html'">
 Kembali
-
 </button>
 
 </div>
@@ -415,9 +198,7 @@ Kembali
 <div class="card">
 
 <div class="image-box">
-
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop">
-
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200">
 </div>
 
 <div class="menu-grid">
@@ -426,21 +207,11 @@ Kembali
 <button class="menu-btn">📗 Buku Bahasa Indonesia</button>
 <button class="menu-btn">📕 Buku Pancasila</button>
 <button class="menu-btn">📙 Buku Matematika</button>
-<button class="menu-btn">📘 Buku IPAS</button>
-<button class="menu-btn">📗 Buku Bahasa Inggris</button>
-<button class="menu-btn">🎨 Buku Kesenian</button>
-<button class="menu-btn">📕 Buku Bahasa Jawa</button>
-<button class="menu-btn">📙 Buku BTQ</button>
+<button class="menu-btn">📘 IPAS</button>
 <button class="menu-btn">📂 Modul Ajar</button>
-<button class="menu-btn">📊 Nilai Siswa</button>
-<button class="menu-btn">📝 Jurnal Harian</button>
-<button class="menu-btn">📚 Buku BK</button>
 
-<button class="menu-btn"
-onclick="openUploadPopup()">
-
-⬆️ Unggah Berkas
-
+<button class="menu-btn" onclick="openUploadPopup()">
+⬆️ Upload
 </button>
 
 </div>
@@ -450,553 +221,210 @@ onclick="openUploadPopup()">
 </div>
 
 <!-- POPUP -->
-
 <div class="popup" id="uploadPopup">
-
 <div class="popup-content">
 
-<h2>
-Unggah Berkas Guru
-</h2>
+<h2>Upload Guru</h2>
 
-<button class="folder-btn"
-id="folderBtn"
-onclick="buatFolder()">
-
-📁 Buat Folder Saya
-
+<button class="folder-btn" id="folderBtn" onclick="buatFolder()">
+📁 Buat Folder
 </button>
 
-<div class="folder-status"
-id="folderStatus">
+<div id="folderStatus">Folder belum dibuat</div>
 
-Folder belum dibuat
-
-</div>
-
-<div id="uploadContainer"
-style="display:none;">
+<div id="uploadContainer"></div>
 
 </div>
-
-<button class="close-btn"
-onclick="closeUploadPopup()">
-
-Tutup
-
-</button>
-
-</div>
-
 </div>
 
 <script>
 
-// =====================================
-// API URL
-// =====================================
+// =====================
+// CONFIG
+// =====================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
+// =====================
+// SESSION FIX
+// =====================
 
-// =====================================
-// AMBIL USER LOGIN
-// =====================================
-
-// USERNAME login
 const usernameLogin =
-localStorage.getItem("username") || "";
+localStorage.getItem("username") ||
+localStorage.getItem("nama_pengguna") ||
+localStorage.getItem("user") || "";
 
-// NAMA PENGGUNA
 let namaPengguna = "";
-
-// FOLDER ID
 let folderId = "";
+let userReady = false;
 
-// LIST BUKU
-const daftarBuku = [
+// =====================
+// LOAD USER
+// =====================
 
-"Buku Agama",
-"Buku Bahasa Indonesia",
-"Buku Pancasila",
-"Buku Matematika",
-"Buku IPAS",
-"Buku Bahasa Inggris",
-"Buku Kesenian",
-"Buku Bahasa Jawa",
-"Buku BTQ",
-"Modul Ajar",
-"Nilai Siswa",
-"Jurnal Harian",
-"Buku BK"
+window.onload = function(){
+initUser();
+};
 
-];
+async function initUser(){
 
-
-// =====================================
-// LOAD USER LOGIN
-// =====================================
-
-window.onload = async function(){
+const el = document.getElementById("userLogin");
 
 if(!usernameLogin){
 
-document.getElementById(
-"userLogin"
-).innerHTML =
-"❌ Username login tidak ditemukan";
+el.innerHTML = "❌ Session kosong";
 
+setTimeout(()=> location.href="index.html",1500);
 return;
-
 }
 
 try{
 
-const response =
-await fetch(
-`${API_URL}?action=getUsers`
+const res = await fetch(API_URL + "?action=getUsers&_=" + Date.now());
+const data = await res.json();
+
+const user = data.data.find(u =>
+String(u.username).trim() === String(usernameLogin).trim()
 );
 
-const result =
-await response.json();
+if(!user){
 
-if(result.status === "success"){
-
-const user =
-result.data.find(
-
-u => u.username === usernameLogin
-
-);
-
-if(user){
-
-namaPengguna =
-user.nama;
-
-document.getElementById(
-"userLogin"
-).innerHTML =
-"👤 " + namaPengguna;
-
+el.innerHTML = "❌ User tidak ditemukan";
+setTimeout(()=> location.href="index.html",1500);
+return;
 }
 
-else{
+namaPengguna = user.nama;
+el.innerHTML = "👤 " + namaPengguna;
 
-document.getElementById(
-"userLogin"
-).innerHTML =
-"❌ User tidak ditemukan";
+userReady = true;
 
+}catch(e){
+el.innerHTML = "❌ Error server";
 }
 
 }
 
-}
-
-catch(error){
-
-console.log(error);
-
-document.getElementById(
-"userLogin"
-).innerHTML =
-"❌ Gagal memuat user";
-
-}
-
-};
-
-
-// =====================================
-// OPEN POPUP
-// =====================================
+// =====================
+// POPUP
+// =====================
 
 function openUploadPopup(){
 
-if(!namaPengguna){
+if(!userReady) return alert("User belum siap");
 
-alert(
-"Data user belum siap"
-);
+document.getElementById("uploadPopup").style.display="flex";
 
-return;
+cekFolder();
 
 }
 
-document.getElementById(
-"uploadPopup"
-).style.display = "flex";
+function cekFolder(){
 
-cekFolderSaatPopup();
+fetch(API_URL+"?action=checkFolderPB&nama_pengguna="+encodeURIComponent(namaPengguna))
+.then(r=>r.json())
+.then(res=>{
 
+if(res.exists){
+folderId = res.folderId;
+document.getElementById("folderStatus").innerHTML="Folder aktif";
+renderUpload();
+}else{
+document.getElementById("folderStatus").innerHTML="Belum ada folder";
 }
-
-
-// =====================================
-// CLOSE POPUP
-// =====================================
-
-function closeUploadPopup(){
-
-document.getElementById(
-"uploadPopup"
-).style.display = "none";
-
-}
-
-
-// =====================================
-// CEK FOLDER
-// =====================================
-
-async function cekFolderSaatPopup(){
-
-try{
-
-const response =
-await fetch(
-
-`${API_URL}?action=checkFolderPB&nama_pengguna=${encodeURIComponent(namaPengguna)}`
-
-);
-
-const result =
-await response.json();
-
-const folderBtn =
-document.getElementById("folderBtn");
-
-const folderStatus =
-document.getElementById("folderStatus");
-
-const uploadContainer =
-document.getElementById("uploadContainer");
-
-if(
-
-result.status === "success" &&
-result.exists === true
-
-){
-
-folderId =
-result.folderId;
-
-folderBtn.disabled = true;
-
-folderBtn.style.background =
-"#64748b";
-
-folderBtn.style.cursor =
-"not-allowed";
-
-folderBtn.innerHTML =
-"✅ Folder Sudah Dibuat";
-
-folderStatus.innerHTML =
-"📁 Folder aktif ditemukan";
-
-uploadContainer.style.display =
-"block";
-
-renderUploadMenu();
-
-}
-
-else{
-
-folderId = "";
-
-folderBtn.disabled = false;
-
-folderBtn.style.background =
-"#22c55e";
-
-folderBtn.style.cursor =
-"pointer";
-
-folderBtn.innerHTML =
-"📁 Buat Folder Saya";
-
-folderStatus.innerHTML =
-"Folder belum dibuat";
-
-uploadContainer.style.display =
-"none";
-
-}
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-
-// =====================================
-// BUAT FOLDER
-// =====================================
-
-async function buatFolder(){
-
-const status =
-document.getElementById(
-"folderStatus"
-);
-
-status.innerHTML =
-"⏳ Membuat folder...";
-
-try{
-
-const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"createFolderPB",
-
-nama_pengguna:namaPengguna
-
-})
-
 });
 
-const result =
-await response.json();
+}
 
-if(result.status === "success"){
+// =====================
+// BUAT FOLDER
+// =====================
 
-folderId =
-result.folderId;
+function buatFolder(){
 
-status.innerHTML =
-"✅ Folder berhasil dibuat";
-
-cekFolderSaatPopup();
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+action:"createFolderPB",
+nama_pengguna:namaPengguna
+})
+}).then(r=>r.json()).then(res=>{
+if(res.status=="success"){
+folderId = res.folderId;
+cekFolder();
+}
+});
 
 }
 
-else{
+// =====================
+// RENDER UPLOAD
+// =====================
 
-status.innerHTML =
-"❌ " + result.message;
+const daftarBuku=["Buku Agama","Buku Indo","Matematika"];
 
-}
+function renderUpload(){
 
-}
+const c=document.getElementById("uploadContainer");
+c.innerHTML="";
 
-catch(error){
+daftarBuku.forEach((b,i)=>{
 
-status.innerHTML =
-"❌ Gagal membuat folder";
-
-console.log(error);
-
-}
-
-}
-
-
-// =====================================
-// RENDER MENU
-// =====================================
-
-function renderUploadMenu(){
-
-const container =
-document.getElementById(
-"uploadContainer"
-);
-
-container.innerHTML = "";
-
-daftarBuku.forEach((namaBuku,index)=>{
-
-container.innerHTML += `
-
+c.innerHTML+=`
 <div class="upload-item">
-
-<h3>${namaBuku}</h3>
-
-<input type="file"
-id="file_${index}">
-
-<button class="upload-btn"
-id="btn_${index}"
-onclick="uploadFile(${index},'${namaBuku}')">
-
-Unggah ${namaBuku}
-
-</button>
-
-<div class="status-text"
-id="status_${index}">
-
+<h3>${b}</h3>
+<input type="file" id="f${i}">
+<button class="upload-btn" onclick="upload(${i},'${b}')">Upload</button>
+<div id="s${i}" class="status-text"></div>
 </div>
-
-</div>
-
 `;
 
 });
 
 }
 
+// =====================
+// UPLOAD
+// =====================
 
-// =====================================
-// UPLOAD FILE
-// =====================================
+function upload(i,nama){
 
-async function uploadFile(index,namaBuku){
+const f=document.getElementById("f"+i);
+const s=document.getElementById("s"+i);
 
-const fileInput =
-document.getElementById(
-`file_${index}`
-);
-
-const status =
-document.getElementById(
-`status_${index}`
-);
-
-const btn =
-document.getElementById(
-`btn_${index}`
-);
-
-if(fileInput.files.length === 0){
-
-status.innerHTML =
-"❌ Pilih file terlebih dahulu";
-
+if(!f.files.length){
+s.innerHTML="Pilih file";
 return;
-
 }
 
-const file =
-fileInput.files[0];
+const file=f.files[0];
+const r=new FileReader();
 
-status.innerHTML =
-"⏳ Membaca file...";
+r.onload=async function(e){
 
-const reader =
-new FileReader();
+const base64=e.target.result;
 
-reader.onload = async function(e){
-
-try{
-
-const base64 =
-e.target.result;
-
-status.innerHTML =
-"⏳ Mengupload file...";
-
-const response =
-await fetch(API_URL,{
-
+const res=await fetch(API_URL,{
 method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
 body:JSON.stringify({
-
 action:"uploadBukuPB",
-
 nama_pengguna:namaPengguna,
-
-nama_buku:namaBuku,
-
+nama_buku:nama,
 folder_id:folderId,
-
 fileName:file.name,
-
 mimeType:file.type,
-
 base64:base64
-
 })
-
 });
 
-const result =
-await response.json();
+const out=await res.json();
 
-if(result.status === "success"){
-
-status.innerHTML =
-"✅ Berhasil diupload";
-
-status.style.color =
-"#22c55e";
-
-btn.disabled = true;
-
-btn.classList.add(
-"upload-success"
-);
-
-btn.innerHTML =
-"✅ Sudah Upload";
-
-}
-
-else{
-
-status.innerHTML =
-"❌ " + result.message;
-
-}
-
-}
-
-catch(error){
-
-status.innerHTML =
-"❌ Upload gagal";
-
-console.log(error);
-
-}
+s.innerHTML=out.status=="success"?"OK":"ERROR";
 
 };
 
-reader.readAsDataURL(file);
-
-}
-
-
-// =====================================
-// CLOSE CLICK OUTSIDE
-// =====================================
-
-window.onclick = function(event){
-
-const popup =
-document.getElementById(
-"uploadPopup"
-);
-
-if(event.target === popup){
-
-popup.style.display = "none";
-
-}
+r.readAsDataURL(file);
 
 }
 

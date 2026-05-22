@@ -7,32 +7,25 @@
 
 <title>PB Panditan 1</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ====== TIDAK ADA YANG DIUBAH ====== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);min-height:100vh;padding:30px;overflow-x:hidden;color:white;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);color:white;min-height:100vh;padding:30px;}
 .container{max-width:1400px;margin:auto;}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px;flex-wrap:wrap;gap:20px;}
-.user-login{background:rgba(255,255,255,0.15);padding:14px 22px;border-radius:18px;font-size:15px;font-weight:600;backdrop-filter:blur(12px);}
-.title-box h1{font-size:38px;font-weight:700;margin-bottom:8px;}
-.title-box p{opacity:.8;font-size:15px;}
-.back-btn{padding:12px 22px;background:#facc15;color:#1e293b;border:none;border-radius:14px;font-weight:700;font-size:15px;cursor:pointer;}
-.card{background:rgba(255,255,255,0.12);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.18);border-radius:30px;padding:30px;display:grid;grid-template-columns:320px 1fr;gap:30px;}
-.image-box{display:flex;justify-content:center;}
-.image-box img{width:100%;max-width:300px;border-radius:24px;object-fit:cover;}
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
-.menu-btn{padding:18px 20px;border:none;border-radius:20px;background:rgba(255,255,255,0.15);color:white;font-size:16px;font-weight:600;cursor:pointer;text-align:left;}
-.popup{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;justify-content:center;align-items:center;}
-.popup-content{background:#1e293b;padding:35px;border-radius:30px;max-width:700px;width:100%;text-align:center;}
-.folder-btn{width:100%;padding:15px;border:none;border-radius:16px;background:#22c55e;color:white;font-weight:700;}
-.folder-status{margin:20px 0;font-size:14px;color:#facc15;font-weight:600;}
-.upload-item{margin-bottom:20px;padding:18px;background:rgba(255,255,255,0.08);border-radius:18px;text-align:left;}
-.upload-btn{width:100%;padding:12px;border:none;border-radius:12px;background:#2563eb;color:white;font-weight:700;}
-.upload-success{background:#16a34a !important;}
-.status-text{margin-top:10px;font-size:14px;font-weight:600;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
+.user-login{background:rgba(255,255,255,.15);padding:12px 18px;border-radius:14px;font-weight:600;}
+.back-btn{padding:10px 18px;border:none;border-radius:12px;background:#facc15;font-weight:700;cursor:pointer;}
+.card{display:grid;grid-template-columns:300px 1fr;gap:25px;background:rgba(255,255,255,.1);padding:25px;border-radius:20px;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;}
+.menu-btn{padding:15px;border:none;border-radius:14px;background:rgba(255,255,255,.15);color:white;font-weight:600;}
+.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);justify-content:center;align-items:center;}
+.popup-content{background:#1e293b;padding:30px;border-radius:20px;width:90%;max-width:600px;}
+.folder-btn{width:100%;padding:12px;border:none;border-radius:12px;background:#22c55e;color:white;font-weight:700;}
+.folder-status{margin:15px 0;color:#facc15;}
+.upload-item{padding:15px;background:rgba(255,255,255,.1);border-radius:12px;margin-bottom:10px;}
+.upload-btn{width:100%;padding:10px;border:none;border-radius:10px;background:#2563eb;color:white;font-weight:700;}
+.status-text{margin-top:8px;font-size:13px;}
 </style>
 
 </head>
@@ -43,24 +36,18 @@ body{background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);min-height:100vh
 
 <div class="header">
 
-<div class="user-login" id="userLogin">👤 Memuat User...</div>
-
-<div class="title-box">
-<h1>PB PANDITAN 1</h1>
-<p>Pusat Buku dan Administrasi Guru</p>
+<div class="user-login">
+👤 <span id="userLogin">Loading...</span>
 </div>
 
-<button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
-Kembali
-</button>
+<button class="back-btn" onclick="history.back()">Kembali</button>
 
 </div>
 
 <div class="card">
 
-<div class="image-box">
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop">
+<div>
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200" style="width:100%;border-radius:16px;">
 </div>
 
 <div class="menu-grid">
@@ -69,103 +56,77 @@ Kembali
 <button class="menu-btn">📗 Buku Bahasa Indonesia</button>
 <button class="menu-btn">📕 Buku Pancasila</button>
 <button class="menu-btn">📙 Buku Matematika</button>
-<button class="menu-btn">📘 Buku IPAS</button>
-<button class="menu-btn">📗 Buku Inggris</button>
-<button class="menu-btn">🎨 Buku Kesenian</button>
 <button class="menu-btn">📂 Modul Ajar</button>
 
-<button class="menu-btn" onclick="openUploadPopup()">⬆️ Unggah Berkas</button>
+<button class="menu-btn" onclick="openUpload()">⬆️ Upload</button>
 
 </div>
+
 </div>
 
 </div>
 
 <!-- POPUP -->
-<div class="popup" id="uploadPopup">
+<div class="popup" id="popup">
+
 <div class="popup-content">
 
-<h2>Unggah Berkas Guru</h2>
+<h3>Upload Berkas</h3>
 
-<button class="folder-btn" id="folderBtn" onclick="buatFolder()">📁 Buat Folder Saya</button>
+<button class="folder-btn" onclick="createFolder()">Buat Folder</button>
 
-<div class="folder-status" id="folderStatus">Folder belum dibuat</div>
+<div class="folder-status" id="folderStatus">Belum dibuat</div>
 
-<div id="uploadContainer" style="display:none;"></div>
+<div id="uploadBox" style="display:none;"></div>
 
 </div>
+
 </div>
 
 <script>
 
-// =========================
-// API
-// =========================
-const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+// =====================
+// SAMA PERSIS DASHBOARD
+// =====================
+const loginUser = localStorage.getItem("loginUser");
+const loginNama = localStorage.getItem("namaPengguna");
 
-// =========================
-// FIX LOGIN SESSION
-// =========================
-const usernameLogin =
-localStorage.getItem("username") ||
-localStorage.getItem("nama_pengguna") ||
-sessionStorage.getItem("username") ||
-"";
+if(!loginUser){
+window.location.href = "index.html";
+}
 
-console.log("LOGIN DETECT:", usernameLogin);
+document.getElementById("userLogin").innerText =
+loginNama || loginUser;
 
-let namaPengguna = "";
+// =====================
+// VAR
+// =====================
 let folderId = "";
+const API = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// =========================
-// LOAD USER
-// =========================
-window.onload = async function () {
-
-if (!usernameLogin || usernameLogin.trim() === "") {
-document.getElementById("userLogin").innerHTML =
-"❌ Session login tidak ditemukan (silakan login ulang)";
-return;
+// =====================
+function openUpload(){
+document.getElementById("popup").style.display="flex";
 }
 
-try {
+// =====================
+function createFolder(){
 
-const res = await fetch(API_URL + "?action=getUsers");
-const result = await res.json();
-
-if (result.status === "success") {
-
-const user = result.data.find(u => u.username === usernameLogin);
-
-if (user) {
-namaPengguna = user.nama;
-document.getElementById("userLogin").innerHTML = "👤 " + namaPengguna;
-} else {
-document.getElementById("userLogin").innerHTML = "❌ User tidak ditemukan";
+fetch(API,{
+method:"POST",
+body:JSON.stringify({
+action:"createFolderPB",
+nama_pengguna: loginNama || loginUser
+}),
+headers:{ "Content-Type":"text/plain;charset=utf-8" }
+})
+.then(r=>r.json())
+.then(res=>{
+if(res.status==="success"){
+folderId=res.folderId;
+document.getElementById("folderStatus").innerText="Folder siap";
 }
-
-}
-
-} catch (e) {
-console.log(e);
-document.getElementById("userLogin").innerHTML = "❌ Gagal memuat user";
-}
-
-};
-
-// =========================
-// POPUP
-// =========================
-function openUploadPopup() {
-if (!namaPengguna) return alert("Login belum valid");
-document.getElementById("uploadPopup").style.display = "flex";
-}
-
-// =========================
-// CLOSE
-// =========================
-function closeUploadPopup() {
-document.getElementById("uploadPopup").style.display = "none";
+});
 }
 
 </script>

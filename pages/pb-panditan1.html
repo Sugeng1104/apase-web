@@ -6,15 +6,15 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>PB Panditan 1</title>
 
 <link rel="preconnect"
-href="https://fonts.googleapis.com">
+      href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+      rel="stylesheet">
 
 <style>
 
@@ -84,6 +84,25 @@ margin-bottom:8px;
 opacity:.8;
 
 font-size:15px;
+
+}
+
+.user-login{
+
+margin-top:14px;
+
+display:inline-block;
+
+padding:10px 16px;
+
+background:
+rgba(255,255,255,0.15);
+
+border-radius:14px;
+
+font-size:14px;
+
+font-weight:600;
 
 }
 
@@ -298,16 +317,6 @@ cursor:pointer;
 
 margin-bottom:20px;
 
-transition:.3s;
-
-}
-
-.folder-btn.disabled{
-
-background:#64748b !important;
-
-cursor:not-allowed;
-
 }
 
 .folder-status{
@@ -377,8 +386,6 @@ font-weight:700;
 
 cursor:pointer;
 
-transition:.3s;
-
 }
 
 .upload-btn:hover{
@@ -390,8 +397,6 @@ background:#1d4ed8;
 .upload-success{
 
 background:#16a34a !important;
-
-cursor:not-allowed;
 
 }
 
@@ -428,17 +433,26 @@ grid-template-columns:1fr;
 <div class="title-box">
 
 <h1>
-PERANGKAT BELAJAR PANDITAN 1
+PB PANDITAN 1
 </h1>
 
 <p>
 Pusat Buku dan Administrasi Guru
 </p>
 
+<div class="user-login">
+
+👤 User Login :
+<span id="namaUserLogin">
+-
+</span>
+
+</div>
+
 </div>
 
 <button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
+onclick="window.location.href='dashboard.html'">
 
 Kembali
 
@@ -495,8 +509,8 @@ Unggah Berkas Guru
 </h2>
 
 <button class="folder-btn"
-id="folderBtn"
-onclick="buatFolder()">
+        id="folderBtn"
+        onclick="buatFolder()">
 
 📁 Buat Folder Saya
 
@@ -510,7 +524,7 @@ Folder belum dibuat
 </div>
 
 <div id="uploadContainer"
-style="display:none;">
+     style="display:none;">
 
 </div>
 
@@ -534,34 +548,25 @@ Tutup
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-
 // =====================================
-// LOGIN USER
+// USER LOGIN
 // =====================================
-
-// AMBIL DARI LOGIN
 
 const namaPengguna =
-localStorage.getItem("nama_pengguna") || "";
+localStorage.getItem("nama_pengguna") ||
+localStorage.getItem("username") ||
+"";
 
-// JIKA BELUM LOGIN
-
-if(!namaPengguna){
-
-alert("Session login habis");
-
-window.location.href =
-"login.html";
-
-}
-
+document.getElementById(
+"namaUserLogin"
+).innerHTML =
+namaPengguna || "-";
 
 // =====================================
 // FOLDER ID
 // =====================================
 
 let folderId = "";
-
 
 // =====================================
 // LIST BUKU
@@ -585,7 +590,6 @@ const daftarBuku = [
 
 ];
 
-
 // =====================================
 // OPEN POPUP
 // =====================================
@@ -600,7 +604,6 @@ cekFolderSaatPopup();
 
 }
 
-
 // =====================================
 // CLOSE POPUP
 // =====================================
@@ -613,9 +616,8 @@ document.getElementById(
 
 }
 
-
 // =====================================
-// CEK FOLDER
+// CHECK FOLDER
 // =====================================
 
 async function cekFolderSaatPopup(){
@@ -653,9 +655,11 @@ result.folderId;
 
 folderBtn.disabled = true;
 
-folderBtn.classList.add(
-"disabled"
-);
+folderBtn.style.background =
+"#64748b";
+
+folderBtn.style.cursor =
+"not-allowed";
 
 folderBtn.innerHTML =
 "✅ Folder Sudah Dibuat";
@@ -676,9 +680,11 @@ folderId = "";
 
 folderBtn.disabled = false;
 
-folderBtn.classList.remove(
-"disabled"
-);
+folderBtn.style.background =
+"#22c55e";
+
+folderBtn.style.cursor =
+"pointer";
 
 folderBtn.innerHTML =
 "📁 Buat Folder Saya";
@@ -700,7 +706,6 @@ console.log(error);
 }
 
 }
-
 
 // =====================================
 // BUAT FOLDER
@@ -772,7 +777,6 @@ console.log(error);
 
 }
 
-
 // =====================================
 // RENDER MENU UPLOAD
 // =====================================
@@ -795,18 +799,18 @@ container.innerHTML += `
 <h3>${namaBuku}</h3>
 
 <input type="file"
-id="file_${index}">
+       id="file_${index}">
 
 <button class="upload-btn"
-id="btn_${index}"
-onclick="uploadFile(${index},'${namaBuku}')">
+        id="btn_${index}"
+        onclick="uploadFile(${index},'${namaBuku}')">
 
 Unggah ${namaBuku}
 
 </button>
 
 <div class="status-text"
-id="status_${index}">
+     id="status_${index}">
 
 </div>
 
@@ -817,7 +821,6 @@ id="status_${index}">
 });
 
 }
-
 
 // =====================================
 // UPLOAD FILE
@@ -942,7 +945,6 @@ console.log(error);
 reader.readAsDataURL(file);
 
 }
-
 
 // =====================================
 // CLOSE CLICK OUTSIDE

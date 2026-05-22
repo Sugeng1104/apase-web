@@ -268,7 +268,7 @@ padding:35px;
 
 border-radius:30px;
 
-max-width:650px;
+max-width:700px;
 
 width:100%;
 
@@ -296,43 +296,13 @@ transform:scale(1);
 
 margin-bottom:20px;
 
-font-size:28px;
+font-size:30px;
 
 text-align:center;
 
 }
 
-.close-btn{
-
-margin-top:25px;
-
-padding:12px 24px;
-
-border:none;
-
-border-radius:14px;
-
-background:#facc15;
-
-color:#1e293b;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-width:100%;
-
-}
-
-.close-btn:hover{
-
-background:#fde047;
-
-}
-
-/* UPLOAD */
+/* BUTTON FOLDER */
 
 .folder-btn{
 
@@ -374,27 +344,29 @@ cursor:not-allowed;
 
 }
 
+/* STATUS */
+
 .folder-status{
 
-margin-bottom:20px;
+margin-bottom:25px;
 
 font-size:15px;
 
 font-weight:600;
 
-color:#facc15;
-
 line-height:1.8;
 
 text-align:center;
 
+color:#facc15;
+
 }
+
+/* UPLOAD */
 
 .upload-container{
 
 display:none;
-
-margin-top:20px;
 
 }
 
@@ -403,7 +375,7 @@ margin-top:20px;
 background:
 rgba(255,255,255,0.08);
 
-padding:18px;
+padding:20px;
 
 border-radius:18px;
 
@@ -425,15 +397,15 @@ margin-bottom:12px;
 
 width:100%;
 
-padding:12px;
+padding:14px;
 
 border:none;
 
-border-radius:12px;
+border-radius:14px;
 
 background:white;
 
-margin-bottom:12px;
+margin-bottom:14px;
 
 }
 
@@ -451,9 +423,9 @@ background:#64748b;
 
 color:white;
 
-font-weight:700;
-
 font-size:15px;
+
+font-weight:700;
 
 cursor:not-allowed;
 
@@ -477,15 +449,47 @@ background:#1d4ed8;
 
 .status-text{
 
-margin-top:10px;
+margin-top:12px;
 
 font-size:14px;
 
 font-weight:600;
 
-line-height:1.7;
+line-height:1.8;
 
-color:#facc15;
+}
+
+/* CLOSE */
+
+.close-btn{
+
+margin-top:20px;
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:#facc15;
+
+color:#1e293b;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.close-btn:hover{
+
+background:#fde047;
 
 }
 
@@ -528,7 +532,7 @@ Pusat Buku dan Administrasi Guru
 </div>
 
 <button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
+onclick="window.location.href='dashboard.html'">
 
 Kembali
 
@@ -541,7 +545,7 @@ Kembali
 <div class="image-box">
 
 <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
-     alt="Buku">
+alt="Buku">
 
 </div>
 
@@ -618,27 +622,21 @@ Tutup
 
 <script>
 
-// =====================================
 // API URL
-// =====================================
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// =====================================
-// LOGIN USER
-// =====================================
-
+// USER
 const loginUser =
 localStorage.getItem("loginUser") || "guru";
 
 const namaPengguna =
 localStorage.getItem("namaPengguna") || loginUser;
 
-// =====================================
-// DAFTAR BUKU
-// =====================================
+// FOLDER ID
+let folderId = "";
 
+// DAFTAR BUKU
 const daftarBuku = [
 
 "Buku Agama",
@@ -657,28 +655,18 @@ const daftarBuku = [
 
 ];
 
-// =====================================
-// GLOBAL
-// =====================================
-
-let folderId = "";
-
-// =====================================
 // OPEN POPUP
-// =====================================
-
 function openUploadPopup(){
 
 document.getElementById(
 "uploadPopup"
 ).style.display = "flex";
 
+cekFolderSudahAda();
+
 }
 
-// =====================================
 // CLOSE POPUP
-// =====================================
-
 function closeUploadPopup(){
 
 document.getElementById(
@@ -687,10 +675,48 @@ document.getElementById(
 
 }
 
-// =====================================
-// BUAT FOLDER
-// =====================================
+// CEK STATUS FOLDER
+function cekFolderSudahAda(){
 
+const status =
+document.getElementById(
+"folderStatus"
+);
+
+const folderBtn =
+document.getElementById(
+"folderBtn"
+);
+
+// CEK LOCAL
+const savedFolderId =
+localStorage.getItem(
+"folderIdPB"
+);
+
+if(savedFolderId){
+
+folderId = savedFolderId;
+
+folderBtn.disabled = true;
+
+folderBtn.classList.add(
+"disabled"
+);
+
+folderBtn.innerHTML =
+"✅ Folder Sudah Dibuat";
+
+status.innerHTML =
+"<span style='color:#22c55e'>✅ Folder aktif dan siap digunakan</span>";
+
+tampilkanFormUpload();
+
+}
+
+}
+
+// BUAT FOLDER
 async function buatFolder(){
 
 const status =
@@ -704,7 +730,7 @@ document.getElementById(
 );
 
 status.innerHTML =
-"⏳ Sedang membuat folder...";
+"⏳ Membuat folder...";
 
 try{
 
@@ -735,8 +761,14 @@ if(result.status === "success"){
 folderId =
 result.folderId;
 
+// SIMPAN LOCAL
+localStorage.setItem(
+"folderIdPB",
+folderId
+);
+
 status.innerHTML =
-`✅ Folder berhasil dibuat : ${namaPengguna}`;
+"<span style='color:#22c55e'>✅ Folder berhasil dibuat</span>";
 
 folderBtn.disabled = true;
 
@@ -769,10 +801,7 @@ console.log(error);
 
 }
 
-// =====================================
-// TAMPILKAN FORM UPLOAD
-// =====================================
-
+// FORM UPLOAD
 function tampilkanFormUpload(){
 
 const container =
@@ -796,21 +825,22 @@ ${namaBuku}
 </div>
 
 <input type="file"
-       class="file-input"
-       id="file-${index}">
+id="file${index}"
+class="file-input">
 
-<button class="upload-btn"
-        id="btn-${index}"
-        disabled
-        onclick="uploadBuku(${index},'${namaBuku}')">
+<button
+class="upload-btn"
+id="btn${index}"
+disabled
+onclick="uploadFile(${index},'${namaBuku}')">
 
 Kirim ${namaBuku}
 
 </button>
 
-<div class="status-text"
-     id="status-${index}">
-
+<div
+class="status-text"
+id="status${index}">
 </div>
 
 </div>
@@ -820,18 +850,17 @@ Kirim ${namaBuku}
 });
 
 // AKTIFKAN TOMBOL
-
-daftarBuku.forEach((item,index)=>{
+daftarBuku.forEach((_,index)=>{
 
 document.getElementById(
-`file-${index}`
+`file${index}`
 ).addEventListener(
 "change",
 function(){
 
 const btn =
 document.getElementById(
-`btn-${index}`
+`btn${index}`
 );
 
 if(this.files.length > 0){
@@ -858,26 +887,28 @@ btn.classList.remove(
 
 }
 
-// =====================================
-// UPLOAD BUKU
-// =====================================
-
-async function uploadBuku(index,namaBuku){
+// UPLOAD FILE
+async function uploadFile(index,namaBuku){
 
 const fileInput =
 document.getElementById(
-`file-${index}`
+`file${index}`
 );
 
 const status =
 document.getElementById(
-`status-${index}`
+`status${index}`
+);
+
+const btn =
+document.getElementById(
+`btn${index}`
 );
 
 if(fileInput.files.length === 0){
 
 status.innerHTML =
-"❌ Pilih file terlebih dahulu";
+"❌ Pilih file";
 
 return;
 
@@ -897,9 +928,6 @@ async function(e){
 
 try{
 
-const base64 =
-e.target.result;
-
 status.innerHTML =
 "⏳ Mengupload file...";
 
@@ -916,17 +944,17 @@ body:JSON.stringify({
 
 action:"uploadBukuPB",
 
+folder_id:folderId,
+
 nama_pengguna:namaPengguna,
 
 nama_buku:namaBuku,
-
-folder_id:folderId,
 
 fileName:file.name,
 
 mimeType:file.type,
 
-base64:base64
+base64:e.target.result
 
 })
 
@@ -938,24 +966,21 @@ await response.json();
 if(result.status === "success"){
 
 status.innerHTML =
-"✅ File berhasil diupload";
+"<span style='color:#22c55e'>✅ Sudah Upload</span>";
 
 fileInput.disabled = true;
 
-document.getElementById(
-`btn-${index}`
-).disabled = true;
+btn.disabled = true;
 
-document.getElementById(
-`btn-${index}`
-).classList.remove(
+btn.classList.remove(
 "active"
 );
 
-document.getElementById(
-`btn-${index}`
-).innerHTML =
-"✅ Sudah Dikirim";
+btn.style.background =
+"#22c55e";
+
+btn.innerHTML =
+"✅ Sudah Upload";
 
 }else{
 
@@ -981,10 +1006,7 @@ reader.readAsDataURL(file);
 
 }
 
-// =====================================
 // CLOSE OUTSIDE
-// =====================================
-
 window.onclick = function(event){
 
 const popup =
@@ -994,7 +1016,8 @@ document.getElementById(
 
 if(event.target === popup){
 
-popup.style.display = "none";
+popup.style.display =
+"none";
 
 }
 

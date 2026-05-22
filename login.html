@@ -230,28 +230,40 @@
 
       border-radius:15px;
 
-      background:white;
+      background:#9ca3af;
 
-      color:#1e3a8a;
+      color:white;
 
       font-size:16px;
 
       font-weight:700;
 
-      cursor:pointer;
+      cursor:not-allowed;
 
       transition:.3s;
 
       margin-top:10px;
 
+      opacity:.7;
+
     }
 
-    .login-btn:hover{
+    .login-btn.active{
+
+      background:#2563eb;
+
+      cursor:pointer;
+
+      opacity:1;
+
+    }
+
+    .login-btn.active:hover{
 
       transform:
       translateY(-2px);
 
-      background:#dbeafe;
+      background:#1d4ed8;
 
       box-shadow:
       0 10px 20px rgba(0,0,0,0.2);
@@ -381,7 +393,9 @@
 
     <!-- BUTTON -->
     <button class="login-btn"
-            onclick="login()">
+            onclick="login()"
+            id="loginBtn"
+            disabled>
 
       LOGIN
 
@@ -452,10 +466,68 @@
 
 
     // =====================================
+    // AKTIFKAN TOMBOL LOGIN
+    // =====================================
+
+    const usernameInput =
+    document.getElementById("username");
+
+    const passwordInput =
+    document.getElementById("password");
+
+    const loginBtn =
+    document.getElementById("loginBtn");
+
+    function checkInput(){
+
+      const username =
+      usernameInput.value.trim();
+
+      const password =
+      passwordInput.value.trim();
+
+      if(username !== "" && password !== ""){
+
+        loginBtn.disabled = false;
+
+        loginBtn.classList.add(
+        "active"
+        );
+
+      }
+
+      else{
+
+        loginBtn.disabled = true;
+
+        loginBtn.classList.remove(
+        "active"
+        );
+
+      }
+
+    }
+
+    usernameInput.addEventListener(
+    "input",
+    checkInput
+    );
+
+    passwordInput.addEventListener(
+    "input",
+    checkInput
+    );
+
+
+    // =====================================
     // LOGIN SYSTEM
     // =====================================
 
     async function login(){
+
+      if(loginBtn.disabled){
+        return;
+      }
 
       const username =
       document.getElementById("username")
@@ -524,10 +596,7 @@
             result.username
           );
 
-          // =========================
-          // CEK ROLE ADMIN
-          // =========================
-
+          // ADMIN
           if(result.username.toLowerCase() === "admin"){
 
             window.location.href =
@@ -535,10 +604,7 @@
 
           }
 
-          // =========================
           // USER BIASA
-          // =========================
-
           else{
 
             window.location.href =

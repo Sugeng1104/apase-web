@@ -2,13 +2,13 @@
 <html lang="id">
 
 <head>
-      
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>pb Panditan 1</title>
+<title>PB Panditan 1</title>
 
 <link rel="preconnect"
       href="https://fonts.googleapis.com">
@@ -89,7 +89,7 @@ font-size:15px;
 
 }
 
-/* BUTTON KEMBALI */
+/* BUTTON */
 
 .back-btn{
 
@@ -268,11 +268,9 @@ padding:35px;
 
 border-radius:30px;
 
-max-width:520px;
+max-width:650px;
 
 width:100%;
-
-text-align:center;
 
 animation:popupShow .3s ease;
 
@@ -296,19 +294,11 @@ transform:scale(1);
 
 .popup-content h2{
 
-margin-bottom:15px;
+margin-bottom:20px;
 
 font-size:28px;
 
-}
-
-.popup-content p{
-
-font-size:16px;
-
-line-height:1.8;
-
-opacity:.9;
+text-align:center;
 
 }
 
@@ -332,6 +322,8 @@ cursor:pointer;
 
 transition:.3s;
 
+width:100%;
+
 }
 
 .close-btn:hover{
@@ -346,7 +338,7 @@ background:#fde047;
 
 width:100%;
 
-padding:15px;
+padding:16px;
 
 border:none;
 
@@ -374,11 +366,19 @@ background:#16a34a;
 
 }
 
+.folder-btn.disabled{
+
+background:#64748b;
+
+cursor:not-allowed;
+
+}
+
 .folder-status{
 
 margin-bottom:20px;
 
-font-size:14px;
+font-size:15px;
 
 font-weight:600;
 
@@ -386,31 +386,58 @@ color:#facc15;
 
 line-height:1.8;
 
+text-align:center;
+
 }
 
-.upload-box{
+.upload-container{
 
 display:none;
 
-margin-top:10px;
+margin-top:20px;
 
 }
 
-.upload-label{
+.upload-item{
 
-display:block;
+background:
+rgba(255,255,255,0.08);
 
-margin-bottom:10px;
+padding:18px;
 
-font-weight:600;
+border-radius:18px;
 
-font-size:15px;
+margin-bottom:18px;
 
-text-align:left;
+}
+
+.upload-title{
+
+font-size:16px;
+
+font-weight:700;
+
+margin-bottom:12px;
 
 }
 
 .file-input{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:12px;
+
+background:white;
+
+margin-bottom:12px;
+
+}
+
+.upload-btn{
 
 width:100%;
 
@@ -420,31 +447,13 @@ border:none;
 
 border-radius:14px;
 
-background:white;
-
-color:#1e293b;
-
-margin-bottom:20px;
-
-}
-
-.kirim-btn{
-
-width:100%;
-
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
 background:#64748b;
 
 color:white;
 
-font-size:16px;
-
 font-weight:700;
+
+font-size:15px;
 
 cursor:not-allowed;
 
@@ -452,7 +461,7 @@ transition:.3s;
 
 }
 
-.kirim-btn.active{
+.upload-btn.active{
 
 background:#2563eb;
 
@@ -460,21 +469,21 @@ cursor:pointer;
 
 }
 
-.kirim-btn.active:hover{
+.upload-btn.active:hover{
 
 background:#1d4ed8;
 
 }
 
-.upload-status{
+.status-text{
 
-margin-top:18px;
+margin-top:10px;
 
 font-size:14px;
 
 font-weight:600;
 
-line-height:1.8;
+line-height:1.7;
 
 color:#facc15;
 
@@ -509,7 +518,7 @@ justify-content:center;
 <div class="title-box">
 
 <h1>
-PERANGKAT BELAJAR PANDITAN 1
+PB PANDITAN 1
 </h1>
 
 <p>
@@ -532,80 +541,31 @@ Kembali
 <div class="image-box">
 
 <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
-alt="Buku">
+     alt="Buku">
 
 </div>
 
 <div class="menu-grid">
 
-<button class="menu-btn"
-onclick="showPopup('Buku Agama')">
-📘 Buku Agama
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Bahasa Indonesia')">
-📗 Buku Bahasa Indonesia
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Pancasila')">
-📕 Buku Pancasila
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Matematika')">
-📙 Buku Matematika
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku IPAS')">
-📘 Buku IPAS
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Bahasa Inggris')">
-📗 Buku Bahasa Inggris
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Kesenian')">
-🎨 Buku Kesenian
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku Bahasa Jawa')">
-📕 Buku Bahasa Jawa
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku BTQ')">
-📙 Buku BTQ
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Modul Ajar')">
-📂 Modul Ajar
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Nilai Siswa')">
-📊 Nilai Siswa
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Jurnal Harian')">
-📝 Jurnal Harian
-</button>
-
-<button class="menu-btn"
-onclick="showPopup('Buku BK')">
-📚 Buku BK
-</button>
+<button class="menu-btn">📘 Buku Agama</button>
+<button class="menu-btn">📗 Buku Bahasa Indonesia</button>
+<button class="menu-btn">📕 Buku Pancasila</button>
+<button class="menu-btn">📙 Buku Matematika</button>
+<button class="menu-btn">📘 Buku IPAS</button>
+<button class="menu-btn">📗 Buku Bahasa Inggris</button>
+<button class="menu-btn">🎨 Buku Kesenian</button>
+<button class="menu-btn">📕 Buku Bahasa Jawa</button>
+<button class="menu-btn">📙 Buku BTQ</button>
+<button class="menu-btn">📂 Modul Ajar</button>
+<button class="menu-btn">📊 Nilai Siswa</button>
+<button class="menu-btn">📝 Jurnal Harian</button>
+<button class="menu-btn">📚 Buku BK</button>
 
 <button class="menu-btn"
 onclick="openUploadPopup()">
+
 ⬆️ Unggah Berkas
+
 </button>
 
 </div>
@@ -614,31 +574,7 @@ onclick="openUploadPopup()">
 
 </div>
 
-<!-- POPUP INFO -->
-
-<div class="popup"
-id="popup">
-
-<div class="popup-content">
-
-<h2 id="popupTitle">
-Informasi
-</h2>
-
-<p id="popupText">
-Guru belum unggah data
-</p>
-
-<button class="close-btn"
-onclick="closePopup()">
-Tutup
-</button>
-
-</div>
-
-</div>
-
-<!-- POPUP UPLOAD -->
+<!-- POPUP -->
 
 <div class="popup"
 id="uploadPopup">
@@ -650,44 +586,30 @@ Unggah Berkas Guru
 </h2>
 
 <button class="folder-btn"
+id="folderBtn"
 onclick="buatFolder()">
+
 📁 Buat Folder Saya
+
 </button>
 
 <div class="folder-status"
 id="folderStatus">
+
 Folder belum dibuat
+
 </div>
 
-<div class="upload-box"
-id="uploadBox">
-
-<label class="upload-label">
-Pilih File Berkas
-</label>
-
-<input type="file"
-id="fileInput"
-class="file-input">
-
-<button class="kirim-btn"
-id="kirimBtn"
-disabled
-onclick="uploadFile()">
-
-Kirim Berkas
-
-</button>
-
-<div class="upload-status"
-id="uploadStatus">
-</div>
+<div class="upload-container"
+id="uploadContainer">
 
 </div>
 
 <button class="close-btn"
 onclick="closeUploadPopup()">
+
 Tutup
+
 </button>
 
 </div>
@@ -703,7 +625,6 @@ Tutup
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-
 // =====================================
 // LOGIN USER
 // =====================================
@@ -714,44 +635,36 @@ localStorage.getItem("loginUser") || "guru";
 const namaPengguna =
 localStorage.getItem("namaPengguna") || loginUser;
 
-
 // =====================================
-// SHOW POPUP
-// =====================================
-
-function showPopup(namaBuku){
-
-document.getElementById(
-"popupTitle"
-).innerText = namaBuku;
-
-document.getElementById(
-"popupText"
-).innerText =
-`Guru belum unggah ${namaBuku}`;
-
-document.getElementById(
-"popup"
-).style.display = "flex";
-
-}
-
-
-// =====================================
-// CLOSE POPUP
+// DAFTAR BUKU
 // =====================================
 
-function closePopup(){
+const daftarBuku = [
 
-document.getElementById(
-"popup"
-).style.display = "none";
+"Buku Agama",
+"Buku Bahasa Indonesia",
+"Buku Pancasila",
+"Buku Matematika",
+"Buku IPAS",
+"Buku Bahasa Inggris",
+"Buku Kesenian",
+"Buku Bahasa Jawa",
+"Buku BTQ",
+"Modul Ajar",
+"Nilai Siswa",
+"Jurnal Harian",
+"Buku BK"
 
-}
-
+];
 
 // =====================================
-// OPEN POPUP UPLOAD
+// GLOBAL
+// =====================================
+
+let folderId = "";
+
+// =====================================
+// OPEN POPUP
 // =====================================
 
 function openUploadPopup(){
@@ -762,9 +675,8 @@ document.getElementById(
 
 }
 
-
 // =====================================
-// CLOSE POPUP UPLOAD
+// CLOSE POPUP
 // =====================================
 
 function closeUploadPopup(){
@@ -775,44 +687,6 @@ document.getElementById(
 
 }
 
-
-// =====================================
-// AKTIFKAN TOMBOL KIRIM
-// =====================================
-
-document.getElementById(
-"fileInput"
-).addEventListener(
-"change",
-function(){
-
-const btn =
-document.getElementById(
-"kirimBtn"
-);
-
-if(this.files.length > 0){
-
-btn.disabled = false;
-
-btn.classList.add(
-"active"
-);
-
-}else{
-
-btn.disabled = true;
-
-btn.classList.remove(
-"active"
-);
-
-}
-
-}
-);
-
-
 // =====================================
 // BUAT FOLDER
 // =====================================
@@ -822,6 +696,11 @@ async function buatFolder(){
 const status =
 document.getElementById(
 "folderStatus"
+);
+
+const folderBtn =
+document.getElementById(
+"folderBtn"
 );
 
 status.innerHTML =
@@ -853,17 +732,22 @@ await response.json();
 
 if(result.status === "success"){
 
-localStorage.setItem(
-"pbFolderId",
-result.folderId
-);
+folderId =
+result.folderId;
 
 status.innerHTML =
 `✅ Folder berhasil dibuat : ${namaPengguna}`;
 
-document.getElementById(
-"uploadBox"
-).style.display = "block";
+folderBtn.disabled = true;
+
+folderBtn.classList.add(
+"disabled"
+);
+
+folderBtn.innerHTML =
+"✅ Folder Sudah Dibuat";
+
+tampilkanFormUpload();
 
 }else{
 
@@ -885,21 +769,109 @@ console.log(error);
 
 }
 
+// =====================================
+// TAMPILKAN FORM UPLOAD
+// =====================================
+
+function tampilkanFormUpload(){
+
+const container =
+document.getElementById(
+"uploadContainer"
+);
+
+container.style.display =
+"block";
+
+container.innerHTML = "";
+
+daftarBuku.forEach((namaBuku,index)=>{
+
+container.innerHTML += `
+
+<div class="upload-item">
+
+<div class="upload-title">
+${namaBuku}
+</div>
+
+<input type="file"
+       class="file-input"
+       id="file-${index}">
+
+<button class="upload-btn"
+        id="btn-${index}"
+        disabled
+        onclick="uploadBuku(${index},'${namaBuku}')">
+
+Kirim ${namaBuku}
+
+</button>
+
+<div class="status-text"
+     id="status-${index}">
+
+</div>
+
+</div>
+
+`;
+
+});
+
+// AKTIFKAN TOMBOL
+
+daftarBuku.forEach((item,index)=>{
+
+document.getElementById(
+`file-${index}`
+).addEventListener(
+"change",
+function(){
+
+const btn =
+document.getElementById(
+`btn-${index}`
+);
+
+if(this.files.length > 0){
+
+btn.disabled = false;
+
+btn.classList.add(
+"active"
+);
+
+}else{
+
+btn.disabled = true;
+
+btn.classList.remove(
+"active"
+);
+
+}
+
+});
+
+});
+
+}
 
 // =====================================
-// UPLOAD FILE
+// UPLOAD BUKU
 // =====================================
 
-async function uploadFile(){
+async function uploadBuku(index,namaBuku){
 
 const fileInput =
 document.getElementById(
-"fileInput"
+`file-${index}`
 );
 
 const status =
 document.getElementById(
-"uploadStatus"
+`status-${index}`
 );
 
 if(fileInput.files.length === 0){
@@ -920,7 +892,8 @@ status.innerHTML =
 const reader =
 new FileReader();
 
-reader.onload = async function(e){
+reader.onload =
+async function(e){
 
 try{
 
@@ -945,11 +918,9 @@ action:"uploadBukuPB",
 
 nama_pengguna:namaPengguna,
 
-nama_buku:file.name,
+nama_buku:namaBuku,
 
-folder_id:localStorage.getItem(
-"pbFolderId"
-),
+folder_id:folderId,
 
 fileName:file.name,
 
@@ -969,17 +940,22 @@ if(result.status === "success"){
 status.innerHTML =
 "✅ File berhasil diupload";
 
-fileInput.value = "";
+fileInput.disabled = true;
 
 document.getElementById(
-"kirimBtn"
+`btn-${index}`
 ).disabled = true;
 
 document.getElementById(
-"kirimBtn"
+`btn-${index}`
 ).classList.remove(
 "active"
 );
+
+document.getElementById(
+`btn-${index}`
+).innerHTML =
+"✅ Sudah Dikirim";
 
 }else{
 
@@ -1005,28 +981,20 @@ reader.readAsDataURL(file);
 
 }
 
-
 // =====================================
-// CLOSE CLICK OUTSIDE
+// CLOSE OUTSIDE
 // =====================================
 
 window.onclick = function(event){
 
 const popup =
-document.getElementById("popup");
-
-const uploadPopup =
-document.getElementById("uploadPopup");
+document.getElementById(
+"uploadPopup"
+);
 
 if(event.target === popup){
 
 popup.style.display = "none";
-
-}
-
-if(event.target === uploadPopup){
-
-uploadPopup.style.display = "none";
 
 }
 

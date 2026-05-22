@@ -45,11 +45,9 @@ color:white;
 
 }
 
-/* CONTAINER */
-
 .container{
 
-max-width:1400px;
+max-width:1600px;
 
 margin:auto;
 
@@ -197,7 +195,7 @@ font-weight:600;
 
 }
 
-/* GURU BOX */
+/* BALOK */
 
 .guru-box{
 
@@ -308,26 +306,39 @@ width:100%;
 
 border-collapse:collapse;
 
-}
+min-width:1200px;
 
-th,
-td{
+background:white;
 
-padding:15px;
+border-radius:18px;
 
-text-align:left;
-
-border-bottom:
-1px solid rgba(255,255,255,0.1);
-
-font-size:14px;
+overflow:hidden;
 
 }
 
 th{
 
-background:
-rgba(255,255,255,0.1);
+padding:15px;
+
+background:#facc15;
+
+color:#1e293b;
+
+border:2px solid black;
+
+font-size:14px;
+
+}
+
+td{
+
+padding:14px;
+
+border:2px solid black;
+
+font-size:14px;
+
+color:#1e293b;
 
 }
 
@@ -350,7 +361,7 @@ height:100%;
 overflow:auto;
 
 background:
-rgba(0,0,0,0.6);
+rgba(0,0,0,0.7);
 
 padding:30px;
 
@@ -362,7 +373,7 @@ background:#1e293b;
 
 border-radius:30px;
 
-max-width:900px;
+max-width:1400px;
 
 margin:auto;
 
@@ -452,21 +463,11 @@ color:white;
 
 .save-btn{
 
-width:100%;
-
-margin-top:25px;
-
-padding:15px;
+padding:12px 22px;
 
 border:none;
 
-border-radius:16px;
-
-background:white;
-
-color:#1e3a8a;
-
-font-size:16px;
+border-radius:14px;
 
 font-weight:700;
 
@@ -478,17 +479,63 @@ transition:.3s;
 
 .save-btn:hover{
 
-background:#dbeafe;
-
 transform:translateY(-2px);
 
 }
 
-/* LOADING */
+/* BUTTON */
+
+.edit-btn{
+
+padding:8px 14px;
+
+border:none;
+
+border-radius:10px;
+
+background:#2563eb;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+margin-right:6px;
+
+}
+
+.delete-btn{
+
+padding:8px 14px;
+
+border:none;
+
+border-radius:10px;
+
+background:#dc2626;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+/* EDITABLE */
+
+td[contenteditable="true"]{
+
+background:#dbeafe;
+
+outline:2px solid #2563eb;
+
+}
 
 .loading-animation{
 
-opacity:0.8;
+opacity:0.7;
 
 pointer-events:none;
 
@@ -497,40 +544,23 @@ pointer-events:none;
 .loading-dots::after{
 
 content:'';
-
 animation:dots 1.5s infinite;
 
 }
 
 @keyframes dots{
 
-0%{
-content:'';
-}
-
-25%{
-content:'.';
-}
-
-50%{
-content:'..';
-}
-
-75%{
-content:'...';
-}
-
-100%{
-content:'';
-}
+0%{content:'';}
+25%{content:'.';}
+50%{content:'..';}
+75%{content:'...';}
+100%{content:'';}
 
 }
 
 #uploadStatus{
 
 margin-top:20px;
-
-text-align:center;
 
 font-size:14px;
 
@@ -577,7 +607,7 @@ ADMIN PANEL APASE WEB
 </h1>
 
 <button class="logout-btn"
-        onclick="logout()">
+onclick="logout()">
 
 Logout
 
@@ -589,10 +619,10 @@ Logout
 
 <div class="menu-grid">
 
-<!-- PROFIL SEKOLAH -->
+<!-- PROFIL -->
 
 <div class="menu-card"
-     onclick="openModal('profilModal')">
+onclick="openModal('profilModal')">
 
 <div class="menu-icon">
 
@@ -608,10 +638,10 @@ Profil Sekolah
 
 </div>
 
-<!-- AKUN PENGGUNA -->
+<!-- AKUN -->
 
 <div class="menu-card"
-     onclick="openModal('akunModal')">
+onclick="openModal('akunModal')">
 
 <div class="menu-icon">
 
@@ -640,7 +670,7 @@ DATA GURU DAN TENDIK
 </div>
 
 <button class="upload-btn"
-        onclick="openModal('uploadModal')">
+onclick="openModal('uploadModal')">
 
 Unggah CSV
 
@@ -648,7 +678,26 @@ Unggah CSV
 
 </div>
 
-<!-- TABLE -->
+<!-- STATISTIK SISWA -->
+
+<div class="guru-box">
+
+<div class="guru-title">
+
+STATISTIK SISWA
+
+</div>
+
+<button class="upload-btn"
+onclick="openModal('siswaModal')">
+
+Klik
+
+</button>
+
+</div>
+
+<!-- DATA PENGGUNA -->
 
 <div class="table-container">
 
@@ -681,17 +730,62 @@ Data Pengguna
 
 </div>
 
+<!-- DAFTAR PTK -->
+
+<div class="table-container">
+
+<div class="table-title">
+
+DAFTAR PTK
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>NAMA</th>
+<th>NIP / NRPTT / NRTS</th>
+<th>PANGKAT / GOL. RUANG</th>
+<th>TUGAS SEBAGAI</th>
+<th>NUPTK</th>
+<th>STATUS KEPEGAWAIAN</th>
+<th>AKSI</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ptkTable">
+
+<tr>
+
+<td colspan="7"
+style="text-align:center;">
+
+Memuat data PTK...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </div>
 
 <!-- MODAL PROFIL -->
 
 <div class="modal"
-     id="profilModal">
+id="profilModal">
 
 <div class="modal-content">
 
 <span class="close"
-      onclick="closeModal('profilModal')">
+onclick="closeModal('profilModal')">
 
 &times;
 
@@ -778,8 +872,14 @@ Form Profil Sekolah
 </div>
 
 <button class="save-btn"
-        id="saveProfilBtn"
-        onclick="saveProfilSekolah()">
+style="
+width:100%;
+margin-top:25px;
+background:white;
+color:#1e3a8a;
+"
+id="saveProfilBtn"
+onclick="saveProfilSekolah()">
 
 Simpan Data
 
@@ -792,12 +892,12 @@ Simpan Data
 <!-- MODAL AKUN -->
 
 <div class="modal"
-     id="akunModal">
+id="akunModal">
 
 <div class="modal-content">
 
 <span class="close"
-      onclick="closeModal('akunModal')">
+onclick="closeModal('akunModal')">
 
 &times;
 
@@ -834,7 +934,13 @@ Tambah Akun Pengguna
 </div>
 
 <button class="save-btn"
-        onclick="saveAkun()">
+style="
+width:100%;
+margin-top:25px;
+background:white;
+color:#1e3a8a;
+"
+onclick="saveAkun()">
 
 Buat Akun
 
@@ -847,12 +953,12 @@ Buat Akun
 <!-- MODAL UPLOAD -->
 
 <div class="modal"
-     id="uploadModal">
+id="uploadModal">
 
 <div class="modal-content">
 
 <span class="close"
-      onclick="closeModal('uploadModal')">
+onclick="closeModal('uploadModal')">
 
 &times;
 
@@ -875,13 +981,19 @@ Silakan unggah file format CSV.
 <label>Pilih File CSV</label>
 
 <input type="file"
-       id="csvFile"
-       accept=".csv">
+id="csvFile"
+accept=".csv">
 
 </div>
 
 <button class="save-btn"
-        onclick="uploadCSV()">
+style="
+width:100%;
+margin-top:25px;
+background:white;
+color:#1e3a8a;
+"
+onclick="uploadCSV()">
 
 Kirim File
 
@@ -893,13 +1005,148 @@ Kirim File
 
 </div>
 
+<!-- MODAL SISWA -->
+
+<div class="modal"
+id="siswaModal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeModal('siswaModal')">
+
+&times;
+
+</span>
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+gap:20px;
+flex-wrap:wrap;
+">
+
+<div class="form-title"
+style="margin-bottom:0;">
+
+DATA PESERTA DIDIK
+
+</div>
+
+<div style="
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+">
+
+<button
+class="save-btn"
+style="
+background:#2563eb;
+color:white;
+"
+onclick="aktifkanEditSiswa()"
+id="editSiswaBtn">
+
+Edit Data
+
+</button>
+
+<button
+class="save-btn"
+style="
+background:#9333ea;
+color:white;
+"
+onclick="selectSemuaData()">
+
+Blok Semua
+
+</button>
+
+<button
+class="save-btn"
+style="
+background:#16a34a;
+color:white;
+margin-right:50px;
+"
+onclick="updateSiswa()"
+id="updateSiswaBtn">
+
+Update Data
+
+</button>
+
+</div>
+
+</div>
+
+<div style="overflow:auto;">
+
+<table id="tabelSiswa">
+
+<thead>
+
+<tr>
+
+<th>No</th>
+<th>NIS</th>
+<th>NISN</th>
+<th>Nama Murid</th>
+<th>L/P</th>
+<th>Kelas</th>
+<th>Tempat Lahir</th>
+<th>Tgl Lahir</th>
+<th>Ayah</th>
+<th>Ibu</th>
+<th>Asal TK</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody id="siswaTable">
+
+<tr>
+
+<td colspan="12"
+style="text-align:center;">
+
+Memuat data siswa...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
 // API URL
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
+const PTK_API =
+"https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
+
+const SISWA_API =
+"https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
+
 // LOGIN
+
 const loginUser =
 localStorage.getItem("loginUser");
 
@@ -911,6 +1158,7 @@ window.location.href =
 }
 
 // LOGOUT
+
 function logout(){
 
 localStorage.removeItem(
@@ -923,50 +1171,23 @@ window.location.href =
 }
 
 // MODAL
+
 function openModal(id){
 
-const modal =
-document.getElementById(id);
-
-if(modal){
-
-modal.style.display = "block";
-
-}
+document.getElementById(id)
+.style.display = "block";
 
 }
 
 function closeModal(id){
 
-const modal =
-document.getElementById(id);
-
-if(modal){
-
-modal.style.display = "none";
+document.getElementById(id)
+.style.display = "none";
 
 }
-
-}
-
-window.onclick = function(event){
-
-const modals =
-document.querySelectorAll(".modal");
-
-modals.forEach(modal=>{
-
-if(event.target === modal){
-
-modal.style.display = "none";
-
-}
-
-});
-
-};
 
 // SAVE PROFIL
+
 async function saveProfilSekolah(){
 
 const btn =
@@ -1051,14 +1272,10 @@ await response.json();
 
 alert(result.message);
 
-closeModal('profilModal');
-
 }
 catch(error){
 
-alert(
-"Gagal menyimpan data"
-);
+alert("Gagal menyimpan data");
 
 console.log(error);
 
@@ -1076,9 +1293,8 @@ btn.disabled = false;
 }
 
 // SAVE AKUN
-async function saveAkun(){
 
-try{
+async function saveAkun(){
 
 const data = {
 
@@ -1116,22 +1332,12 @@ await response.json();
 
 alert(result.message);
 
-closeModal('akunModal');
-
 loadUsers();
-
-}
-catch(error){
-
-alert("Gagal membuat akun");
-
-console.log(error);
-
-}
 
 }
 
 // LOAD USERS
+
 async function loadUsers(){
 
 const response =
@@ -1144,7 +1350,7 @@ await response.json();
 
 let html = "";
 
-result.data.forEach(user => {
+result.data.forEach(user=>{
 
 html += `
 
@@ -1167,7 +1373,303 @@ document.getElementById(
 
 }
 
+// LOAD PTK
+
+async function loadPTK(){
+
+try{
+
+const response =
+await fetch(
+`${PTK_API}?action=getDataPTK`
+);
+
+const result =
+await response.json();
+
+let html = "";
+
+result.data.forEach(item=>{
+
+html += `
+
+<tr>
+
+<td>${item.nama || '-'}</td>
+<td>${item.nip || '-'}</td>
+<td>${item.pangkat || '-'}</td>
+<td>${item.tugas || '-'}</td>
+<td>${item.nuptk || '-'}</td>
+<td>${item.status || '-'}</td>
+
+<td>
+
+<button class="edit-btn">
+Edit
+</button>
+
+<button class="delete-btn">
+Hapus
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"ptkTable"
+).innerHTML = html;
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// LOAD SISWA
+
+async function loadSiswa(){
+
+try{
+
+const response =
+await fetch(
+`${SISWA_API}?action=getPesertaDidik`
+);
+
+const result =
+await response.json();
+
+let html = "";
+
+result.data.forEach(item=>{
+
+html += `
+
+<tr>
+
+<td>${item.no}</td>
+
+<td contenteditable="false">${item.nis}</td>
+
+<td contenteditable="false">${item.nisn}</td>
+
+<td contenteditable="false">${item.nama}</td>
+
+<td contenteditable="false">${item.lp}</td>
+
+<td contenteditable="false">${item.kelas}</td>
+
+<td contenteditable="false">${item.tempat_lahir}</td>
+
+<td contenteditable="false">${item.tanggal_lahir}</td>
+
+<td contenteditable="false">${item.ayah}</td>
+
+<td contenteditable="false">${item.ibu}</td>
+
+<td contenteditable="false">${item.asal_tk}</td>
+
+<td>
+
+<button class="delete-btn">
+
+Hapus
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"siswaTable"
+).innerHTML = html;
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// AKTIFKAN EDIT SISWA
+
+function aktifkanEditSiswa(){
+
+const cells =
+document.querySelectorAll(
+"#siswaTable td[contenteditable]"
+);
+
+cells.forEach(cell=>{
+
+cell.contentEditable = "true";
+
+});
+
+const btn =
+document.getElementById(
+"editSiswaBtn"
+);
+
+btn.innerHTML =
+"Mode Edit Aktif";
+
+btn.style.background =
+"#f59e0b";
+
+}
+
+// BLOK SEMUA DATA
+
+function selectSemuaData(){
+
+const table =
+document.getElementById(
+"tabelSiswa"
+);
+
+const range =
+document.createRange();
+
+range.selectNodeContents(table);
+
+const selection =
+window.getSelection();
+
+selection.removeAllRanges();
+
+selection.addRange(range);
+
+}
+
+// UPDATE SISWA
+
+async function updateSiswa(){
+
+const btn =
+document.getElementById(
+"updateSiswaBtn"
+);
+
+btn.innerHTML =
+"Menyimpan...";
+
+btn.style.background =
+"#f59e0b";
+
+const rows =
+document.querySelectorAll(
+"#siswaTable tr"
+);
+
+let data = [];
+
+rows.forEach((row,index)=>{
+
+const cols =
+row.querySelectorAll("td");
+
+if(cols.length >= 11){
+
+data.push({
+
+no:cols[0].innerText.trim(),
+
+nis:cols[1].innerText.trim(),
+
+nisn:cols[2].innerText.trim(),
+
+nama:cols[3].innerText.trim(),
+
+lp:cols[4].innerText.trim(),
+
+kelas:cols[5].innerText.trim(),
+
+tempat_lahir:
+cols[6].innerText.trim(),
+
+tanggal_lahir:
+cols[7].innerText.trim(),
+
+ayah:
+cols[8].innerText.trim(),
+
+ibu:
+cols[9].innerText.trim(),
+
+asal_tk:
+cols[10].innerText.trim()
+
+});
+
+}
+
+});
+
+try{
+
+const response =
+await fetch(SISWA_API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"replaceAllSiswa",
+
+data:data
+
+})
+
+});
+
+const result =
+await response.json();
+
+btn.innerHTML =
+"Berhasil Disimpan";
+
+btn.style.background =
+"#16a34a";
+
+alert(result.message);
+
+}
+catch(error){
+
+btn.innerHTML =
+"Gagal Update";
+
+btn.style.background =
+"#dc2626";
+
+console.log(error);
+
+}
+
+}
+
 // UPLOAD CSV
+
 async function uploadCSV(){
 
 const fileInput =
@@ -1260,7 +1762,10 @@ reader.readAsDataURL(file);
 }
 
 // INIT
+
 loadUsers();
+loadPTK();
+loadSiswa();
 
 </script>
 

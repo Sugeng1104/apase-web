@@ -504,8 +504,6 @@ justify-content:center;
 
 <div class="container">
 
-<!-- HEADER -->
-
 <div class="header">
 
 <div class="title-box">
@@ -529,119 +527,85 @@ Kembali
 
 </div>
 
-<!-- CARD -->
-
 <div class="card">
-
-<!-- IMAGE -->
 
 <div class="image-box">
 
 <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
-     alt="Buku">
+alt="Buku">
 
 </div>
-
-<!-- MENU -->
 
 <div class="menu-grid">
 
 <button class="menu-btn"
 onclick="showPopup('Buku Agama')">
-
 📘 Buku Agama
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Bahasa Indonesia')">
-
 📗 Buku Bahasa Indonesia
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Pancasila')">
-
 📕 Buku Pancasila
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Matematika')">
-
 📙 Buku Matematika
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku IPAS')">
-
 📘 Buku IPAS
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Bahasa Inggris')">
-
 📗 Buku Bahasa Inggris
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Kesenian')">
-
 🎨 Buku Kesenian
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku Bahasa Jawa')">
-
 📕 Buku Bahasa Jawa
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku BTQ')">
-
 📙 Buku BTQ
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Modul Ajar')">
-
 📂 Modul Ajar
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Nilai Siswa')">
-
 📊 Nilai Siswa
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Jurnal Harian')">
-
 📝 Jurnal Harian
-
 </button>
 
 <button class="menu-btn"
 onclick="showPopup('Buku BK')">
-
 📚 Buku BK
-
 </button>
 
 <button class="menu-btn"
 onclick="openUploadPopup()">
-
 ⬆️ Unggah Berkas
-
 </button>
 
 </div>
@@ -658,22 +622,16 @@ id="popup">
 <div class="popup-content">
 
 <h2 id="popupTitle">
-
 Informasi
-
 </h2>
 
 <p id="popupText">
-
 Guru belum unggah data
-
 </p>
 
 <button class="close-btn"
 onclick="closePopup()">
-
 Tutup
-
 </button>
 
 </div>
@@ -688,59 +646,48 @@ id="uploadPopup">
 <div class="popup-content">
 
 <h2>
-
 Unggah Berkas Guru
-
 </h2>
 
 <button class="folder-btn"
 onclick="buatFolder()">
-
 📁 Buat Folder Saya
-
 </button>
 
 <div class="folder-status"
 id="folderStatus">
-
 Folder belum dibuat
-
 </div>
 
 <div class="upload-box"
 id="uploadBox">
 
 <label class="upload-label">
-
 Pilih File Berkas
-
 </label>
 
 <input type="file"
-       id="fileInput"
-       class="file-input">
+id="fileInput"
+class="file-input">
 
 <button class="kirim-btn"
-        id="kirimBtn"
-        disabled
-        onclick="uploadFile()">
+id="kirimBtn"
+disabled
+onclick="uploadFile()">
 
 Kirim Berkas
 
 </button>
 
 <div class="upload-status"
-     id="uploadStatus">
-
+id="uploadStatus">
 </div>
 
 </div>
 
 <button class="close-btn"
 onclick="closeUploadPopup()">
-
 Tutup
-
 </button>
 
 </div>
@@ -749,18 +696,28 @@ Tutup
 
 <script>
 
+// =====================================
 // API URL
+// =====================================
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
+
+// =====================================
 // LOGIN USER
+// =====================================
+
 const loginUser =
 localStorage.getItem("loginUser") || "guru";
 
 const namaPengguna =
 localStorage.getItem("namaPengguna") || loginUser;
 
+
+// =====================================
 // SHOW POPUP
+// =====================================
 
 function showPopup(namaBuku){
 
@@ -779,7 +736,10 @@ document.getElementById(
 
 }
 
+
+// =====================================
 // CLOSE POPUP
+// =====================================
 
 function closePopup(){
 
@@ -789,7 +749,10 @@ document.getElementById(
 
 }
 
-// OPEN UPLOAD POPUP
+
+// =====================================
+// OPEN POPUP UPLOAD
+// =====================================
 
 function openUploadPopup(){
 
@@ -799,7 +762,10 @@ document.getElementById(
 
 }
 
-// CLOSE UPLOAD POPUP
+
+// =====================================
+// CLOSE POPUP UPLOAD
+// =====================================
 
 function closeUploadPopup(){
 
@@ -809,7 +775,10 @@ document.getElementById(
 
 }
 
+
+// =====================================
 // AKTIFKAN TOMBOL KIRIM
+// =====================================
 
 document.getElementById(
 "fileInput"
@@ -843,7 +812,10 @@ btn.classList.remove(
 }
 );
 
+
+// =====================================
 // BUAT FOLDER
+// =====================================
 
 async function buatFolder(){
 
@@ -868,9 +840,9 @@ headers:{
 
 body:JSON.stringify({
 
-action:"createFolderGuru",
+action:"createFolderPB",
 
-nama:namaPengguna
+nama_pengguna:namaPengguna
 
 })
 
@@ -880,6 +852,11 @@ const result =
 await response.json();
 
 if(result.status === "success"){
+
+localStorage.setItem(
+"pbFolderId",
+result.folderId
+);
 
 status.innerHTML =
 `✅ Folder berhasil dibuat : ${namaPengguna}`;
@@ -908,7 +885,10 @@ console.log(error);
 
 }
 
+
+// =====================================
 // UPLOAD FILE
+// =====================================
 
 async function uploadFile(){
 
@@ -961,9 +941,15 @@ headers:{
 
 body:JSON.stringify({
 
-action:"uploadFileGuru",
+action:"uploadBukuPB",
 
-nama:namaPengguna,
+nama_pengguna:namaPengguna,
+
+nama_buku:file.name,
+
+folder_id:localStorage.getItem(
+"pbFolderId"
+),
 
 fileName:file.name,
 
@@ -1019,7 +1005,10 @@ reader.readAsDataURL(file);
 
 }
 
+
+// =====================================
 // CLOSE CLICK OUTSIDE
+// =====================================
 
 window.onclick = function(event){
 

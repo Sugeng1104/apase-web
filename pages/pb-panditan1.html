@@ -6,15 +6,15 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>PB Panditan 1</title>
 
 <link rel="preconnect"
-href="https://fonts.googleapis.com">
+      href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+      rel="stylesheet">
 
 <style>
 
@@ -27,25 +27,23 @@ font-family:'Poppins',sans-serif;
 
 body{
 
-min-height:100vh;
-
 background:
 linear-gradient(
 135deg,
 #0f172a,
-#1e293b,
+#1e3a8a,
 #2563eb
 );
 
-padding:30px;
+min-height:100vh;
 
-color:white;
+padding:30px;
 
 overflow-x:hidden;
 
-}
+color:white;
 
-/* CONTAINER */
+}
 
 .container{
 
@@ -59,175 +57,177 @@ margin:auto;
 
 .header{
 
-margin-bottom:40px;
+display:flex;
 
-text-align:center;
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:35px;
+
+flex-wrap:wrap;
+
+gap:20px;
 
 }
 
-.header h1{
+.title-box h1{
 
-font-size:42px;
+font-size:38px;
 
 font-weight:700;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 }
 
-.header p{
+.title-box p{
 
 opacity:.8;
 
-font-size:16px;
+font-size:15px;
+
+}
+
+/* BUTTON KEMBALI */
+
+.back-btn{
+
+padding:12px 22px;
+
+background:#facc15;
+
+color:#1e293b;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:700;
+
+font-size:15px;
+
+cursor:pointer;
+
+transition:.3s;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,0.2);
+
+}
+
+.back-btn:hover{
+
+transform:translateY(-2px);
+
+background:#fde047;
 
 }
 
 /* CARD */
 
-.micro-card{
-
-display:grid;
-
-grid-template-columns:
-420px 1fr;
-
-gap:35px;
+.card{
 
 background:
-rgba(255,255,255,0.10);
+rgba(255,255,255,0.12);
 
 backdrop-filter:blur(20px);
 
 border:
-1px solid rgba(255,255,255,0.15);
+1px solid rgba(255,255,255,0.18);
 
-border-radius:35px;
+border-radius:30px;
 
-padding:35px;
+padding:30px;
+
+display:grid;
+
+grid-template-columns:
+320px 1fr;
+
+gap:30px;
 
 box-shadow:
-0 15px 40px rgba(0,0,0,0.3);
+0 10px 35px rgba(0,0,0,0.25);
 
 }
 
-/* LEFT IMAGE */
+/* IMAGE */
 
-.left-image{
-
-width:100%;
-
-height:100%;
-
-border-radius:28px;
-
-overflow:hidden;
-
-background:
-rgba(255,255,255,0.1);
+.image-box{
 
 display:flex;
 
 justify-content:center;
 
-align-items:center;
-
-min-height:600px;
+align-items:flex-start;
 
 }
 
-.left-image img{
+.image-box img{
 
 width:100%;
 
-height:100%;
+max-width:300px;
+
+border-radius:24px;
 
 object-fit:cover;
 
+box-shadow:
+0 10px 30px rgba(0,0,0,0.3);
+
 }
 
-/* RIGHT MENU */
+/* MENU */
 
-.menu-list{
+.menu-grid{
 
 display:grid;
 
 grid-template-columns:
 repeat(auto-fit,minmax(220px,1fr));
 
-gap:20px;
+gap:18px;
 
 align-content:start;
 
 }
 
-/* ITEM */
+.menu-btn{
 
-.menu-item{
+padding:18px 20px;
 
-background:
-rgba(255,255,255,0.12);
+border:none;
 
-border:
-1px solid rgba(255,255,255,0.15);
-
-padding:22px;
-
-border-radius:24px;
-
-cursor:pointer;
-
-transition:.3s;
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-color:white;
-
-}
-
-.menu-item:hover{
-
-transform:
-translateY(-5px);
-
-background:
-rgba(255,255,255,0.18);
-
-}
-
-.icon{
-
-width:55px;
-height:55px;
-
-border-radius:18px;
+border-radius:20px;
 
 background:
 rgba(255,255,255,0.15);
 
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:24px;
-
-flex-shrink:0;
-
-}
-
-.menu-text{
+color:white;
 
 font-size:16px;
 
 font-weight:600;
 
-line-height:1.4;
+cursor:pointer;
+
+transition:.3s;
+
+text-align:left;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.15);
+
+}
+
+.menu-btn:hover{
+
+transform:translateY(-4px);
+
+background:
+rgba(255,255,255,0.22);
 
 }
 
@@ -235,24 +235,24 @@ line-height:1.4;
 
 .popup{
 
+display:none;
+
 position:fixed;
 
-top:0;
 left:0;
+top:0;
 
 width:100%;
 height:100%;
 
 background:
-rgba(0,0,0,0.65);
+rgba(0,0,0,0.7);
 
-display:none;
+z-index:999;
 
 justify-content:center;
 
 align-items:center;
-
-z-index:999;
 
 padding:20px;
 
@@ -264,7 +264,7 @@ background:#1e293b;
 
 padding:35px;
 
-border-radius:28px;
+border-radius:30px;
 
 max-width:450px;
 
@@ -272,23 +272,20 @@ width:100%;
 
 text-align:center;
 
-box-shadow:
-0 15px 40px rgba(0,0,0,0.4);
-
-animation:fadeIn .3s ease;
+animation:popupShow .3s ease;
 
 }
 
-@keyframes fadeIn{
+@keyframes popupShow{
 
 from{
 opacity:0;
-transform:translateY(-20px);
+transform:scale(.8);
 }
 
 to{
 opacity:1;
-transform:translateY(0);
+transform:scale(1);
 }
 
 }
@@ -297,33 +294,35 @@ transform:translateY(0);
 
 margin-bottom:15px;
 
-font-size:24px;
+font-size:28px;
 
 }
 
 .popup-content p{
 
+font-size:16px;
+
+line-height:1.8;
+
 opacity:.9;
-
-line-height:1.7;
-
-margin-bottom:25px;
 
 }
 
 .close-btn{
 
-padding:14px 24px;
+margin-top:25px;
+
+padding:12px 24px;
 
 border:none;
 
-border-radius:16px;
+border-radius:14px;
 
-background:#2563eb;
+background:#facc15;
 
-color:white;
+color:#1e293b;
 
-font-weight:600;
+font-weight:700;
 
 cursor:pointer;
 
@@ -333,53 +332,21 @@ transition:.3s;
 
 .close-btn:hover{
 
-background:#1d4ed8;
+background:#fde047;
 
 }
 
-/* LOADING */
+@media(max-width:900px){
 
-.loading{
-
-text-align:center;
-
-padding:50px;
-
-font-size:18px;
-
-opacity:.8;
-
-}
-
-/* RESPONSIVE */
-
-@media(max-width:950px){
-
-.micro-card{
+.card{
 
 grid-template-columns:1fr;
 
 }
 
-.left-image{
+.image-box{
 
-min-height:300px;
-
-}
-
-}
-
-@media(max-width:600px){
-
-.header h1{
-
-font-size:32px;
-
-}
-
-.menu-list{
-
-grid-template-columns:1fr;
+justify-content:center;
 
 }
 
@@ -397,44 +364,141 @@ grid-template-columns:1fr;
 
 <div class="header">
 
+<div class="title-box">
+
 <h1>
 PB PANDITAN 1
 </h1>
 
 <p>
-Portal Buku dan Administrasi Sekolah
+Pusat Buku dan Administrasi Guru
 </p>
+
+</div>
+
+<button class="back-btn"
+onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
+
+Kembali
+
+</button>
 
 </div>
 
 <!-- CARD -->
 
-<div class="micro-card">
+<div class="card">
 
-<!-- GAMBAR -->
+<!-- IMAGE -->
 
-<div class="left-image">
+<div class="image-box">
 
-<img
-id="coverImage"
-src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
-alt="Cover">
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
+     alt="Buku">
 
 </div>
 
 <!-- MENU -->
 
-<div>
+<div class="menu-grid">
 
-<div
-class="menu-list"
-id="menuList">
+<button class="menu-btn"
+onclick="showPopup('Buku Agama')">
 
-<div class="loading">
-Memuat data...
-</div>
+📘 Buku Agama
 
-</div>
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Bahasa Indonesia')">
+
+📗 Buku Bahasa Indonesia
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Pancasila')">
+
+📕 Buku Pancasila
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Matematika')">
+
+📙 Buku Matematika
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku IPAS')">
+
+📘 Buku IPAS
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Bahasa Inggris')">
+
+📗 Buku Bahasa Inggris
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Kesenian')">
+
+🎨 Buku Kesenian
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku Bahasa Jawa')">
+
+📕 Buku Bahasa Jawa
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku BTQ')">
+
+📙 Buku BTQ
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Modul Ajar')">
+
+📂 Modul Ajar
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Nilai Siswa')">
+
+📊 Nilai Siswa
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Jurnal Harian')">
+
+📝 Jurnal Harian
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Buku BK')">
+
+📚 Buku BK
+
+</button>
+
+<button class="menu-btn"
+onclick="showPopup('Unggah Berkas')">
+
+⬆️ Unggah Berkas
+
+</button>
 
 </div>
 
@@ -444,22 +508,24 @@ Memuat data...
 
 <!-- POPUP -->
 
-<div
-class="popup"
-id="popupInfo">
+<div class="popup"
+id="popup">
 
 <div class="popup-content">
 
 <h2 id="popupTitle">
+
 Informasi
+
 </h2>
 
 <p id="popupText">
-Guru belum unggah buku
+
+Guru belum unggah data
+
 </p>
 
-<button
-class="close-btn"
+<button class="close-btn"
 onclick="closePopup()">
 
 Tutup
@@ -472,225 +538,13 @@ Tutup
 
 <script>
 
-// ======================================
-// GOOGLE APPS SCRIPT API
-// ======================================
+// SHOW POPUP
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
-
-
-// ======================================
-// DEFAULT MENU
-// ======================================
-
-const defaultMenus = [
-
-{
-nama:"Buku Agama",
-icon:"📘"
-},
-
-{
-nama:"Buku Bahasa Indonesia",
-icon:"📚"
-},
-
-{
-nama:"Buku Pancasila",
-icon:"📕"
-},
-
-{
-nama:"Buku Matematika",
-icon:"📗"
-},
-
-{
-nama:"Buku IPAS",
-icon:"🌎"
-},
-
-{
-nama:"Buku Bahasa Inggris",
-icon:"🇬🇧"
-},
-
-{
-nama:"Buku Kesenian",
-icon:"🎨"
-},
-
-{
-nama:"Buku Bahasa Jawa",
-icon:"📝"
-},
-
-{
-nama:"Buku BTQ",
-icon:"🕌"
-},
-
-{
-nama:"Modul Ajar",
-icon:"📂"
-},
-
-{
-nama:"Nilai Siswa",
-icon:"📊"
-},
-
-{
-nama:"Jurnal Harian",
-icon:"📖"
-},
-
-{
-nama:"Buku BK",
-icon:"👨‍🏫"
-},
-
-{
-nama:"Unggah Berkas",
-icon:"⬆️"
-}
-
-];
-
-
-// ======================================
-// LOAD DATA
-// ======================================
-
-async function loadData(){
-
-try{
-
-const response =
-await fetch(
-`${API_URL}?action=getPBPanditan1`
-);
-
-const result =
-await response.json();
-
-const menuList =
-document.getElementById(
-"menuList"
-);
-
-let html = "";
-
-// DATA DARI SPREADSHEET
-if(
-result.data &&
-result.data.length > 0
-){
-
-result.data.forEach(item=>{
-
-html += `
-
-<div
-class="menu-item"
-onclick="cekBuku('${item.nama}')">
-
-<div class="icon">
-
-${item.icon || '📘'}
-
-</div>
-
-<div class="menu-text">
-
-${item.nama}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-// COVER IMAGE
-if(result.cover){
-
-document.getElementById(
-"coverImage"
-).src = result.cover;
-
-}
-
-}
-
-// DEFAULT DATA
-else{
-
-defaultMenus.forEach(item=>{
-
-html += `
-
-<div
-class="menu-item"
-onclick="cekBuku('${item.nama}')">
-
-<div class="icon">
-
-${item.icon}
-
-</div>
-
-<div class="menu-text">
-
-${item.nama}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-menuList.innerHTML = html;
-
-}
-
-catch(error){
-
-console.log(error);
-
-document.getElementById(
-"menuList"
-).innerHTML = `
-
-<div class="loading">
-
-Gagal memuat data
-
-</div>
-
-`;
-
-}
-
-}
-
-
-// ======================================
-// POPUP INFO
-// ======================================
-
-function cekBuku(namaBuku){
+function showPopup(namaBuku){
 
 document.getElementById(
 "popupTitle"
-).innerText =
-namaBuku;
+).innerText = namaBuku;
 
 document.getElementById(
 "popupText"
@@ -698,53 +552,35 @@ document.getElementById(
 `Guru belum unggah ${namaBuku}`;
 
 document.getElementById(
-"popupInfo"
-).style.display =
-"flex";
+"popup"
+).style.display = "flex";
 
 }
 
-
-// ======================================
 // CLOSE POPUP
-// ======================================
 
 function closePopup(){
 
 document.getElementById(
-"popupInfo"
-).style.display =
-"none";
+"popup"
+).style.display = "none";
 
 }
 
-
-// ======================================
-// CLOSE SAAT KLIK LUAR
-// ======================================
+// CLOSE CLICK OUTSIDE
 
 window.onclick = function(event){
 
 const popup =
-document.getElementById(
-"popupInfo"
-);
+document.getElementById("popup");
 
 if(event.target === popup){
 
-popup.style.display =
-"none";
+popup.style.display = "none";
 
 }
 
 }
-
-
-// ======================================
-// INIT
-// ======================================
-
-loadData();
 
 </script>
 

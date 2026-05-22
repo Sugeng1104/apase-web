@@ -86,7 +86,7 @@ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:18px;
 }
 
-/* ANIMASI BUTTON */
+/* BUTTON ANIM */
 .menu-btn{
 padding:18px;
 border:none;
@@ -96,10 +96,9 @@ color:white;
 font-weight:600;
 cursor:pointer;
 text-align:left;
-
 opacity:0;
 transform:translateY(20px);
-animation:fadeIn .5s forwards;
+animation:fadeIn .4s forwards;
 }
 
 .menu-btn:hover{
@@ -139,7 +138,7 @@ from{transform:scale(.8);opacity:0;}
 to{transform:scale(1);opacity:1;}
 }
 
-/* BUTTON */
+/* FOLDER */
 .folder-btn{
 width:100%;
 padding:14px;
@@ -150,12 +149,15 @@ color:white;
 font-weight:700;
 cursor:pointer;
 margin-bottom:15px;
+transition:.3s;
 }
 
-.folder-btn.hidden{
-display:none;
+.folder-btn:disabled{
+opacity:0.6;
+cursor:not-allowed;
 }
 
+/* STATUS */
 .folder-status{
 text-align:center;
 color:#facc15;
@@ -180,6 +182,11 @@ background:#2563eb;
 color:white;
 font-weight:700;
 cursor:pointer;
+transition:.3s;
+}
+
+.upload-btn:hover{
+background:#1d4ed8;
 }
 
 .status-text{
@@ -198,10 +205,6 @@ background:#ef4444;
 color:white;
 font-weight:700;
 cursor:pointer;
-}
-
-.close-btn:hover{
-background:#dc2626;
 }
 
 </style>
@@ -263,14 +266,12 @@ Kembali
 </button>
 
 <div class="folder-status" id="status">
-Folder belum dibuat
+Cek status folder...
 </div>
 
 <div id="uploadArea"></div>
 
-<button class="close-btn" onclick="tutup()">
-Tutup
-</button>
+<button class="close-btn" onclick="tutup()">Tutup</button>
 
 </div>
 </div>
@@ -293,35 +294,40 @@ const daftarBuku=[
 "Buku BTQ","Modul Ajar","Nilai Siswa","Jurnal Harian","Buku BK"
 ];
 
-/* OPEN POPUP + AUTO CHECK STATUS SHEET */
-async function openPopup(){
+function openPopup(){
 document.getElementById("popup").style.display="flex";
+cekStatusPB(); // 🔥 AUTO DETECT
+}
 
-const res = await fetch(API_URL+"?action=checkPBStatus&nama_pengguna="+namaPengguna);
+function tutup(){
+document.getElementById("popup").style.display="none";
+}
+
+/* 🔥 CEK STATUS DARI SHEET */
+async function cekStatusPB(){
+
+const res = await fetch(API_URL + "?action=checkFolderPB&nama_pengguna=" + namaPengguna);
 const data = await res.json();
 
 if(data.exists){
 
-folderId = "already";
+folderId = data.folderId;
 
 document.getElementById("status").innerText =
-"✅ Data sudah ada, langsung upload";
+"✅ Folder sudah tersedia";
 
-document.getElementById("btnFolder").classList.add("hidden");
+document.getElementById("btnFolder").style.display="none";
 
 renderUpload();
 
 }else{
 
-document.getElementById("btnFolder").classList.remove("hidden");
-document.getElementById("status").innerText="Folder belum dibuat";
+document.getElementById("status").innerText =
+"📁 Folder belum dibuat";
 
+document.getElementById("btnFolder").style.display="block";
 }
 
-}
-
-function tutup(){
-document.getElementById("popup").style.display="none";
 }
 
 /* CREATE FOLDER */
@@ -331,6 +337,7 @@ const status=document.getElementById("status");
 const btn=document.getElementById("btnFolder");
 
 status.innerText="⏳ Membuat folder...";
+btn.disabled=true;
 
 const res=await fetch(API_URL,{
 method:"POST",
@@ -346,11 +353,12 @@ if(data.status==="success"){
 
 folderId=data.folderId;
 
-status.innerText="✅ Folder siap & langsung upload";
+status.innerText="✅ Folder siap";
 
-btn.classList.add("hidden");
+btn.style.display="none";
 
 renderUpload();
+
 }
 
 }

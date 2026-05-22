@@ -53,8 +53,6 @@ margin:auto;
 
 }
 
-/* HEADER */
-
 .header{
 
 display:flex;
@@ -89,8 +87,6 @@ font-size:15px;
 
 }
 
-/* BUTTON */
-
 .back-btn{
 
 padding:12px 22px;
@@ -111,20 +107,13 @@ cursor:pointer;
 
 transition:.3s;
 
-box-shadow:
-0 10px 20px rgba(0,0,0,0.2);
-
 }
 
 .back-btn:hover{
 
-transform:translateY(-2px);
-
 background:#fde047;
 
 }
-
-/* CARD */
 
 .card{
 
@@ -147,12 +136,7 @@ grid-template-columns:
 
 gap:30px;
 
-box-shadow:
-0 10px 35px rgba(0,0,0,0.25);
-
 }
-
-/* IMAGE */
 
 .image-box{
 
@@ -174,12 +158,7 @@ border-radius:24px;
 
 object-fit:cover;
 
-box-shadow:
-0 10px 30px rgba(0,0,0,0.3);
-
 }
-
-/* MENU */
 
 .menu-grid{
 
@@ -189,8 +168,6 @@ grid-template-columns:
 repeat(auto-fit,minmax(220px,1fr));
 
 gap:18px;
-
-align-content:start;
 
 }
 
@@ -217,21 +194,22 @@ transition:.3s;
 
 text-align:left;
 
-box-shadow:
-0 8px 20px rgba(0,0,0,0.15);
-
 }
 
 .menu-btn:hover{
 
-transform:translateY(-4px);
+transform:translateY(-3px);
 
 background:
 rgba(255,255,255,0.22);
 
 }
 
-/* POPUP */
+.status-done{
+
+background:#16a34a !important;
+
+}
 
 .popup{
 
@@ -268,27 +246,11 @@ padding:35px;
 
 border-radius:30px;
 
-max-width:700px;
+max-width:550px;
 
 width:100%;
 
-animation:popupShow .3s ease;
-
-position:relative;
-
-}
-
-@keyframes popupShow{
-
-from{
-opacity:0;
-transform:scale(.8);
-}
-
-to{
-opacity:1;
-transform:scale(1);
-}
+text-align:center;
 
 }
 
@@ -296,19 +258,35 @@ transform:scale(1);
 
 margin-bottom:20px;
 
-font-size:30px;
-
-text-align:center;
+font-size:28px;
 
 }
 
-/* BUTTON FOLDER */
+.close-btn{
+
+margin-top:20px;
+
+padding:12px 24px;
+
+border:none;
+
+border-radius:14px;
+
+background:#facc15;
+
+color:#1e293b;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
 
 .folder-btn{
 
 width:100%;
 
-padding:16px;
+padding:15px;
 
 border:none;
 
@@ -326,86 +304,54 @@ cursor:pointer;
 
 margin-bottom:20px;
 
-transition:.3s;
-
 }
-
-.folder-btn:hover{
-
-background:#16a34a;
-
-}
-
-.folder-btn.disabled{
-
-background:#64748b;
-
-cursor:not-allowed;
-
-}
-
-/* STATUS */
 
 .folder-status{
 
-margin-bottom:25px;
+margin-bottom:20px;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:600;
-
-line-height:1.8;
-
-text-align:center;
 
 color:#facc15;
 
 }
 
-/* UPLOAD */
-
-.upload-container{
-
-display:none;
-
-}
-
 .upload-item{
+
+margin-bottom:20px;
+
+padding:18px;
 
 background:
 rgba(255,255,255,0.08);
 
-padding:20px;
-
 border-radius:18px;
 
-margin-bottom:18px;
+text-align:left;
 
 }
 
-.upload-title{
-
-font-size:16px;
-
-font-weight:700;
+.upload-item h3{
 
 margin-bottom:12px;
 
+font-size:16px;
+
 }
 
-.file-input{
+.upload-item input{
 
 width:100%;
 
-padding:14px;
+padding:12px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
-background:white;
-
-margin-bottom:14px;
+margin-bottom:10px;
 
 }
 
@@ -413,83 +359,41 @@ margin-bottom:14px;
 
 width:100%;
 
-padding:14px;
+padding:12px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
-background:#64748b;
+background:#2563eb;
 
 color:white;
 
-font-size:15px;
-
 font-weight:700;
-
-cursor:not-allowed;
-
-transition:.3s;
-
-}
-
-.upload-btn.active{
-
-background:#2563eb;
 
 cursor:pointer;
 
 }
 
-.upload-btn.active:hover{
+.upload-btn:hover{
 
 background:#1d4ed8;
 
 }
 
+.upload-success{
+
+background:#16a34a !important;
+
+}
+
 .status-text{
 
-margin-top:12px;
+margin-top:10px;
 
 font-size:14px;
 
 font-weight:600;
-
-line-height:1.8;
-
-}
-
-/* CLOSE */
-
-.close-btn{
-
-margin-top:20px;
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:14px;
-
-background:#facc15;
-
-color:#1e293b;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.close-btn:hover{
-
-background:#fde047;
 
 }
 
@@ -498,12 +402,6 @@ background:#fde047;
 .card{
 
 grid-template-columns:1fr;
-
-}
-
-.image-box{
-
-justify-content:center;
 
 }
 
@@ -532,7 +430,7 @@ Pusat Buku dan Administrasi Guru
 </div>
 
 <button class="back-btn"
-onclick="window.location.href='https://sugeng1104.github.io/apase-web/dashboard.html'">
+onclick="window.location.href='dashboard.html'">
 
 Kembali
 
@@ -544,8 +442,7 @@ Kembali
 
 <div class="image-box">
 
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
-alt="Buku">
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop">
 
 </div>
 
@@ -590,8 +487,8 @@ Unggah Berkas Guru
 </h2>
 
 <button class="folder-btn"
-id="folderBtn"
-onclick="buatFolder()">
+        id="folderBtn"
+        onclick="buatFolder()">
 
 📁 Buat Folder Saya
 
@@ -604,8 +501,8 @@ Folder belum dibuat
 
 </div>
 
-<div class="upload-container"
-id="uploadContainer">
+<div id="uploadContainer"
+     style="display:none;">
 
 </div>
 
@@ -623,20 +520,21 @@ Tutup
 <script>
 
 // API URL
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// USER
-const loginUser =
-localStorage.getItem("loginUser") || "guru";
+// LOGIN USER
 
 const namaPengguna =
-localStorage.getItem("namaPengguna") || loginUser;
+localStorage.getItem("namaPengguna") || "guru";
 
 // FOLDER ID
+
 let folderId = "";
 
-// DAFTAR BUKU
+// LIST BUKU
+
 const daftarBuku = [
 
 "Buku Agama",
@@ -656,17 +554,19 @@ const daftarBuku = [
 ];
 
 // OPEN POPUP
+
 function openUploadPopup(){
 
 document.getElementById(
 "uploadPopup"
 ).style.display = "flex";
 
-cekFolderSudahAda();
+cekFolderSaatPopup();
 
 }
 
 // CLOSE POPUP
+
 function closeUploadPopup(){
 
 document.getElementById(
@@ -675,58 +575,102 @@ document.getElementById(
 
 }
 
-// CEK STATUS FOLDER
-function cekFolderSudahAda(){
+// CEK FOLDER
 
-const status =
-document.getElementById(
-"folderStatus"
+async function cekFolderSaatPopup(){
+
+try{
+
+const response =
+await fetch(
+
+`${API_URL}?action=checkFolderPB&nama_pengguna=${encodeURIComponent(namaPengguna)}`
+
 );
+
+const result =
+await response.json();
 
 const folderBtn =
-document.getElementById(
-"folderBtn"
-);
+document.getElementById("folderBtn");
 
-// CEK LOCAL
-const savedFolderId =
-localStorage.getItem(
-"folderIdPB"
-);
+const folderStatus =
+document.getElementById("folderStatus");
 
-if(savedFolderId){
+const uploadContainer =
+document.getElementById("uploadContainer");
 
-folderId = savedFolderId;
+if(
+
+result.status === "success" &&
+result.exists === true
+
+){
+
+folderId =
+result.folderId;
 
 folderBtn.disabled = true;
 
-folderBtn.classList.add(
-"disabled"
-);
+folderBtn.style.background =
+"#64748b";
+
+folderBtn.style.cursor =
+"not-allowed";
 
 folderBtn.innerHTML =
 "✅ Folder Sudah Dibuat";
 
-status.innerHTML =
-"<span style='color:#22c55e'>✅ Folder aktif dan siap digunakan</span>";
+folderStatus.innerHTML =
+"📁 Folder aktif ditemukan";
 
-tampilkanFormUpload();
+uploadContainer.style.display =
+"block";
+
+renderUploadMenu();
+
+}
+
+else{
+
+folderId = "";
+
+folderBtn.disabled = false;
+
+folderBtn.style.background =
+"#22c55e";
+
+folderBtn.style.cursor =
+"pointer";
+
+folderBtn.innerHTML =
+"📁 Buat Folder Saya";
+
+folderStatus.innerHTML =
+"Folder belum dibuat";
+
+uploadContainer.style.display =
+"none";
+
+}
+
+}
+
+catch(error){
+
+console.log(error);
 
 }
 
 }
 
 // BUAT FOLDER
+
 async function buatFolder(){
 
 const status =
 document.getElementById(
 "folderStatus"
-);
-
-const folderBtn =
-document.getElementById(
-"folderBtn"
 );
 
 status.innerHTML =
@@ -761,27 +705,14 @@ if(result.status === "success"){
 folderId =
 result.folderId;
 
-// SIMPAN LOCAL
-localStorage.setItem(
-"folderIdPB",
-folderId
-);
-
 status.innerHTML =
-"<span style='color:#22c55e'>✅ Folder berhasil dibuat</span>";
+"✅ Folder berhasil dibuat";
 
-folderBtn.disabled = true;
+cekFolderSaatPopup();
 
-folderBtn.classList.add(
-"disabled"
-);
+}
 
-folderBtn.innerHTML =
-"✅ Folder Sudah Dibuat";
-
-tampilkanFormUpload();
-
-}else{
+else{
 
 status.innerHTML =
 "❌ " + result.message;
@@ -801,16 +732,14 @@ console.log(error);
 
 }
 
-// FORM UPLOAD
-function tampilkanFormUpload(){
+// RENDER MENU UPLOAD
+
+function renderUploadMenu(){
 
 const container =
 document.getElementById(
 "uploadContainer"
 );
-
-container.style.display =
-"block";
 
 container.innerHTML = "";
 
@@ -820,27 +749,22 @@ container.innerHTML += `
 
 <div class="upload-item">
 
-<div class="upload-title">
-${namaBuku}
-</div>
+<h3>${namaBuku}</h3>
 
 <input type="file"
-id="file${index}"
-class="file-input">
+       id="file_${index}">
 
-<button
-class="upload-btn"
-id="btn${index}"
-disabled
-onclick="uploadFile(${index},'${namaBuku}')">
+<button class="upload-btn"
+        id="btn_${index}"
+        onclick="uploadFile(${index},'${namaBuku}')">
 
-Kirim ${namaBuku}
+Unggah ${namaBuku}
 
 </button>
 
-<div
-class="status-text"
-id="status${index}">
+<div class="status-text"
+     id="status_${index}">
+
 </div>
 
 </div>
@@ -849,66 +773,31 @@ id="status${index}">
 
 });
 
-// AKTIFKAN TOMBOL
-daftarBuku.forEach((_,index)=>{
-
-document.getElementById(
-`file${index}`
-).addEventListener(
-"change",
-function(){
-
-const btn =
-document.getElementById(
-`btn${index}`
-);
-
-if(this.files.length > 0){
-
-btn.disabled = false;
-
-btn.classList.add(
-"active"
-);
-
-}else{
-
-btn.disabled = true;
-
-btn.classList.remove(
-"active"
-);
-
-}
-
-});
-
-});
-
 }
 
 // UPLOAD FILE
+
 async function uploadFile(index,namaBuku){
 
 const fileInput =
 document.getElementById(
-`file${index}`
+`file_${index}`
 );
 
 const status =
 document.getElementById(
-`status${index}`
+`status_${index}`
 );
 
 const btn =
 document.getElementById(
-`btn${index}`
+`btn_${index}`
 );
 
 if(fileInput.files.length === 0){
 
 status.innerHTML =
-"❌ Pilih file";
+"❌ Pilih file terlebih dahulu";
 
 return;
 
@@ -923,10 +812,12 @@ status.innerHTML =
 const reader =
 new FileReader();
 
-reader.onload =
-async function(e){
+reader.onload = async function(e){
 
 try{
+
+const base64 =
+e.target.result;
 
 status.innerHTML =
 "⏳ Mengupload file...";
@@ -944,17 +835,17 @@ body:JSON.stringify({
 
 action:"uploadBukuPB",
 
-folder_id:folderId,
-
 nama_pengguna:namaPengguna,
 
 nama_buku:namaBuku,
+
+folder_id:folderId,
 
 fileName:file.name,
 
 mimeType:file.type,
 
-base64:e.target.result
+base64:base64
 
 })
 
@@ -966,23 +857,23 @@ await response.json();
 if(result.status === "success"){
 
 status.innerHTML =
-"<span style='color:#22c55e'>✅ Sudah Upload</span>";
+"✅ Berhasil diupload";
 
-fileInput.disabled = true;
+status.style.color =
+"#22c55e";
 
 btn.disabled = true;
 
-btn.classList.remove(
-"active"
+btn.classList.add(
+"upload-success"
 );
-
-btn.style.background =
-"#22c55e";
 
 btn.innerHTML =
 "✅ Sudah Upload";
 
-}else{
+}
+
+else{
 
 status.innerHTML =
 "❌ " + result.message;
@@ -1006,7 +897,8 @@ reader.readAsDataURL(file);
 
 }
 
-// CLOSE OUTSIDE
+// CLOSE CLICK OUTSIDE
+
 window.onclick = function(event){
 
 const popup =
@@ -1016,8 +908,7 @@ document.getElementById(
 
 if(event.target === popup){
 
-popup.style.display =
-"none";
+popup.style.display = "none";
 
 }
 

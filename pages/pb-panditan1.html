@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Perngkat Belajar Panditan 1</title>
+<title>PB Panditan 1</title>
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -185,8 +185,6 @@ align-items:center;
 
 gap:15px;
 
-text-decoration:none;
-
 color:white;
 
 }
@@ -230,6 +228,112 @@ font-size:16px;
 font-weight:600;
 
 line-height:1.4;
+
+}
+
+/* POPUP */
+
+.popup{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+rgba(0,0,0,0.65);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:999;
+
+padding:20px;
+
+}
+
+.popup-content{
+
+background:#1e293b;
+
+padding:35px;
+
+border-radius:28px;
+
+max-width:450px;
+
+width:100%;
+
+text-align:center;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,0.4);
+
+animation:fadeIn .3s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.popup-content h2{
+
+margin-bottom:15px;
+
+font-size:24px;
+
+}
+
+.popup-content p{
+
+opacity:.9;
+
+line-height:1.7;
+
+margin-bottom:25px;
+
+}
+
+.close-btn{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:#2563eb;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.close-btn:hover{
+
+background:#1d4ed8;
 
 }
 
@@ -338,6 +442,34 @@ Memuat data...
 
 </div>
 
+<!-- POPUP -->
+
+<div
+class="popup"
+id="popupInfo">
+
+<div class="popup-content">
+
+<h2 id="popupTitle">
+Informasi
+</h2>
+
+<p id="popupText">
+Guru belum unggah buku
+</p>
+
+<button
+class="close-btn"
+onclick="closePopup()">
+
+Tutup
+
+</button>
+
+</div>
+
+</div>
+
 <script>
 
 // ======================================
@@ -356,86 +488,72 @@ const defaultMenus = [
 
 {
 nama:"Buku Agama",
-icon:"📘",
-link:"#"
+icon:"📘"
 },
 
 {
 nama:"Buku Bahasa Indonesia",
-icon:"📚",
-link:"#"
+icon:"📚"
 },
 
 {
 nama:"Buku Pancasila",
-icon:"📕",
-link:"#"
+icon:"📕"
 },
 
 {
 nama:"Buku Matematika",
-icon:"📗",
-link:"#"
+icon:"📗"
 },
 
 {
 nama:"Buku IPAS",
-icon:"🌎",
-link:"#"
+icon:"🌎"
 },
 
 {
 nama:"Buku Bahasa Inggris",
-icon:"🇬🇧",
-link:"#"
+icon:"🇬🇧"
 },
 
 {
 nama:"Buku Kesenian",
-icon:"🎨",
-link:"#"
+icon:"🎨"
 },
 
 {
 nama:"Buku Bahasa Jawa",
-icon:"📝",
-link:"#"
+icon:"📝"
 },
 
 {
 nama:"Buku BTQ",
-icon:"🕌",
-link:"#"
+icon:"🕌"
 },
 
 {
 nama:"Modul Ajar",
-icon:"📂",
-link:"#"
+icon:"📂"
 },
 
 {
 nama:"Nilai Siswa",
-icon:"📊",
-link:"#"
+icon:"📊"
 },
 
 {
 nama:"Jurnal Harian",
-icon:"📖",
-link:"#"
+icon:"📖"
 },
 
 {
 nama:"Buku BK",
-icon:"👨‍🏫",
-link:"#"
+icon:"👨‍🏫"
 },
 
 {
 nama:"Unggah Berkas",
-icon:"⬆️",
-link:"#"
+icon:"⬆️"
 }
 
 ];
@@ -464,8 +582,7 @@ document.getElementById(
 
 let html = "";
 
-// JIKA DATA ADA DI SPREADSHEET
-
+// DATA DARI SPREADSHEET
 if(
 result.data &&
 result.data.length > 0
@@ -475,10 +592,9 @@ result.data.forEach(item=>{
 
 html += `
 
-<a
+<div
 class="menu-item"
-href="${item.link || '#'}"
-target="_blank">
+onclick="cekBuku('${item.nama}')">
 
 <div class="icon">
 
@@ -492,7 +608,7 @@ ${item.nama}
 
 </div>
 
-</a>
+</div>
 
 `;
 
@@ -509,17 +625,16 @@ document.getElementById(
 
 }
 
-// JIKA BELUM ADA DATA
+// DEFAULT DATA
 else{
 
 defaultMenus.forEach(item=>{
 
 html += `
 
-<a
+<div
 class="menu-item"
-href="${item.link}"
-target="_blank">
+onclick="cekBuku('${item.nama}')">
 
 <div class="icon">
 
@@ -533,7 +648,7 @@ ${item.nama}
 
 </div>
 
-</a>
+</div>
 
 `;
 
@@ -560,6 +675,65 @@ Gagal memuat data
 </div>
 
 `;
+
+}
+
+}
+
+
+// ======================================
+// POPUP INFO
+// ======================================
+
+function cekBuku(namaBuku){
+
+document.getElementById(
+"popupTitle"
+).innerText =
+namaBuku;
+
+document.getElementById(
+"popupText"
+).innerText =
+`Guru belum unggah ${namaBuku}`;
+
+document.getElementById(
+"popupInfo"
+).style.display =
+"flex";
+
+}
+
+
+// ======================================
+// CLOSE POPUP
+// ======================================
+
+function closePopup(){
+
+document.getElementById(
+"popupInfo"
+).style.display =
+"none";
+
+}
+
+
+// ======================================
+// CLOSE SAAT KLIK LUAR
+// ======================================
+
+window.onclick = function(event){
+
+const popup =
+document.getElementById(
+"popupInfo"
+);
+
+if(event.target === popup){
+
+popup.style.display =
+"none";
 
 }
 

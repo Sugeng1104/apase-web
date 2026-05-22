@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>PB Panditan 1</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb
+);
+
+padding:30px;
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+/* CONTAINER */
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+margin-bottom:40px;
+
+text-align:center;
+
+}
+
+.header h1{
+
+font-size:42px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.header p{
+
+opacity:.8;
+
+font-size:16px;
+
+}
+
+/* CARD */
+
+.micro-card{
+
+display:grid;
+
+grid-template-columns:
+420px 1fr;
+
+gap:35px;
+
+background:
+rgba(255,255,255,0.10);
+
+backdrop-filter:blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.15);
+
+border-radius:35px;
+
+padding:35px;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,0.3);
+
+}
+
+/* LEFT IMAGE */
+
+.left-image{
+
+width:100%;
+
+height:100%;
+
+border-radius:28px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,0.1);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:600px;
+
+}
+
+.left-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+/* RIGHT MENU */
+
+.menu-list{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+align-content:start;
+
+}
+
+/* ITEM */
+
+.menu-item{
+
+background:
+rgba(255,255,255,0.12);
+
+border:
+1px solid rgba(255,255,255,0.15);
+
+padding:22px;
+
+border-radius:24px;
+
+cursor:pointer;
+
+transition:.3s;
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+text-decoration:none;
+
+color:white;
+
+}
+
+.menu-item:hover{
+
+transform:
+translateY(-5px);
+
+background:
+rgba(255,255,255,0.18);
+
+}
+
+.icon{
+
+width:55px;
+height:55px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,0.15);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:24px;
+
+flex-shrink:0;
+
+}
+
+.menu-text{
+
+font-size:16px;
+
+font-weight:600;
+
+line-height:1.4;
+
+}
+
+/* LOADING */
+
+.loading{
+
+text-align:center;
+
+padding:50px;
+
+font-size:18px;
+
+opacity:.8;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+.micro-card{
+
+grid-template-columns:1fr;
+
+}
+
+.left-image{
+
+min-height:300px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.header h1{
+
+font-size:32px;
+
+}
+
+.menu-list{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>
+PB PANDITAN 1
+</h1>
+
+<p>
+Portal Buku dan Administrasi Sekolah
+</p>
+
+</div>
+
+<!-- CARD -->
+
+<div class="micro-card">
+
+<!-- GAMBAR -->
+
+<div class="left-image">
+
+<img
+id="coverImage"
+src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
+alt="Cover">
+
+</div>
+
+<!-- MENU -->
+
+<div>
+
+<div
+class="menu-list"
+id="menuList">
+
+<div class="loading">
+Memuat data...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// ======================================
+// GOOGLE APPS SCRIPT API
+// ======================================
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+
+
+// ======================================
+// DEFAULT MENU
+// ======================================
+
+const defaultMenus = [
+
+{
+nama:"Buku Agama",
+icon:"📘",
+link:"#"
+},
+
+{
+nama:"Buku Bahasa Indonesia",
+icon:"📚",
+link:"#"
+},
+
+{
+nama:"Buku Pancasila",
+icon:"📕",
+link:"#"
+},
+
+{
+nama:"Buku Matematika",
+icon:"📗",
+link:"#"
+},
+
+{
+nama:"Buku IPAS",
+icon:"🌎",
+link:"#"
+},
+
+{
+nama:"Buku Bahasa Inggris",
+icon:"🇬🇧",
+link:"#"
+},
+
+{
+nama:"Buku Kesenian",
+icon:"🎨",
+link:"#"
+},
+
+{
+nama:"Buku Bahasa Jawa",
+icon:"📝",
+link:"#"
+},
+
+{
+nama:"Buku BTQ",
+icon:"🕌",
+link:"#"
+},
+
+{
+nama:"Modul Ajar",
+icon:"📂",
+link:"#"
+},
+
+{
+nama:"Nilai Siswa",
+icon:"📊",
+link:"#"
+},
+
+{
+nama:"Jurnal Harian",
+icon:"📖",
+link:"#"
+},
+
+{
+nama:"Buku BK",
+icon:"👨‍🏫",
+link:"#"
+},
+
+{
+nama:"Unggah Berkas",
+icon:"⬆️",
+link:"#"
+}
+
+];
+
+
+// ======================================
+// LOAD DATA
+// ======================================
+
+async function loadData(){
+
+try{
+
+const response =
+await fetch(
+`${API_URL}?action=getPBPanditan1`
+);
+
+const result =
+await response.json();
+
+const menuList =
+document.getElementById(
+"menuList"
+);
+
+let html = "";
+
+// JIKA DATA ADA DI SPREADSHEET
+
+if(
+result.data &&
+result.data.length > 0
+){
+
+result.data.forEach(item=>{
+
+html += `
+
+<a
+class="menu-item"
+href="${item.link || '#'}"
+target="_blank">
+
+<div class="icon">
+
+${item.icon || '📘'}
+
+</div>
+
+<div class="menu-text">
+
+${item.nama}
+
+</div>
+
+</a>
+
+`;
+
+});
+
+// COVER IMAGE
+if(result.cover){
+
+document.getElementById(
+"coverImage"
+).src = result.cover;
+
+}
+
+}
+
+// JIKA BELUM ADA DATA
+else{
+
+defaultMenus.forEach(item=>{
+
+html += `
+
+<a
+class="menu-item"
+href="${item.link}"
+target="_blank">
+
+<div class="icon">
+
+${item.icon}
+
+</div>
+
+<div class="menu-text">
+
+${item.nama}
+
+</div>
+
+</a>
+
+`;
+
+});
+
+}
+
+menuList.innerHTML = html;
+
+}
+
+catch(error){
+
+console.log(error);
+
+document.getElementById(
+"menuList"
+).innerHTML = `
+
+<div class="loading">
+
+Gagal memuat data
+
+</div>
+
+`;
+
+}
+
+}
+
+
+// ======================================
+// INIT
+// ======================================
+
+loadData();
+
+</script>
+
+</body>
+</html>

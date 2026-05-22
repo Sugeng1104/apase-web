@@ -1,920 +1,895 @@
-<!DOCTYPE html>
-<html lang="id">
+// =====================================
+// APASE WEB FINAL STABLE VERSION
+// FULL FINAL + PB UPLOAD SYSTEM
+// READY COPY PASTE
+// =====================================
 
-<head>
 
-<meta charset="UTF-8">
+// =====================================
+// KONFIGURASI
+// =====================================
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+// SPREADSHEET AKUN
+const ACCOUNT_SPREADSHEET_ID =
+"13vRdKQaWmuPpTY3t9zbVabh_rufmwR6g7vpmOUkw7bw";
 
-<title>PB Panditan 1</title>
+// SHEET AKUN
+const ACCOUNT_SHEET =
+"akun_apase";
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
+// DATABASE UTAMA
+const DATABASE_SPREADSHEET_ID =
+"1PvPiTFUthfoZzpc1IQWWa3iGoqOYxF_WO759UvzI1AY";
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+// SHEET PROFIL
+const DATA_SEKOLAH_SHEET =
+"DATA_SEKOLAH";
 
-<style>
+// SHEET KEPSEK
+const DATA_KEPSEK_SHEET =
+"DATA_KEPALA SEKOLAH";
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+// FOLDER ARSIP
+const ARSIP_FOLDER_ID =
+"1DxrjF3dcca1f5E9ZpzZsFLqSe9eAOlnc";
 
-body{
+// FOLDER PB
+const PB_FOLDER_ID =
+"1Os8RHpQRjnM1xXXHRLb6jcBXqQ660-ce";
 
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#1e3a8a,
-#2563eb
-);
 
-min-height:100vh;
+// =====================================
+// doGet
+// =====================================
 
-padding:30px;
+function doGet(e){
 
-overflow-x:hidden;
+  try{
 
-color:white;
+    const action =
+    e.parameter.action;
 
-}
+    // TEST API
+    if(action === "test"){
 
-.container{
+      return response({
 
-max-width:1400px;
+        status:"success",
 
-margin:auto;
+        message:"API aktif"
 
-}
+      });
 
-.header{
+    }
 
-display:flex;
+    // LOGIN
+    if(action === "login"){
 
-justify-content:space-between;
+      return login(e);
 
-align-items:center;
+    }
 
-margin-bottom:35px;
+    // GET USERS
+    if(action === "getUsers"){
 
-flex-wrap:wrap;
+      return getUsers();
 
-gap:20px;
+    }
 
-}
+    // GET PROFIL SEKOLAH
+    if(action === "getProfilSekolah"){
 
-.title-box h1{
+      return getProfilSekolah();
 
-font-size:38px;
+    }
 
-font-weight:700;
+    // GET KEPSEK
+    if(action === "getKepsek"){
 
-margin-bottom:8px;
+      return getKepsek();
 
-}
+    }
 
-.title-box p{
+    // CEK STATUS FOLDER PB
+    if(action === "checkFolderPB"){
 
-opacity:.8;
+      return checkFolderPB(e);
 
-font-size:15px;
+    }
 
-}
+    return response({
 
-.back-btn{
+      status:"error",
 
-padding:12px 22px;
+      message:"Action tidak ditemukan"
 
-background:#facc15;
+    });
 
-color:#1e293b;
+  }
 
-border:none;
+  catch(error){
 
-border-radius:14px;
+    return response({
 
-font-weight:700;
+      status:"error",
 
-font-size:15px;
+      message:error.toString()
 
-cursor:pointer;
+    });
 
-transition:.3s;
-
-}
-
-.back-btn:hover{
-
-background:#fde047;
-
-}
-
-.card{
-
-background:
-rgba(255,255,255,0.12);
-
-backdrop-filter:blur(20px);
-
-border:
-1px solid rgba(255,255,255,0.18);
-
-border-radius:30px;
-
-padding:30px;
-
-display:grid;
-
-grid-template-columns:
-320px 1fr;
-
-gap:30px;
+  }
 
 }
 
-.image-box{
 
-display:flex;
+// =====================================
+// doPost
+// =====================================
 
-justify-content:center;
+function doPost(e){
 
-align-items:flex-start;
+  try{
 
-}
+    const data =
+    JSON.parse(
+      e.postData.contents
+    );
 
-.image-box img{
+    const action =
+    data.action;
 
-width:100%;
+    // SAVE PROFIL
+    if(action === "saveProfilSekolah"){
 
-max-width:300px;
+      return saveProfilSekolah(data);
 
-border-radius:24px;
+    }
 
-object-fit:cover;
+    // SAVE AKUN
+    if(action === "saveAkun"){
 
-}
+      return saveAkun(data);
 
-.menu-grid{
+    }
 
-display:grid;
+    // UPLOAD FILE ARSIP
+    if(action === "uploadFileArsip"){
 
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+      return uploadFileArsip(data);
 
-gap:18px;
+    }
 
-}
+    // CREATE FOLDER PB
+    if(action === "createFolderPB"){
 
-.menu-btn{
+      return createFolderPB(data);
 
-padding:18px 20px;
+    }
 
-border:none;
+    // UPLOAD FILE PB
+    if(action === "uploadBukuPB"){
 
-border-radius:20px;
+      return uploadBukuPB(data);
 
-background:
-rgba(255,255,255,0.15);
+    }
 
-color:white;
+    return response({
 
-font-size:16px;
+      status:"error",
 
-font-weight:600;
+      message:"Action tidak ditemukan"
 
-cursor:pointer;
+    });
 
-transition:.3s;
+  }
 
-text-align:left;
+  catch(error){
 
-}
+    return response({
 
-.menu-btn:hover{
+      status:"error",
 
-transform:translateY(-3px);
+      message:error.toString()
 
-background:
-rgba(255,255,255,0.22);
+    });
 
-}
-
-.status-done{
-
-background:#16a34a !important;
-
-}
-
-.popup{
-
-display:none;
-
-position:fixed;
-
-left:0;
-top:0;
-
-width:100%;
-height:100%;
-
-background:
-rgba(0,0,0,0.7);
-
-z-index:999;
-
-justify-content:center;
-
-align-items:center;
-
-padding:20px;
-
-overflow:auto;
+  }
 
 }
 
-.popup-content{
 
-background:#1e293b;
+// =====================================
+// LOGIN
+// =====================================
 
-padding:35px;
+function login(e){
 
-border-radius:30px;
+  const username =
+  String(
+    e.parameter.username || ""
+  ).trim();
 
-max-width:550px;
+  const password =
+  String(
+    e.parameter.password || ""
+  ).trim();
 
-width:100%;
+  const ss =
+  SpreadsheetApp.openById(
+    ACCOUNT_SPREADSHEET_ID
+  );
 
-text-align:center;
+  const sheet =
+  ss.getSheetByName(
+    ACCOUNT_SHEET
+  );
 
-}
+  const values =
+  sheet.getDataRange()
+  .getValues();
 
-.popup-content h2{
+  for(let i = 1; i < values.length; i++){
 
-margin-bottom:20px;
+    if(
 
-font-size:28px;
+      values[i][0] == username &&
+      values[i][1] == password
 
-}
+    ){
 
-.close-btn{
+      return response({
 
-margin-top:20px;
+        status:"success",
 
-padding:12px 24px;
+        username:
+        values[i][0],
 
-border:none;
+        email:
+        values[i][2],
 
-border-radius:14px;
+        nama_pengguna:
+        values[i][3]
 
-background:#facc15;
+      });
 
-color:#1e293b;
+    }
 
-font-weight:700;
+  }
 
-cursor:pointer;
+  return response({
 
-}
+    status:"error",
 
-.folder-btn{
+    message:"Login gagal"
 
-width:100%;
-
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
-background:#22c55e;
-
-color:white;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-margin-bottom:20px;
-
-}
-
-.folder-status{
-
-margin-bottom:20px;
-
-font-size:14px;
-
-font-weight:600;
-
-color:#facc15;
+  });
 
 }
 
-.upload-item{
 
-margin-bottom:20px;
+// =====================================
+// GET USERS
+// =====================================
 
-padding:18px;
+function getUsers(){
 
-background:
-rgba(255,255,255,0.08);
+  const ss =
+  SpreadsheetApp.openById(
+    ACCOUNT_SPREADSHEET_ID
+  );
 
-border-radius:18px;
+  const sheet =
+  ss.getSheetByName(
+    ACCOUNT_SHEET
+  );
 
-text-align:left;
+  const values =
+  sheet.getDataRange()
+  .getValues();
 
-}
+  let data = [];
 
-.upload-item h3{
+  for(let i = 1; i < values.length; i++){
 
-margin-bottom:12px;
+    data.push({
 
-font-size:16px;
+      username:
+      values[i][0],
 
-}
+      password:
+      values[i][1],
 
-.upload-item input{
+      email:
+      values[i][2],
 
-width:100%;
+      nama:
+      values[i][3]
 
-padding:12px;
+    });
 
-border:none;
+  }
 
-border-radius:12px;
+  return response({
 
-margin-bottom:10px;
+    status:"success",
 
-}
+    data:data
 
-.upload-btn{
-
-width:100%;
-
-padding:12px;
-
-border:none;
-
-border-radius:12px;
-
-background:#2563eb;
-
-color:white;
-
-font-weight:700;
-
-cursor:pointer;
+  });
 
 }
 
-.upload-btn:hover{
 
-background:#1d4ed8;
+// =====================================
+// SAVE AKUN
+// =====================================
+
+function saveAkun(data){
+
+  const ss =
+  SpreadsheetApp.openById(
+    ACCOUNT_SPREADSHEET_ID
+  );
+
+  const sheet =
+  ss.getSheetByName(
+    ACCOUNT_SHEET
+  );
+
+  sheet.appendRow([
+
+    data.username,
+
+    data.password,
+
+    data.email,
+
+    data.nama_pengguna
+
+  ]);
+
+  return response({
+
+    status:"success",
+
+    message:"Akun berhasil dibuat"
+
+  });
 
 }
 
-.upload-success{
 
-background:#16a34a !important;
+// =====================================
+// SAVE PROFIL SEKOLAH
+// =====================================
+
+function saveProfilSekolah(data){
+
+  const ss =
+  SpreadsheetApp.openById(
+    DATABASE_SPREADSHEET_ID
+  );
+
+  // DATA SEKOLAH
+  const sekolahSheet =
+  ss.getSheetByName(
+    DATA_SEKOLAH_SHEET
+  );
+
+  sekolahSheet.appendRow([
+
+    new Date(),
+
+    data.nama_sekolah,
+
+    data.npsn,
+
+    data.alamat,
+
+    data.desa_sekolah,
+
+    data.kecamatan,
+
+    data.kabupaten,
+
+    data.provinsi,
+
+    data.email
+
+  ]);
+
+  // DATA KEPSEK
+  const kepsekSheet =
+  ss.getSheetByName(
+    DATA_KEPSEK_SHEET
+  );
+
+  kepsekSheet.appendRow([
+
+    data.nama_kepsek,
+
+    data.nip,
+
+    data.pangkat,
+
+    data.alamat_kepsek,
+
+    data.email_kepsek,
+
+    data.nohp
+
+  ]);
+
+  return response({
+
+    status:"success",
+
+    message:"Profil berhasil disimpan"
+
+  });
 
 }
 
-.status-text{
 
-margin-top:10px;
+// =====================================
+// GET PROFIL SEKOLAH
+// =====================================
 
-font-size:14px;
+function getProfilSekolah(){
 
-font-weight:600;
+  const ss =
+  SpreadsheetApp.openById(
+    DATABASE_SPREADSHEET_ID
+  );
+
+  const sheet =
+  ss.getSheetByName(
+    DATA_SEKOLAH_SHEET
+  );
+
+  const values =
+  sheet.getDataRange()
+  .getValues();
+
+  const row =
+  values[values.length - 1];
+
+  return response({
+
+    status:"success",
+
+    data:{
+
+      nama_sekolah:
+      row[1] || "",
+
+      npsn:
+      row[2] || "",
+
+      alamat:
+      row[3] || "",
+
+      desa:
+      row[4] || "",
+
+      kecamatan:
+      row[5] || "",
+
+      kabupaten:
+      row[6] || "",
+
+      provinsi:
+      row[7] || "",
+
+      email:
+      row[8] || ""
+
+    }
+
+  });
 
 }
 
-@media(max-width:900px){
 
-.card{
+// =====================================
+// GET DATA KEPSEK
+// =====================================
 
-grid-template-columns:1fr;
+function getKepsek(){
 
-}
+  const ss =
+  SpreadsheetApp.openById(
+    DATABASE_SPREADSHEET_ID
+  );
 
-}
+  const sheet =
+  ss.getSheetByName(
+    DATA_KEPSEK_SHEET
+  );
 
-</style>
+  const values =
+  sheet.getDataRange()
+  .getValues();
 
-</head>
+  const row =
+  values[values.length - 1];
 
-<body>
+  return response({
 
-<div class="container">
+    status:"success",
 
-<div class="header">
+    data:{
 
-<div class="title-box">
+      nama:
+      row[0] || "",
 
-<h1>
-PB PANDITAN 1
-</h1>
+      nip:
+      row[1] || "",
 
-<p>
-Pusat Buku dan Administrasi Guru
-</p>
+      pangkat:
+      row[2] || "",
 
-</div>
+      alamat:
+      row[3] || "",
 
-<button class="back-btn"
-onclick="window.location.href='dashboard.html'">
+      email:
+      row[4] || "",
 
-Kembali
+      nohp:
+      row[5] || ""
 
-</button>
+    }
 
-</div>
-
-<div class="card">
-
-<div class="image-box">
-
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop">
-
-</div>
-
-<div class="menu-grid">
-
-<button class="menu-btn">📘 Buku Agama</button>
-<button class="menu-btn">📗 Buku Bahasa Indonesia</button>
-<button class="menu-btn">📕 Buku Pancasila</button>
-<button class="menu-btn">📙 Buku Matematika</button>
-<button class="menu-btn">📘 Buku IPAS</button>
-<button class="menu-btn">📗 Buku Bahasa Inggris</button>
-<button class="menu-btn">🎨 Buku Kesenian</button>
-<button class="menu-btn">📕 Buku Bahasa Jawa</button>
-<button class="menu-btn">📙 Buku BTQ</button>
-<button class="menu-btn">📂 Modul Ajar</button>
-<button class="menu-btn">📊 Nilai Siswa</button>
-<button class="menu-btn">📝 Jurnal Harian</button>
-<button class="menu-btn">📚 Buku BK</button>
-
-<button class="menu-btn"
-onclick="openUploadPopup()">
-
-⬆️ Unggah Berkas
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- POPUP -->
-
-<div class="popup"
-id="uploadPopup">
-
-<div class="popup-content">
-
-<h2>
-Unggah Berkas Guru
-</h2>
-
-<button class="folder-btn"
-        id="folderBtn"
-        onclick="buatFolder()">
-
-📁 Buat Folder Saya
-
-</button>
-
-<div class="folder-status"
-id="folderStatus">
-
-Folder belum dibuat
-
-</div>
-
-<div id="uploadContainer"
-     style="display:none;">
-
-</div>
-
-<button class="close-btn"
-onclick="closeUploadPopup()">
-
-Tutup
-
-</button>
-
-</div>
-
-</div>
-
-<script>
-
-// API URL
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
-
-// LOGIN USER
-
-const namaPengguna =
-localStorage.getItem("namaPengguna") || "guru";
-
-// FOLDER ID
-
-let folderId = "";
-
-// LIST BUKU
-
-const daftarBuku = [
-
-"Buku Agama",
-"Buku Bahasa Indonesia",
-"Buku Pancasila",
-"Buku Matematika",
-"Buku IPAS",
-"Buku Bahasa Inggris",
-"Buku Kesenian",
-"Buku Bahasa Jawa",
-"Buku BTQ",
-"Modul Ajar",
-"Nilai Siswa",
-"Jurnal Harian",
-"Buku BK"
-
-];
-
-// OPEN POPUP
-
-function openUploadPopup(){
-
-document.getElementById(
-"uploadPopup"
-).style.display = "flex";
-
-cekFolderSaatPopup();
+  });
 
 }
 
-// CLOSE POPUP
 
-function closeUploadPopup(){
+// =====================================
+// UPLOAD FILE ARSIP
+// =====================================
 
-document.getElementById(
-"uploadPopup"
-).style.display = "none";
+function uploadFileArsip(data){
 
-}
+  try{
 
-// CEK FOLDER
+    const folder =
+    DriveApp.getFolderById(
+      ARSIP_FOLDER_ID
+    );
 
-async function cekFolderSaatPopup(){
+    const base64 =
+    data.base64.replace(
+      /^data:.+;base64,/,
+      ""
+    );
 
-try{
+    const bytes =
+    Utilities.base64Decode(
+      base64
+    );
 
-const response =
-await fetch(
+    const blob =
+    Utilities.newBlob(
 
-`${API_URL}?action=checkFolderPB&nama_pengguna=${encodeURIComponent(namaPengguna)}`
+      bytes,
 
-);
+      data.mimeType,
 
-const result =
-await response.json();
+      data.fileName
 
-const folderBtn =
-document.getElementById("folderBtn");
+    );
 
-const folderStatus =
-document.getElementById("folderStatus");
+    const file =
+    folder.createFile(blob);
 
-const uploadContainer =
-document.getElementById("uploadContainer");
+    return response({
 
-if(
+      status:"success",
 
-result.status === "success" &&
-result.exists === true
+      message:
+      "File berhasil diupload",
 
-){
+      file_url:
+      file.getUrl()
 
-folderId =
-result.folderId;
+    });
 
-folderBtn.disabled = true;
+  }
 
-folderBtn.style.background =
-"#64748b";
+  catch(error){
 
-folderBtn.style.cursor =
-"not-allowed";
+    return response({
 
-folderBtn.innerHTML =
-"✅ Folder Sudah Dibuat";
+      status:"error",
 
-folderStatus.innerHTML =
-"📁 Folder aktif ditemukan";
+      message:error.toString()
 
-uploadContainer.style.display =
-"block";
+    });
 
-renderUploadMenu();
-
-}
-
-else{
-
-folderId = "";
-
-folderBtn.disabled = false;
-
-folderBtn.style.background =
-"#22c55e";
-
-folderBtn.style.cursor =
-"pointer";
-
-folderBtn.innerHTML =
-"📁 Buat Folder Saya";
-
-folderStatus.innerHTML =
-"Folder belum dibuat";
-
-uploadContainer.style.display =
-"none";
+  }
 
 }
 
-}
 
-catch(error){
+// =====================================
+// CHECK FOLDER PB
+// =====================================
 
-console.log(error);
+function checkFolderPB(e){
 
-}
+  try{
 
-}
+    const namaPengguna =
+    e.parameter.nama_pengguna;
 
-// BUAT FOLDER
+    const parentFolder =
+    DriveApp.getFolderById(
+      PB_FOLDER_ID
+    );
 
-async function buatFolder(){
+    const folders =
+    parentFolder.getFoldersByName(
+      namaPengguna
+    );
 
-const status =
-document.getElementById(
-"folderStatus"
-);
+    if(folders.hasNext()){
 
-status.innerHTML =
-"⏳ Membuat folder...";
+      const folder =
+      folders.next();
 
-try{
+      return response({
 
-const response =
-await fetch(API_URL,{
+        status:"success",
 
-method:"POST",
+        exists:true,
 
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
+        folderId:
+        folder.getId(),
 
-body:JSON.stringify({
+        folderUrl:
+        folder.getUrl()
 
-action:"createFolderPB",
+      });
 
-nama_pengguna:namaPengguna
+    }
 
-})
+    return response({
 
-});
+      status:"success",
 
-const result =
-await response.json();
+      exists:false
 
-if(result.status === "success"){
+    });
 
-folderId =
-result.folderId;
+  }
 
-status.innerHTML =
-"✅ Folder berhasil dibuat";
+  catch(error){
 
-cekFolderSaatPopup();
+    return response({
 
-}
+      status:"error",
 
-else{
+      message:error.toString()
 
-status.innerHTML =
-"❌ " + result.message;
+    });
 
-}
-
-}
-
-catch(error){
-
-status.innerHTML =
-"❌ Gagal membuat folder";
-
-console.log(error);
+  }
 
 }
 
-}
 
-// RENDER MENU UPLOAD
+// =====================================
+// CREATE FOLDER PB
+// =====================================
 
-function renderUploadMenu(){
+function createFolderPB(data){
 
-const container =
-document.getElementById(
-"uploadContainer"
-);
+  try{
 
-container.innerHTML = "";
+    const parentFolder =
+    DriveApp.getFolderById(
+      PB_FOLDER_ID
+    );
 
-daftarBuku.forEach((namaBuku,index)=>{
+    const namaPengguna =
+    data.nama_pengguna;
 
-container.innerHTML += `
+    const folders =
+    parentFolder.getFoldersByName(
+      namaPengguna
+    );
 
-<div class="upload-item">
+    let folder;
 
-<h3>${namaBuku}</h3>
+    if(folders.hasNext()){
 
-<input type="file"
-       id="file_${index}">
+      folder =
+      folders.next();
 
-<button class="upload-btn"
-        id="btn_${index}"
-        onclick="uploadFile(${index},'${namaBuku}')">
+    }
 
-Unggah ${namaBuku}
+    else{
 
-</button>
+      folder =
+      parentFolder.createFolder(
+        namaPengguna
+      );
 
-<div class="status-text"
-     id="status_${index}">
+    }
 
-</div>
+    return response({
 
-</div>
+      status:"success",
 
-`;
+      folderId:
+      folder.getId(),
 
-});
+      folderName:
+      folder.getName(),
 
-}
+      folderUrl:
+      folder.getUrl(),
 
-// UPLOAD FILE
+      message:
+      "Folder berhasil dibuat"
 
-async function uploadFile(index,namaBuku){
+    });
 
-const fileInput =
-document.getElementById(
-`file_${index}`
-);
+  }
 
-const status =
-document.getElementById(
-`status_${index}`
-);
+  catch(error){
 
-const btn =
-document.getElementById(
-`btn_${index}`
-);
+    return response({
 
-if(fileInput.files.length === 0){
+      status:"error",
 
-status.innerHTML =
-"❌ Pilih file terlebih dahulu";
+      message:error.toString()
 
-return;
+    });
 
-}
-
-const file =
-fileInput.files[0];
-
-status.innerHTML =
-"⏳ Membaca file...";
-
-const reader =
-new FileReader();
-
-reader.onload = async function(e){
-
-try{
-
-const base64 =
-e.target.result;
-
-status.innerHTML =
-"⏳ Mengupload file...";
-
-const response =
-await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"uploadBukuPB",
-
-nama_pengguna:namaPengguna,
-
-nama_buku:namaBuku,
-
-folder_id:folderId,
-
-fileName:file.name,
-
-mimeType:file.type,
-
-base64:base64
-
-})
-
-});
-
-const result =
-await response.json();
-
-if(result.status === "success"){
-
-status.innerHTML =
-"✅ Berhasil diupload";
-
-status.style.color =
-"#22c55e";
-
-btn.disabled = true;
-
-btn.classList.add(
-"upload-success"
-);
-
-btn.innerHTML =
-"✅ Sudah Upload";
+  }
 
 }
 
-else{
 
-status.innerHTML =
-"❌ " + result.message;
+// =====================================
+// UPLOAD BUKU PB
+// =====================================
+
+function uploadBukuPB(data){
+
+  try{
+
+    const folder =
+    DriveApp.getFolderById(
+      data.folder_id
+    );
+
+    const base64 =
+    data.base64.replace(
+      /^data:.+;base64,/,
+      ""
+    );
+
+    const bytes =
+    Utilities.base64Decode(
+      base64
+    );
+
+    const blob =
+    Utilities.newBlob(
+
+      bytes,
+
+      data.mimeType,
+
+      data.fileName
+
+    );
+
+    const file =
+    folder.createFile(blob);
+
+    const ss =
+    SpreadsheetApp.openById(
+      DATABASE_SPREADSHEET_ID
+    );
+
+    let sheet =
+    ss.getSheetByName("pb");
+
+    // JIKA SHEET BELUM ADA
+    if(!sheet){
+
+      sheet =
+      ss.insertSheet("pb");
+
+      sheet.appendRow([
+
+        "Nama Pengguna",
+        "Nama Buku",
+        "Folder Buku",
+        "Link Buku",
+        "Status"
+
+      ]);
+
+    }
+
+    // SIMPAN DATA
+    sheet.appendRow([
+
+      data.nama_pengguna,
+
+      data.nama_buku,
+
+      folder.getUrl(),
+
+      file.getUrl(),
+
+      "Sudah"
+
+    ]);
+
+    // WARNA HIJAU STATUS
+    const lastRow =
+    sheet.getLastRow();
+
+    sheet
+    .getRange(lastRow,5)
+    .setBackground("#16a34a")
+    .setFontColor("#ffffff")
+    .setFontWeight("bold");
+
+    return response({
+
+      status:"success",
+
+      message:
+      "File berhasil diupload",
+
+      fileUrl:
+      file.getUrl()
+
+    });
+
+  }
+
+  catch(error){
+
+    return response({
+
+      status:"error",
+
+      message:error.toString()
+
+    });
+
+  }
 
 }
 
-}
 
-catch(error){
+// =====================================
+// RESPONSE JSON
+// =====================================
 
-status.innerHTML =
-"❌ Upload gagal";
+function response(data){
 
-console.log(error);
+  return ContentService
 
-}
+    .createTextOutput(
 
-};
+      JSON.stringify(data)
 
-reader.readAsDataURL(file);
+    )
 
-}
+    .setMimeType(
 
-// CLOSE CLICK OUTSIDE
+      ContentService
+      .MimeType.JSON
 
-window.onclick = function(event){
-
-const popup =
-document.getElementById(
-"uploadPopup"
-);
-
-if(event.target === popup){
-
-popup.style.display = "none";
+    );
 
 }
-
-}
-
-</script>
-
-</body>
-</html>

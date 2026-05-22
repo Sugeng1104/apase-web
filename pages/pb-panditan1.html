@@ -8,6 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* RESET */
 *{
 margin:0;
 padding:0;
@@ -20,13 +22,10 @@ background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
 min-height:100vh;
 padding:30px;
 color:white;
+overflow-x:hidden;
 }
 
-.container{
-max-width:1400px;
-margin:auto;
-}
-
+/* HEADER */
 .header{
 display:flex;
 justify-content:space-between;
@@ -36,16 +35,10 @@ flex-wrap:wrap;
 gap:20px;
 }
 
-.title-box h1{
-font-size:38px;
-font-weight:700;
-}
+.title-box h1{font-size:38px;}
+.title-box p{opacity:.8;font-size:15px;}
 
-.title-box p{
-opacity:.8;
-font-size:15px;
-}
-
+/* BUTTON BACK */
 .back-btn{
 padding:12px 22px;
 background:#facc15;
@@ -54,8 +47,11 @@ border:none;
 border-radius:14px;
 font-weight:700;
 cursor:pointer;
+transition:.3s;
 }
+.back-btn:hover{transform:translateY(-2px);}
 
+/* CARD */
 .card{
 background:rgba(255,255,255,0.12);
 backdrop-filter:blur(20px);
@@ -67,18 +63,21 @@ grid-template-columns:320px 1fr;
 gap:30px;
 }
 
+/* IMAGE */
 .image-box img{
 width:100%;
 max-width:300px;
 border-radius:24px;
 }
 
+/* MENU */
 .menu-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:18px;
 }
 
+/* ✨ ANIMASI TOMBOL (RESTORED) */
 .menu-btn{
 padding:18px;
 border:none;
@@ -88,13 +87,33 @@ color:white;
 font-weight:600;
 cursor:pointer;
 text-align:left;
+
+opacity:0;
+transform:translateY(20px);
+animation:fadeIn .5s forwards;
 }
 
 .menu-btn:hover{
 background:rgba(255,255,255,0.25);
-transform:translateY(-3px);
+transform:translateY(-4px);
 }
 
+.menu-btn:nth-child(1){animation-delay:.05s;}
+.menu-btn:nth-child(2){animation-delay:.1s;}
+.menu-btn:nth-child(3){animation-delay:.15s;}
+.menu-btn:nth-child(4){animation-delay:.2s;}
+.menu-btn:nth-child(5){animation-delay:.25s;}
+.menu-btn:nth-child(6){animation-delay:.3s;}
+.menu-btn:nth-child(7){animation-delay:.35s;}
+.menu-btn:nth-child(8){animation-delay:.4s;}
+.menu-btn:nth-child(9){animation-delay:.45s;}
+.menu-btn:nth-child(10){animation-delay:.5s;}
+
+@keyframes fadeIn{
+to{opacity:1;transform:translateY(0);}
+}
+
+/* POPUP */
 .popup{
 display:none;
 position:fixed;
@@ -111,8 +130,33 @@ padding:30px;
 border-radius:25px;
 width:100%;
 max-width:700px;
+position:relative;
+animation:pop .25s ease;
 }
 
+@keyframes pop{
+from{transform:scale(.8);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+/* ❌ TOMBOL TUTUP (RESTORED) */
+.close-btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#ef4444;
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.close-btn:hover{
+background:#dc2626;
+}
+
+/* FOLDER */
 .folder-btn{
 width:100%;
 padding:14px;
@@ -127,11 +171,12 @@ margin-bottom:15px;
 
 .folder-status{
 text-align:center;
-margin-bottom:15px;
 color:#facc15;
+margin-bottom:15px;
 font-weight:600;
 }
 
+/* UPLOAD */
 .upload-item{
 background:rgba(255,255,255,0.08);
 padding:15px;
@@ -146,8 +191,8 @@ border:none;
 border-radius:12px;
 background:#2563eb;
 color:white;
-cursor:pointer;
 font-weight:700;
+cursor:pointer;
 }
 
 .status-text{
@@ -155,12 +200,23 @@ font-size:13px;
 margin-top:8px;
 color:#facc15;
 }
+
+.userbar{
+background:rgba(255,255,255,0.12);
+padding:10px 18px;
+border-radius:14px;
+margin-bottom:20px;
+font-weight:600;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="userbar">
+👤 Login: <span id="namaUser">Loading...</span>
+</div>
 
 <div class="header">
 <div class="title-box">
@@ -176,12 +232,11 @@ Kembali
 <div class="card">
 
 <div class="image-box">
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop">
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f">
 </div>
 
 <div class="menu-grid">
 
-<!-- FULL RESTORE BUTTON -->
 <button class="menu-btn">📘 Buku Agama</button>
 <button class="menu-btn">📗 Buku Bahasa Indonesia</button>
 <button class="menu-btn">📕 Buku Pancasila</button>
@@ -196,11 +251,7 @@ Kembali
 <button class="menu-btn">📝 Jurnal Harian</button>
 <button class="menu-btn">📚 Buku BK</button>
 
-<button class="menu-btn" onclick="openPopup()">
-⬆️ Unggah Berkas
-</button>
-
-</div>
+<button class="menu-btn" onclick="openPopup()">⬆️ Unggah Berkas</button>
 
 </div>
 </div>
@@ -210,9 +261,9 @@ Kembali
 
 <div class="popup-content">
 
-<h2 style="text-align:center;">Unggah Berkas Guru</h2>
+<h2 style="text-align:center;">Upload Berkas</h2>
 
-<button class="folder-btn" id="folderBtn" onclick="buatFolder()">
+<button class="folder-btn" id="btnFolder" onclick="buatFolder()">
 📁 Buat Folder Saya
 </button>
 
@@ -222,21 +273,26 @@ Folder belum dibuat
 
 <div id="uploadArea"></div>
 
-</div>
+<button class="close-btn" onclick="tutup()">
+Tutup
+</button>
 
+</div>
 </div>
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
-// ambil dari dashboard login
-const loginUser = localStorage.getItem("loginUser");
-const namaPengguna = localStorage.getItem("namaPengguna");
+/* 🔥 SINKRON DENGAN DASHBOARD */
+const loginUser=localStorage.getItem("loginUser");
+const namaPengguna=localStorage.getItem("namaPengguna")||loginUser;
 
-let folderId = "";
+document.getElementById("namaUser").innerText=namaPengguna||"Guest";
 
-const daftarBuku = [
+let folderId="";
+
+const daftarBuku=[
 "Buku Agama","Buku Bahasa Indonesia","Buku Pancasila","Buku Matematika",
 "Buku IPAS","Buku Bahasa Inggris","Buku Kesenian","Buku Bahasa Jawa",
 "Buku BTQ","Modul Ajar","Nilai Siswa","Jurnal Harian","Buku BK"
@@ -246,21 +302,29 @@ function openPopup(){
 document.getElementById("popup").style.display="flex";
 }
 
+function tutup(){
+document.getElementById("popup").style.display="none";
+}
+
 function buatFolder(){
 
 fetch(API_URL,{
 method:"POST",
+headers:{"Content-Type":"text/plain;charset=utf-8"},
 body:JSON.stringify({
 action:"createFolderPB",
 nama_pengguna:namaPengguna
-}),
-headers:{"Content-Type":"text/plain;charset=utf-8"}
+})
 })
 .then(r=>r.json())
 .then(res=>{
 if(res.status==="success"){
 folderId=res.folderId;
-document.getElementById("status").innerHTML="✅ Folder dibuat";
+
+document.getElementById("status").innerHTML="✅ Folder siap digunakan";
+
+document.getElementById("btnFolder").disabled=true;
+document.getElementById("btnFolder").style.opacity="0.6";
 
 renderUpload();
 }
@@ -293,11 +357,12 @@ let file=document.getElementById("f"+i).files[0];
 let status=document.getElementById("s"+i);
 
 if(!file){
-status.innerHTML="Pilih file dulu";
+status.innerHTML="❌ pilih file dulu";
 return;
 }
 
 let reader=new FileReader();
+
 reader.onload=function(e){
 
 fetch(API_URL,{
@@ -315,7 +380,7 @@ base64:e.target.result
 })
 .then(r=>r.json())
 .then(res=>{
-status.innerHTML="✅ Upload berhasil";
+status.innerHTML="✅ berhasil upload";
 });
 };
 

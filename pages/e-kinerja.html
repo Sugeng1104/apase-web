@@ -148,6 +148,7 @@
             window.location.href = "index.html";
         }
 
+        // Tautan API Akurat Mengarah Ke Deployment Baru Anda
         const API_URL = "https://script.google.com/macros/s/AKfycbwXRjg13-Kz0FsVxXh5-xgtbKARX1SFMJN6529JNcPrahBJl-7_KV8_kG-lZ685Rb14/exec";
 
         const storageNama = localStorage.getItem("namaPengguna");
@@ -173,7 +174,6 @@
         function openWarningModal() { warningModal.classList.remove('hidden'); }
         function closeWarningModal() { warningModal.classList.add('hidden'); }
 
-        // Pengalihan ke Sub-Folder Drive (Logika Terbukti Berhasil)
         function alihkanKeSubFolder(linkInduk, tipe) {
             if (tipe === "induk") {
                 window.open(linkInduk, '_blank');
@@ -190,7 +190,7 @@
             }
         }
 
-        // Fungsi Tombol utama dan tombol Arsip (Versi Murni Tanpa Modifikasi Interupsi)
+        // IMPLEMENTASI UTAMA: Deteksi Menggunakan Script Tag (JSONP) Mengatasi Hambatan CORS Browser secara Mutlak
         function handleUnggahButton(tipe = "induk") {
             targetFolderType = tipe; 
 
@@ -199,7 +199,7 @@
                 return;
             }
 
-            // Animasi Loading
+            // Animasi Loading Tombol Utama
             const originalContent = btnMainAction.innerHTML;
             btnMainAction.innerHTML = `
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
@@ -211,10 +211,16 @@
                 </div>
             `;
             btnMainAction.disabled = true;
+
+            // Membuat Callback Dinamis Global
+            const callbackName = "apiCallback_" + Math.floor(Math.random() * 100000);
             
-            fetch(`${API_URL}?nama=${encodeURIComponent(currentUser.nama)}&t=${new Date().getTime()}`)
-            .then(response => response.json())
-            .then(data => {
+            window[callbackName] = function(data) {
+                // Hapus tag skrip sisa pemrosesan dari DOM
+                document.getElementById(callbackName).remove();
+                delete window[callbackName];
+
+                // Kembalikan Tombol ke Desain Awal
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
 
@@ -222,28 +228,22 @@
                     currentUser.linkFolderUser = data.linkFolder;
                     alihkanKeSubFolder(data.linkFolder, targetFolderType);
                 } else {
-                    // Cek tipe tombol untuk menentukan jenis popup yang muncul
                     if (targetFolderType === "induk") {
                         openModal(); 
                     } else {
                         openWarningModal(); 
                     }
                 }
-            })
-            .catch(error => {
-                console.warn("Jalur cadangan aktif:", error);
-                btnMainAction.innerHTML = originalContent;
-                btnMainAction.disabled = false;
-                
-                if (targetFolderType === "induk") {
-                    openModal();
-                } else {
-                    openWarningModal();
-                }
-            });
+            };
+
+            // Injeksi Script Element Baru untuk Bypass Restriksi CORS Browser secara Native
+            const script = document.createElement("script");
+            script.id = callbackName;
+            script.src = `${API_URL}?nama=${encodeURIComponent(currentUser.nama)}&callback=${callbackName}&t=${new Date().getTime()}`;
+            document.body.appendChild(script);
         }
 
-        // Eksekusi pembuatan folder via POST (Tanpa Alert)
+        // Proses Sinkronisasi Folder (Senyap Tanpa Memunculkan Notifikasi Alert)
         function prosesBuatFolder() {
             const btn = document.getElementById('btnCreateFolder');
             const originalText = btn.innerHTML;
@@ -261,16 +261,18 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: params.toString(),
-                mode: 'no-cors'
+                mode: 'no-cors' 
             })
             .then(() => {
+                // Memberikan Jeda 4 Detik Agar Proses Penulisan Baris Baru & Folder di Sisi Server Google Selesai Sempurna
                 setTimeout(() => {
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    // LANGSUNG PANGGIL DATABASE TANPA POPUP ALERT NOTIFIKASI
+                    
+                    // Langsung Periksa Database secara Transparan untuk Membuka Jendela Drive Baru
                     handleUnggahButton(targetFolderType);
-                }, 3500);
+                }, 4000);
             })
             .catch(error => {
                 console.error("Error POST:", error);

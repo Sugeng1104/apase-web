@@ -575,6 +575,24 @@ transform:translateY(-2px);
 
 }
 
+td[contenteditable="true"]{
+
+background:#dbeafe;
+
+outline:1px solid #2563eb;
+
+cursor:text;
+
+user-select:text;
+
+}
+
+#tabelSiswa td{
+
+white-space:nowrap;
+
+}
+
 @media(max-width:768px){
 
 .header{
@@ -820,24 +838,81 @@ onclick="closeModal('profilModal')">
 </span>
 
 <div class="form-title">
+
 Form Profil Sekolah
+
 </div>
 
 <div class="form-grid">
 
 <div class="input-group">
 <label>Nama Sekolah</label>
-<input type="text">
+<input type="text" id="nama_sekolah">
 </div>
 
 <div class="input-group">
 <label>NPSN</label>
-<input type="text">
+<input type="text" id="npsn">
 </div>
 
 <div class="input-group">
-<label>Alamat</label>
-<input type="text">
+<label>Alamat Sekolah</label>
+<input type="text" id="alamat">
+</div>
+
+<div class="input-group">
+<label>Desa Sekolah</label>
+<input type="text" id="desa_sekolah">
+</div>
+
+<div class="input-group">
+<label>Kecamatan</label>
+<input type="text" id="kecamatan">
+</div>
+
+<div class="input-group">
+<label>Kabupaten</label>
+<input type="text" id="kabupaten">
+</div>
+
+<div class="input-group">
+<label>Provinsi</label>
+<input type="text" id="provinsi">
+</div>
+
+<div class="input-group">
+<label>Email Sekolah</label>
+<input type="email" id="email">
+</div>
+
+<div class="input-group">
+<label>Nama Kepala Sekolah</label>
+<input type="text" id="nama_kepsek">
+</div>
+
+<div class="input-group">
+<label>NIP</label>
+<input type="text" id="nip">
+</div>
+
+<div class="input-group">
+<label>Pangkat / Golongan</label>
+<input type="text" id="pangkat">
+</div>
+
+<div class="input-group">
+<label>Alamat Kepala Sekolah</label>
+<input type="text" id="alamat_kepsek">
+</div>
+
+<div class="input-group">
+<label>Email Kepala Sekolah</label>
+<input type="email" id="email_kepsek">
+</div>
+
+<div class="input-group">
+<label>No HP</label>
+<input type="text" id="nohp">
 </div>
 
 </div>
@@ -849,6 +924,7 @@ margin-top:25px;
 background:white;
 color:#1e3a8a;
 "
+id="saveProfilBtn"
 onclick="saveProfilSekolah()">
 
 Simpan Data
@@ -874,29 +950,31 @@ onclick="closeModal('akunModal')">
 </span>
 
 <div class="form-title">
+
 Tambah Akun Pengguna
+
 </div>
 
 <div class="form-grid">
 
 <div class="input-group">
 <label>Nama Pengguna</label>
-<input type="text">
+<input type="text" id="nama_pengguna">
 </div>
 
 <div class="input-group">
 <label>Username</label>
-<input type="text">
+<input type="text" id="username">
 </div>
 
 <div class="input-group">
 <label>Password</label>
-<input type="password">
+<input type="password" id="password">
 </div>
 
 <div class="input-group">
 <label>Email</label>
-<input type="email">
+<input type="email" id="email_akun">
 </div>
 
 </div>
@@ -977,13 +1055,74 @@ onclick="closeModal('siswaModal')">
 
 </span>
 
-<div class="form-title">
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+gap:20px;
+flex-wrap:wrap;
+">
+
+<div class="form-title"
+style="margin-bottom:0;">
+
 DATA SISWA
+
+</div>
+
+<div style="
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+">
+
+<button
+class="save-btn"
+style="
+background:#7c3aed;
+color:white;
+"
+onclick="ubahDataSiswa()">
+
+Ubah Data
+
+</button>
+
+<button
+class="save-btn"
+style="
+background:#2563eb;
+color:white;
+"
+onclick="aktifkanEditSiswa()"
+id="editSiswaBtn">
+
+Edit Data
+
+</button>
+
+<button
+class="save-btn"
+style="
+background:#16a34a;
+color:white;
+margin-right:50px;
+"
+onclick="updateSiswa()"
+id="updateSiswaBtn">
+
+Update Data
+
+</button>
+
+</div>
+
 </div>
 
 <div style="overflow:auto;">
 
-<table>
+<table id="tabelSiswa">
 
 <thead>
 
@@ -992,9 +1131,15 @@ DATA SISWA
 <th>No</th>
 <th>NIS</th>
 <th>NISN</th>
-<th>Nama</th>
+<th>Nama Murid</th>
 <th>L/P</th>
 <th>Kelas</th>
+<th>Tempat Lahir</th>
+<th>Tgl Lahir</th>
+<th>Ayah</th>
+<th>Ibu</th>
+<th>Asal TK</th>
+<th>Aksi</th>
 
 </tr>
 
@@ -1003,10 +1148,14 @@ DATA SISWA
 <tbody id="siswaTable">
 
 <tr>
-<td colspan="6"
+
+<td colspan="12"
 style="text-align:center;">
+
 Memuat data siswa...
+
 </td>
+
 </tr>
 
 </tbody>
@@ -1065,29 +1214,34 @@ document.getElementById(id)
 
 }
 
-function saveProfilSekolah(){
+function ubahDataSiswa(){
+
+window.open(
+"https://docs.google.com/spreadsheets/d/1gupLRef2SIK3lyfZdyMld_eiAZa-K7cs0EG4SvGkGL0/edit?usp=sharing",
+"_blank"
+);
+
+}
+
+async function saveProfilSekolah(){
 
 alert("Data profil berhasil disimpan");
 
 }
 
-function saveAkun(){
+async function saveAkun(){
 
 alert("Akun berhasil dibuat");
 
 }
 
-function uploadCSV(){
+async function uploadCSV(){
 
 alert("Fitur upload CSV aktif");
 
 }
 
-/* LOAD USERS */
-
 async function loadUsers(){
-
-try{
 
 const response =
 await fetch(
@@ -1120,15 +1274,7 @@ document.getElementById(
 "userTable"
 ).innerHTML = html;
 
-}catch(error){
-
-console.log(error);
-
 }
-
-}
-
-/* LOAD PTK */
 
 async function loadPTK(){
 
@@ -1179,15 +1325,14 @@ document.getElementById(
 "ptkTable"
 ).innerHTML = html;
 
-}catch(error){
+}
+catch(error){
 
 console.log(error);
 
 }
 
 }
-
-/* LOAD SISWA */
 
 async function loadSiswa(){
 
@@ -1209,12 +1354,37 @@ html += `
 
 <tr>
 
-<td>${item.no || '-'}</td>
-<td>${item.nis || '-'}</td>
-<td>${item.nisn || '-'}</td>
-<td>${item.nama || '-'}</td>
-<td>${item.lp || '-'}</td>
-<td>${item.kelas || '-'}</td>
+<td>${item.no}</td>
+
+<td contenteditable="false">${item.nis}</td>
+
+<td contenteditable="false">${item.nisn}</td>
+
+<td contenteditable="false">${item.nama}</td>
+
+<td contenteditable="false">${item.lp}</td>
+
+<td contenteditable="false">${item.kelas}</td>
+
+<td contenteditable="false">${item.tempat_lahir}</td>
+
+<td contenteditable="false">${item.tanggal_lahir}</td>
+
+<td contenteditable="false">${item.ayah}</td>
+
+<td contenteditable="false">${item.ibu}</td>
+
+<td contenteditable="false">${item.asal_tk}</td>
+
+<td>
+
+<button class="delete-btn">
+
+Hapus
+
+</button>
+
+</td>
 
 </tr>
 
@@ -1226,7 +1396,8 @@ document.getElementById(
 "siswaTable"
 ).innerHTML = html;
 
-}catch(error){
+}
+catch(error){
 
 console.log(error);
 
@@ -1234,7 +1405,37 @@ console.log(error);
 
 }
 
-/* RANDOM COLOR */
+function aktifkanEditSiswa(){
+
+const cells =
+document.querySelectorAll(
+"#siswaTable td[contenteditable]"
+);
+
+cells.forEach(cell=>{
+
+cell.contentEditable = "true";
+
+});
+
+const btn =
+document.getElementById(
+"editSiswaBtn"
+);
+
+btn.innerHTML =
+"Mode Edit Aktif";
+
+btn.style.background =
+"#f59e0b";
+
+}
+
+async function updateSiswa(){
+
+alert("Data siswa berhasil diperbarui");
+
+}
 
 function randomColor(){
 
@@ -1254,8 +1455,6 @@ Math.floor(Math.random()*colors.length)
 ];
 
 }
-
-/* LOAD PERANGKAT */
 
 async function loadPerangkatGuru(){
 

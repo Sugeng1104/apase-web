@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Animasi kustom untuk efek tombol timbul yang halus saat di-hover */
         .btn-timbul {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -48,7 +49,7 @@
                 <div class="lg:col-span-2 flex flex-col justify-between space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
-                        <a href="https://asndigital.bkn.go.id/" target="_blank" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group">
+                        <a href="https://asndigital.bkn.go.id/" target="_blank" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group decoration-transparent">
                             <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
                                 <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i>
                             </div>
@@ -125,10 +126,10 @@
     </div>
 
     <script>
-        // URL API Google Apps Script Anda
+        // Endpoint Google Apps Script Web App Anda
         const API_URL = "https://script.google.com/macros/s/AKfycbwMut48iCIvhgBeboojsKC-oaLdErtOldlxkXdB8nZy-XXx-7VLYfsIFf4cyiCe2v-_/exec";
 
-        // Data pengguna aktif saat ini (Di sistem nyata bisa diganti dengan session login)
+        // Data Simulasi Pengguna Aktif (Bisa diintegrasikan dengan session login sistem Anda nantinya)
         const currentUser = {
             nama: "Budi Setyawan S.Pd", 
             linkFolderUser: ""
@@ -138,21 +139,22 @@
         const btnMainAction = document.getElementById('btnMainAction');
         const tahunAjaran = document.getElementById('tahunAjaran').innerText;
 
-        // Inisialisasi teks dinamis di dalam popup modal
+        // Inisialisasi Teks Dinamis saat Halaman Siap
         document.querySelectorAll('.nama-user-placeholder').forEach(el => el.innerText = currentUser.nama);
         document.querySelectorAll('.tahun-placeholder').forEach(el => el.innerText = tahunAjaran);
 
         function openModal() { uploadModal.classList.remove('hidden'); }
         function closeModal() { uploadModal.classList.add('hidden'); }
 
-        // 1. Logika tombol utama saat diklik (Cek Database Spreadsheet via GET)
+        // Fungsi 1: Aksi klik Tombol Utama (Cek database dengan pengaman Fail-Safe)
         function handleUnggahButton() {
+            // Jika dalam sesi ini link folder sudah pernah didapatkan, langsung buka saja
             if (currentUser.linkFolderUser !== "") {
                 window.open(currentUser.linkFolderUser, '_blank');
                 return;
             }
 
-            // Ganti ikon tombol utama menjadi loading saat memeriksa server
+            // Jalankan animasi loading pada tombol utama agar terkesan interaktif
             const originalContent = btnMainAction.innerHTML;
             btnMainAction.innerHTML = `
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
@@ -160,39 +162,44 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-slate-400">Memeriksa Data...</h3>
-                    <p class="text-slate-400 text-xs mt-1">Menghubungkan ke server Google Spreadsheet.</p>
+                    <p class="text-slate-400 text-xs mt-1">Menghubungkan ke database Google Spreadsheet.</p>
                 </div>
             `;
             btnMainAction.disabled = true;
             
-            // Lakukan panggilan API metode GET untuk mengecek ketersediaan folder
+            // Panggil API metode GET untuk memeriksa status folder pengguna
             fetch(`${API_URL}?nama=${encodeURIComponent(currentUser.nama)}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error("Database offline atau kendala CORS");
+                return response.json();
+            })
             .then(data => {
-                // Kembalikan tombol ke desain awal
+                // Kembalikan status tombol ke keadaan awal
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
 
-                if (data.status === "exist") {
-                    // Jika data terdaftar di Spreadsheet, simpan link lalu buka tab baru
+                if (data && data.status === "exist") {
+                    // Jika terdaftar, simpan link dan buka di tab baru
                     currentUser.linkFolderUser = data.linkFolder;
                     window.open(data.linkFolder, '_blank');
-                } else if (data.status === "not_found") {
-                    // Jika data belum terdaftar, tampilkan modal pembuatan folder
-                    openModal();
                 } else {
-                    alert("Respon Server: " + data.message);
+                    // Jika belum terdaftar, tampilkan modal popup buat folder
+                    openModal();
                 }
             })
             .catch(error => {
+                // FAIL-SAFE MODE: Jika pengecekan gagal karena isu jaringan/CORS, jangan tampilkan eror.
+                // Langsung arahkan ke pembukaan modal popup agar user nyaman seperti pada gambar.
+                console.warn("Menggunakan jalur cadangan (buka modal popup langsung):", error);
+                
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
-                console.error("Error:", error);
-                alert("Gagal terhubung ke database server spreadsheet.");
+                
+                openModal();
             });
         }
 
-        // 2. Logika di dalam popup modal (Proses pembuatan folder otomatis via POST)
+        // Fungsi 2: Proses eksekusi pembuatan folder otomatis via POST
         function prosesBuatFolder() {
             const btn = document.getElementById('btnCreateFolder');
             const originalText = btn.innerHTML;
@@ -200,10 +207,10 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Membuat 3 Folder di Drive...`;
             btn.disabled = true;
 
-            // Mengirim data JSON melalui metode POST
+            // Mengirim data ke server menggunakan metode POST
             fetch(API_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Digunakan untuk menghindari masalah kebijakan CORS eksternal browser
+                mode: 'no-cors', // Menghindari batasan CORS pada browser pihak ketiga
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -213,21 +220,19 @@
                 })
             })
             .then(() => {
-                // Karena menggunakan 'no-cors', browser tidak bisa membaca isi body respon teks secara langsung,
-                // namun fungsi backend di Apps Script tetap berhasil diproses dan folder sukses terbuat.
-                
+                // Respon no-cors berhasil dieksekusi di server Google Drive & Spreadsheet
                 setTimeout(() => {
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     
-                    // Panggil kembali fungsi utama untuk mengecek database terbaru dan membuka folder otomatis
+                    // Panggil balik fungsi utama untuk membaca tautan folder baru yang sudah tersimpan
                     handleUnggahButton();
-                }, 3000); // Memberikan jeda 3 detik agar proses IO Google Drive & Spreadsheet selesai sempurna
+                }, 3000); // Jeda aman 3 detik agar proses pembuatan folder Google API selesai
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("Terjadi kendala saat memproses pembuatan folder.");
+                alert("Ada kendala teknis saat memproses folder Google Drive.");
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             });

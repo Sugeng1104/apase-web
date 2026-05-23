@@ -17,7 +17,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen text-slate-800 font-sans antialiased relative">
+<body class="bg-slate-50 min-h-screen text-slate-800 font-sans antialiased relative pb-20">
 
     <div class="flex min-h-screen">
         <main class="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
@@ -103,6 +103,12 @@
         </main>
     </div>
 
+    <div class="fixed bottom-6 right-6 z-40">
+        <a href="https://sugeng1104.github.io/apase-web/dashboard.html" class="btn-timbul inline-flex items-center gap-2 bg-slate-900 text-white font-medium text-sm px-5 py-3 rounded-xl shadow-lg hover:bg-slate-800 transition-all decoration-transparent">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </a>
+    </div>
+
     <div id="uploadModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col items-center text-center">
             <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
@@ -148,7 +154,6 @@
             window.location.href = "index.html";
         }
 
-        // Tautan API Akurat Mengarah Ke Deployment Baru Anda
         const API_URL = "https://script.google.com/macros/s/AKfycbwXRjg13-Kz0FsVxXh5-xgtbKARX1SFMJN6529JNcPrahBJl-7_KV8_kG-lZ685Rb14/exec";
 
         const storageNama = localStorage.getItem("namaPengguna");
@@ -190,7 +195,6 @@
             }
         }
 
-        // IMPLEMENTASI UTAMA: Deteksi Menggunakan Script Tag (JSONP) Mengatasi Hambatan CORS Browser secara Mutlak
         function handleUnggahButton(tipe = "induk") {
             targetFolderType = tipe; 
 
@@ -199,7 +203,6 @@
                 return;
             }
 
-            // Animasi Loading Tombol Utama
             const originalContent = btnMainAction.innerHTML;
             btnMainAction.innerHTML = `
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
@@ -212,15 +215,12 @@
             `;
             btnMainAction.disabled = true;
 
-            // Membuat Callback Dinamis Global
             const callbackName = "apiCallback_" + Math.floor(Math.random() * 100000);
             
             window[callbackName] = function(data) {
-                // Hapus tag skrip sisa pemrosesan dari DOM
                 document.getElementById(callbackName).remove();
                 delete window[callbackName];
 
-                // Kembalikan Tombol ke Desain Awal
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
 
@@ -236,14 +236,12 @@
                 }
             };
 
-            // Injeksi Script Element Baru untuk Bypass Restriksi CORS Browser secara Native
             const script = document.createElement("script");
             script.id = callbackName;
             script.src = `${API_URL}?nama=${encodeURIComponent(currentUser.nama)}&callback=${callbackName}&t=${new Date().getTime()}`;
             document.body.appendChild(script);
         }
 
-        // Proses Sinkronisasi Folder (Senyap Tanpa Memunculkan Notifikasi Alert)
         function prosesBuatFolder() {
             const btn = document.getElementById('btnCreateFolder');
             const originalText = btn.innerHTML;
@@ -264,13 +262,10 @@
                 mode: 'no-cors' 
             })
             .then(() => {
-                // Memberikan Jeda 4 Detik Agar Proses Penulisan Baris Baru & Folder di Sisi Server Google Selesai Sempurna
                 setTimeout(() => {
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    
-                    // Langsung Periksa Database secara Transparan untuk Membuka Jendela Drive Baru
                     handleUnggahButton(targetFolderType);
                 }, 4000);
             })

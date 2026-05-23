@@ -42,7 +42,7 @@
                         <p class="text-indigo-100 mt-2 text-sm leading-relaxed">Akses langsung layanan e-Kinerja BKN untuk klaim Angka Kredit (AK) dan pemantauan SKP berkala.</p>
                     </div>
                     <div class="mt-8 flex justify-center transform group-hover:scale-105 transition-transform duration-500">
-                        <img src="pages/img/ekinerja.png" alt="E-Kinerja Logo" class="h-44 object-contain drop-shadow-2xl rounded-2xl">
+                        <img src="assets/img/ekinerja.png" alt="E-Kinerja Logo" class="h-44 object-contain drop-shadow-2xl rounded-2xl">
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
             <p class="text-slate-500 text-sm mt-2 px-2">Sistem mendeteksi Anda belum memiliki folder berkas di Google Drive sekolah. Silakan buat direktori otomatis sekarang.</p>
             
             <div class="w-full bg-slate-50 border border-slate-200/60 rounded-xl p-3 my-4 text-left text-xs space-y-1 font-mono text-slate-600">
-                <div class="text-slate-400">📂 APASE_DRIVE / Kinerja /</div>
+                <div class="text-slate-400">📂 APASE_DRIVE / Kinerja / Ekinerja /</div>
                 <div class="pl-4 text-indigo-600 font-bold">└── 📁 <span class="nama-user-placeholder">[Nama Pengguna]</span></div>
                 <div class="pl-8 text-slate-500">├── 📁 SKP <span class="tahun-placeholder">xxxx</span></div>
                 <div class="pl-8 text-slate-500">└── 📁 Angka Kredit <span class="tahun-placeholder">xxxx</span></div>
@@ -126,12 +126,19 @@
     </div>
 
     <script>
-        // Endpoint Google Apps Script Web App Anda
-        const API_URL = "https://script.google.com/macros/s/AKfycbwXRjg13-Kz0FsVxXh5-xgtbKARX1SFMJN6529JNcPrahBJl-7_KV8_kG-lZ685Rb14/exec";
+        // Guard Check: Memastikan user sudah login sebelum bisa akses halaman ini
+        const checkLoginUser = localStorage.getItem("loginUser");
+        if (!checkLoginUser) {
+            window.location.href = "index.html";
+        }
 
-        // Data Simulasi Pengguna Aktif (Bisa diintegrasikan dengan session login sistem Anda nantinya)
+        // Endpoint Google Apps Script Web App Anda
+        const API_URL = "https://script.google.com/macros/s/AKfycbwMut48iCIvhgBeboojsKC-oaLdErtOldlxkXdB8nZy-XXx-7VLYfsIFf4cyiCe2v-_/exec";
+
+        // MENGAMBIL DATA AKUN GURU SECARA DINAMIS DARI DASHBOARD UTAMA
+        const storageNama = localStorage.getItem("namaPengguna");
         const currentUser = {
-            nama: "Budi Setyawan S.Pd", 
+            nama: storageNama || checkLoginUser, // Gunakan nama asli jika ada, jika tidak gunakan email/username loginUser
             linkFolderUser: ""
         };
 
@@ -148,13 +155,12 @@
 
         // Fungsi 1: Aksi klik Tombol Utama (Cek database dengan pengaman Fail-Safe)
         function handleUnggahButton() {
-            // Jika dalam sesi ini link folder sudah pernah didapatkan, langsung buka saja
             if (currentUser.linkFolderUser !== "") {
                 window.open(currentUser.linkFolderUser, '_blank');
                 return;
             }
 
-            // Jalankan animasi loading pada tombol utama agar terkesan interaktif
+            // Jalankan animasi loading pada tombol utama
             const originalContent = btnMainAction.innerHTML;
             btnMainAction.innerHTML = `
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
@@ -167,34 +173,27 @@
             `;
             btnMainAction.disabled = true;
             
-            // Panggil API metode GET untuk memeriksa status folder pengguna
+            // Panggil API metode GET untuk memeriksa status folder pengguna secara dinamis
             fetch(`${API_URL}?nama=${encodeURIComponent(currentUser.nama)}`)
             .then(response => {
                 if (!response.ok) throw new Error("Database offline atau kendala CORS");
                 return response.json();
             })
             .then(data => {
-                // Kembalikan status tombol ke keadaan awal
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
 
                 if (data && data.status === "exist") {
-                    // Jika terdaftar, simpan link dan buka di tab baru
                     currentUser.linkFolderUser = data.linkFolder;
                     window.open(data.linkFolder, '_blank');
                 } else {
-                    // Jika belum terdaftar, tampilkan modal popup buat folder
                     openModal();
                 }
             })
             .catch(error => {
-                // FAIL-SAFE MODE: Jika pengecekan gagal karena isu jaringan/CORS, jangan tampilkan eror.
-                // Langsung arahkan ke pembukaan modal popup agar user nyaman seperti pada gambar.
-                console.warn("Menggunakan jalur cadangan (buka modal popup langsung):", error);
-                
+                console.warn("Menggunakan jalur cadangan fail-safe (buka modal popup langsung):", error);
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
-                
                 openModal();
             });
         }
@@ -207,10 +206,10 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Membuat 3 Folder di Drive...`;
             btn.disabled = true;
 
-            // Mengirim data ke server menggunakan metode POST
+            // Mengirim data nama dinamis ke server menggunakan metode POST
             fetch(API_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Menghindari batasan CORS pada browser pihak ketiga
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -220,15 +219,14 @@
                 })
             })
             .then(() => {
-                // Respon no-cors berhasil dieksekusi di server Google Drive & Spreadsheet
                 setTimeout(() => {
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     
-                    // Panggil balik fungsi utama untuk membaca tautan folder baru yang sudah tersimpan
+                    // Ambil link folder terbaru secara dinamis
                     handleUnggahButton();
-                }, 3000); // Jeda aman 3 detik agar proses pembuatan folder Google API selesai
+                }, 3000);
             })
             .catch(error => {
                 console.error("Error:", error);

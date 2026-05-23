@@ -128,11 +128,11 @@
     <div id="warningModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col items-center text-center">
             <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center text-2xl mb-4">
-                <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-xl font-bold text-slate-900">Akses Ditolak</h3>
+            <h3 class="text-xl font-bold text-slate-900">Folder Belum Tersedia</h3>
             <p class="text-slate-500 text-sm mt-3 px-4 leading-relaxed">
-                Mohon maaf, Anda <span class="font-semibold text-slate-800">belum membuat folder</span> berkas. Silakan membuat folder terlebih dahulu melalui tombol <span class="font-semibold text-indigo-600">Unggah SKP & AK</span> di atas.
+                Mohon maaf Anda belum membuat folder. Silakan membuat folder terlebih dahulu di <span class="font-semibold text-indigo-600">Unggah SKP & AK</span>.
             </p>
             
             <button onclick="closeWarningModal()" class="btn-timbul mt-6 w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer">
@@ -173,7 +173,7 @@
         function openWarningModal() { warningModal.classList.remove('hidden'); }
         function closeWarningModal() { warningModal.classList.add('hidden'); }
 
-        // Pengalihan ke Sub-Folder Drive
+        // Pengalihan ke Sub-Folder Drive (Logika Terbukti Berhasil)
         function alihkanKeSubFolder(linkInduk, tipe) {
             if (tipe === "induk") {
                 window.open(linkInduk, '_blank');
@@ -190,7 +190,7 @@
             }
         }
 
-        // Fungsi Tombol utama dan tombol Arsip
+        // Fungsi Tombol utama dan tombol Arsip (Versi Murni Tanpa Modifikasi Interupsi)
         function handleUnggahButton(tipe = "induk") {
             targetFolderType = tipe; 
 
@@ -222,16 +222,16 @@
                     currentUser.linkFolderUser = data.linkFolder;
                     alihkanKeSubFolder(data.linkFolder, targetFolderType);
                 } else {
-                    // MODIFIKASI LOGIKA POPUP DISINI:
+                    // Cek tipe tombol untuk menentukan jenis popup yang muncul
                     if (targetFolderType === "induk") {
-                        openModal(); // Klik tombol utama -> tawarkan buat folder
+                        openModal(); 
                     } else {
-                        openWarningModal(); // Klik tombol SKP/AK -> munculkan popup peringatan ditolak
+                        openWarningModal(); 
                     }
                 }
             })
             .catch(error => {
-                console.warn("Koneksi dialihkan:", error);
+                console.warn("Jalur cadangan aktif:", error);
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
                 
@@ -243,7 +243,7 @@
             });
         }
 
-        // Eksekusi pembuatan folder via POST
+        // Eksekusi pembuatan folder via POST (Tanpa Alert)
         function prosesBuatFolder() {
             const btn = document.getElementById('btnCreateFolder');
             const originalText = btn.innerHTML;
@@ -268,7 +268,7 @@
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    alert("Folder sukses disinkronkan ke Google Drive!");
+                    // LANGSUNG PANGGIL DATABASE TANPA POPUP ALERT NOTIFIKASI
                     handleUnggahButton(targetFolderType);
                 }, 3500);
             })

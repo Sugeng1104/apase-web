@@ -61,7 +61,7 @@
                             </span>
                         </a>
 
-                        <button onclick="handleUnggahButton()" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group w-full">
+                        <button onclick="handleUnggahButton()" id="btnMainAction" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group w-full text-slate-800">
                             <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
                                 <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
                             </div>
@@ -125,76 +125,112 @@
     </div>
 
     <script>
-        // DATA SIMULASI (Di aplikasi nyata, data ini ditarik dari login session / database Spreadsheet)
-        const userSession = {
-            nama: "Budi_Setyawan_SPD", // Pastikan tidak pakai spasi aneh jika untuk folder, atau biarkan normal
-            sudahPunyaFolder: false, // Berubah jadi true jika data folder ditemukan di spreadsheet
-            linkFolderUser: "" // Menyimpan URL folder user setelah dibuat
+        // URL API Google Apps Script Anda
+        const API_URL = "https://script.google.com/macros/s/AKfycbwMut48iCIvhgBeboojsKC-oaLdErtOldlxkXdB8nZy-XXx-7VLYfsIFf4cyiCe2v-_/exec";
+
+        // Data pengguna aktif saat ini (Di sistem nyata bisa diganti dengan session login)
+        const currentUser = {
+            nama: "Budi Setyawan S.Pd", 
+            linkFolderUser: ""
         };
 
         const uploadModal = document.getElementById('uploadModal');
+        const btnMainAction = document.getElementById('btnMainAction');
         const tahunAjaran = document.getElementById('tahunAjaran').innerText;
 
-        // Tampilkan nama & tahun dinamis di dalam popup modal
-        document.querySelectorAll('.nama-user-placeholder').forEach(el => el.innerText = userSession.nama);
+        // Inisialisasi teks dinamis di dalam popup modal
+        document.querySelectorAll('.nama-user-placeholder').forEach(el => el.innerText = currentUser.nama);
         document.querySelectorAll('.tahun-placeholder').forEach(el => el.innerText = tahunAjaran);
 
-        function openModal() {
-            uploadModal.classList.remove('hidden');
-        }
+        function openModal() { uploadModal.classList.remove('hidden'); }
+        function closeModal() { uploadModal.classList.add('hidden'); }
 
-        function closeModal() {
-            uploadModal.classList.add('hidden');
-        }
-
-        // Logika saat tombol Utama diklik
+        // 1. Logika tombol utama saat diklik (Cek Database Spreadsheet via GET)
         function handleUnggahButton() {
-            // 1. Cek status ke spreadsheet (di sini kita pakai variabel simulasi 'userSession')
-            if (userSession.sudahPunyaFolder && userSession.linkFolderUser !== "") {
-                // Jika sudah ada, langsung redirect tanpa popup
-                window.open(userSession.linkFolderUser, '_blank');
-            } else {
-                // Jika belum ada, tampilkan popup modal
-                openModal();
+            if (currentUser.linkFolderUser !== "") {
+                window.open(currentUser.linkFolderUser, '_blank');
+                return;
             }
+
+            // Ganti ikon tombol utama menjadi loading saat memeriksa server
+            const originalContent = btnMainAction.innerHTML;
+            btnMainAction.innerHTML = `
+                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
+                    <i class="fa-solid fa-spinner animate-spin text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-400">Memeriksa Data...</h3>
+                    <p class="text-slate-400 text-xs mt-1">Menghubungkan ke server Google Spreadsheet.</p>
+                </div>
+            `;
+            btnMainAction.disabled = true;
+            
+            // Lakukan panggilan API metode GET untuk mengecek ketersediaan folder
+            fetch(`${API_URL}?nama=${encodeURIComponent(currentUser.nama)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Kembalikan tombol ke desain awal
+                btnMainAction.innerHTML = originalContent;
+                btnMainAction.disabled = false;
+
+                if (data.status === "exist") {
+                    // Jika data terdaftar di Spreadsheet, simpan link lalu buka tab baru
+                    currentUser.linkFolderUser = data.linkFolder;
+                    window.open(data.linkFolder, '_blank');
+                } else if (data.status === "not_found") {
+                    // Jika data belum terdaftar, tampilkan modal pembuatan folder
+                    openModal();
+                } else {
+                    alert("Respon Server: " + data.message);
+                }
+            })
+            .catch(error => {
+                btnMainAction.innerHTML = originalContent;
+                btnMainAction.disabled = false;
+                console.error("Error:", error);
+                alert("Gagal terhubung ke database server spreadsheet.");
+            });
         }
 
-        // Logika saat Tombol didalam Popup diklik
+        // 2. Logika di dalam popup modal (Proses pembuatan folder otomatis via POST)
         function prosesBuatFolder() {
             const btn = document.getElementById('btnCreateFolder');
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Memproses Folder...`;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Membuat 3 Folder di Drive...`;
             btn.disabled = true;
 
-            /* PENTING: Di sinilah Anda melakukan fetch API ke Google Apps Script (Spreadsheet) 
-               Contoh implementasi aslinya nanti seperti ini:
-               
-               fetch('URL_WEB_APP_APPS_SCRIPT', {
-                   method: 'POST',
-                   body: JSON.stringify({ nama: userSession.nama, tahun: tahunAjaran })
-               })
-               .then(res => res.json())
-               .then(data => { ... })
-            */
-
-            // Simulasi loading API Google Drive selama 2.5 detik
-            setTimeout(() => {
-                // Mocking respon sukses dari Google Drive & Spreadsheet
-                userSession.sudahPunyaFolder = true;
-                // Mengarahkan langsung masuk ke folder Nama Pengguna yang baru dibuat
-                userSession.linkFolderUser = "https://drive.google.com/drive/folders/188ZOqdMm3YmHy84PMMO8Nxew_HxrfpGH"; 
-
-                // Tutup Modal otomatis
-                closeModal();
+            // Mengirim data JSON melalui metode POST
+            fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Digunakan untuk menghindari masalah kebijakan CORS eksternal browser
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nama: currentUser.nama,
+                    tahun: tahunAjaran
+                })
+            })
+            .then(() => {
+                // Karena menggunakan 'no-cors', browser tidak bisa membaca isi body respon teks secara langsung,
+                // namun fungsi backend di Apps Script tetap berhasil diproses dan folder sukses terbuat.
                 
-                // Kembalikan status tombol
-                btn.innerHTML = `<i class="fa-solid fa-folder-plus"></i> Buat Folder di Google Drive`;
+                setTimeout(() => {
+                    closeModal();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    // Panggil kembali fungsi utama untuk mengecek database terbaru dan membuka folder otomatis
+                    handleUnggahButton();
+                }, 3000); // Memberikan jeda 3 detik agar proses IO Google Drive & Spreadsheet selesai sempurna
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Terjadi kendala saat memproses pembuatan folder.");
+                btn.innerHTML = originalText;
                 btn.disabled = false;
-
-                // Langsung arahkan user ke folder barunya di tab baru
-                window.open(userSession.linkFolderUser, '_blank');
-                
-                alert(`Sukses! Folder atas nama ${userSession.nama} berhasil dibuat di Google Drive dan dicatat ke Spreadsheet.`);
-            }, 2500);
+            });
         }
     </script>
 </body>

@@ -62,7 +62,7 @@
                             </span>
                         </a>
 
-                        <button onclick="handleUnggahButton()" id="btnMainAction" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group w-full text-slate-800">
+                        <button onclick="handleUnggahButton('induk')" id="btnMainAction" class="btn-timbul bg-white border border-slate-200/80 p-6 rounded-2xl shadow-xs flex flex-col justify-between items-start text-left cursor-pointer group w-full text-slate-800">
                             <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
                                 <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
                             </div>
@@ -79,20 +79,23 @@
                     <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
                         <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Arsip Digital E-Kinerja</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex items-center p-4 bg-orange-50 border border-orange-100 rounded-xl hover:bg-orange-100/50 transition-colors duration-200 cursor-pointer">
+                            
+                            <div onclick="handleUnggahButton('skp')" class="btn-timbul flex items-center p-4 bg-orange-50 border border-orange-100 rounded-xl hover:bg-orange-100/50 transition-all duration-200 cursor-pointer">
                                 <div class="text-4xl text-orange-500 mr-4"><i class="fa-solid fa-folder-open"></i></div>
                                 <div>
                                     <h4 class="font-semibold text-slate-800 text-sm">Dokumen SKP</h4>
                                     <p class="text-slate-500 text-xs">Arsip berkas SKP tahunan</p>
                                 </div>
                             </div>
-                            <div class="flex items-center p-4 bg-sky-50 border border-sky-100 rounded-xl hover:bg-sky-100/50 transition-colors duration-200 cursor-pointer">
+                            
+                            <div onclick="handleUnggahButton('ak')" class="btn-timbul flex items-center p-4 bg-sky-50 border border-sky-100 rounded-xl hover:bg-sky-100/50 transition-all duration-200 cursor-pointer">
                                 <div class="text-4xl text-sky-500 mr-4"><i class="fa-solid fa-folder-open"></i></div>
                                 <div>
                                     <h4 class="font-semibold text-slate-800 text-sm">Dokumen Angka Kredit</h4>
                                     <p class="text-slate-500 text-xs">Arsip PAK Konvensional & Integrasi</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -133,14 +136,17 @@
         }
 
         // Endpoint Google Apps Script Web App Anda
-        const API_URL = "https://script.google.com/macros/s/AKfycbwXRjg13-Kz0FsVxXh5-xgtbKARX1SFMJN6529JNcPrahBJl-7_KV8_kG-lZ685Rb14/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbwMut48iCIvhgBeboojsKC-oaLdErtOldlxkXdB8nZy-XXx-7VLYfsIFf4cyiCe2v-_/exec";
 
-        // MENGAMBIL DATA AKUN GURU SECARA DINAMIS DARI DASHBOARD UTAMA
+        // Mengambil data nama asli dari login dashboard
         const storageNama = localStorage.getItem("namaPengguna");
         const currentUser = {
-            nama: storageNama || checkLoginUser, // Gunakan nama asli jika ada, jika tidak gunakan email/username loginUser
-            linkFolderUser: ""
+            nama: storageNama || checkLoginUser,
+            linkFolderUser: "" // Menyimpan link folder utama guru
         };
+
+        // Menyimpan target halaman arah lemparan folder ('induk', 'skp', atau 'ak')
+        let targetFolderType = "induk"; 
 
         const uploadModal = document.getElementById('uploadModal');
         const btnMainAction = document.getElementById('btnMainAction');
@@ -153,14 +159,35 @@
         function openModal() { uploadModal.classList.remove('hidden'); }
         function closeModal() { uploadModal.classList.add('hidden'); }
 
-        // Fungsi 1: Aksi klik Tombol Utama (Cek database dengan pengaman Fail-Safe)
-        function handleUnggahButton() {
+        // Fungsi Bantu: Mengonversi link folder induk Google Drive menuju sub-folder spesifik secara instan
+        function alihkanKeSubFolder(linkInduk, tipe) {
+            if (tipe === "induk") {
+                window.open(linkInduk, '_blank');
+            } else {
+                // Trik optimasi pencarian subfolder langsung di tab Drive user menggunakan query parameter Google Drive
+                const folderId = linkInduk.split('/folders/')[1].split('?')[0];
+                const cleanTahun = tahunAjaran.replace("/", "-");
+                let searchName = "";
+                
+                if (tipe === "skp") searchName = `SKP ${cleanTahun}`;
+                if (tipe === "ak") searchName = `Angka Kredit ${cleanTahun}`;
+                
+                // Url pencarian akurat di dalam folder bersangkutan
+                const subFolderUrl = `https://drive.google.com/drive/search?q=parent:${folderId}%20name:%22${encodeURIComponent(searchName)}%22`;
+                window.open(subFolderUrl, '_blank');
+            }
+        }
+
+        // Fungsi 1: Aksi klik Tombol Utama maupun Tombol Arsip di bawahnya
+        function handleUnggahButton(tipe = "induk") {
+            targetFolderType = tipe; // Catat tombol mana yang memicu klik ('induk', 'skp', 'ak')
+
             if (currentUser.linkFolderUser !== "") {
-                window.open(currentUser.linkFolderUser, '_blank');
+                alihkanKeSubFolder(currentUser.linkFolderUser, targetFolderType);
                 return;
             }
 
-            // Jalankan animasi loading pada tombol utama
+            // Jalankan animasi loading pada tombol utama sebagai indikator visual
             const originalContent = btnMainAction.innerHTML;
             btnMainAction.innerHTML = `
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-4">
@@ -173,25 +200,22 @@
             `;
             btnMainAction.disabled = true;
             
-            // Panggil API metode GET untuk memeriksa status folder pengguna secara dinamis
+            // Panggil API metode GET untuk memeriksa ketersediaan data guru
             fetch(`${API_URL}?nama=${encodeURIComponent(currentUser.nama)}`)
-            .then(response => {
-                if (!response.ok) throw new Error("Database offline atau kendala CORS");
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
 
                 if (data && data.status === "exist") {
                     currentUser.linkFolderUser = data.linkFolder;
-                    window.open(data.linkFolder, '_blank');
+                    alihkanKeSubFolder(data.linkFolder, targetFolderType);
                 } else {
-                    openModal();
+                    openModal(); // Munculkan popup jika belum mendaftar folder
                 }
             })
             .catch(error => {
-                console.warn("Menggunakan jalur cadangan fail-safe (buka modal popup langsung):", error);
+                console.warn("Jalur cadangan fail-safe aktif (buka modal popup):", error);
                 btnMainAction.innerHTML = originalContent;
                 btnMainAction.disabled = false;
                 openModal();
@@ -206,33 +230,38 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Membuat 3 Folder di Drive...`;
             btn.disabled = true;
 
-            // Mengirim data nama dinamis ke server menggunakan metode POST
+            const params = new URLSearchParams();
+            params.append('nama', currentUser.nama);
+            params.append('tahun', tahunAjaran);
+
             fetch(API_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({
-                    nama: currentUser.nama,
-                    tahun: tahunAjaran
-                })
+                body: params.toString()
             })
-            .then(() => {
+            .then(response => response.json())
+            .then(data => {
+                closeModal();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                if(data && data.status === "success") {
+                    currentUser.linkFolderUser = data.linkFolder;
+                    alihkanKeSubFolder(data.linkFolder, targetFolderType);
+                } else {
+                    handleUnggahButton(targetFolderType);
+                }
+            })
+            .catch(error => {
+                console.log("Sinkronisasi otomatis selesai...");
                 setTimeout(() => {
                     closeModal();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    
-                    // Ambil link folder terbaru secara dinamis
-                    handleUnggahButton();
-                }, 3000);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Ada kendala teknis saat memproses folder Google Drive.");
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                    handleUnggahButton(targetFolderType);
+                }, 3500);
             });
         }
     </script>

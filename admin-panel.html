@@ -112,10 +112,17 @@ font-size:20px;
 font-weight:600;
 }
 
-/* BALOK */
+/* --- BARU: STRUKTUR GRID 3 BALOK LANGSING --- */
+.trio-balok-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 25px;
+margin-bottom: 35px;
+}
+
+/* BALOK STANDAR (Dipakai Twin Balok & Diadaptasi ke Trio Balok) */
 .guru-box{
 width:100%;
-margin-bottom:35px;
 padding:25px 30px;
 border-radius:30px;
 display:flex;
@@ -124,6 +131,27 @@ align-items:center;
 flex-wrap:wrap;
 gap:20px;
 box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* MODIFIKASI KHUSUS TRIO BALOK AGAR PENDEK & LANGSING */
+.trio-balok-grid .guru-box {
+padding: 18px 22px; /* Dipersempit agar tipis/pendek */
+border-radius: 20px;
+gap: 12px;
+}
+
+.trio-balok-grid .guru-title {
+font-size: 16px; /* Font dikecilkan agar seimbang di area langsing */
+font-weight: 700;
+letter-spacing: 0.5px;
+max-width: 60%;
+}
+
+.trio-balok-grid .upload-btn {
+padding: 10px 18px; /* Tombol dibuat lebih imut */
+font-size: 13px;
+border-radius: 12px;
+flex-shrink: 0;
 }
 
 /* KOTAK GRID DUA KOLOM SEJAJAR BARU */
@@ -382,8 +410,13 @@ user-select:text;
 white-space:nowrap;
 }
 
+/* RESPONSIVE GUARD */
+@media(max-width:1024px){
+.trio-balok-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
 @media(max-width:992px){
-.twin-balok-grid { grid-template-columns: 1fr; gap: 0; }
+.twin-balok-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
 @media(max-width:768px){
@@ -418,19 +451,23 @@ white-space:nowrap;
 
 </div>
 
-<div class="guru-box orange-box">
-<div class="guru-title">DATA GURU DAN TENDIK</div>
-<button class="upload-btn" onclick="openModal('uploadModal')">Unggah CSV</button>
-</div>
+<div class="trio-balok-grid">
 
-<div class="guru-box blue-box">
-<div class="guru-title">STATISTIK SISWA</div>
-<button class="upload-btn" onclick="openModal('siswaModal')">Klik</button>
-</div>
+    <div class="guru-box orange-box">
+        <div class="guru-title">DATA GURU DAN TENDIK</div>
+        <button class="upload-btn" onclick="openModal('uploadModal')">Unggah CSV</button>
+    </div>
 
-<div class="guru-box purple-box">
-<div class="guru-title">PERANGKAT GURU</div>
-<button class="upload-btn" onclick="loadPerangkatGuru()">Lihat</button>
+    <div class="guru-box blue-box">
+        <div class="guru-title">STATISTIK SISWA</div>
+        <button class="upload-btn" onclick="openModal('siswaModal')">Klik</button>
+    </div>
+
+    <div class="guru-box purple-box">
+        <div class="guru-title">PERANGKAT GURU</div>
+        <button class="upload-btn" onclick="loadPerangkatGuru()">Lihat</button>
+    </div>
+
 </div>
 
 <div class="twin-balok-grid">
@@ -582,8 +619,6 @@ white-space:nowrap;
 const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 const PTK_API = "https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
 const SISWA_API = "https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
-
-/* JALUR BARU KHUSUS API ABSENSI PTK ANDA */
 const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
 
 const loginUser = localStorage.getItem("loginUser");
@@ -693,9 +728,6 @@ console.log(error);
 }
 }
 
-// ====================================================
-// TRIGGER BARU: MENGHUBUNGKAN LANGSUNG KE ABSENSI_API ANDA
-// ====================================================
 function handleAbsensiClick() {
   openModal('absensiModal');
   const body = document.getElementById("absensiModalBody");
@@ -731,7 +763,6 @@ function handleAbsensiClick() {
 
   const script = document.createElement("script");
   script.id = callbackName;
-  /* Menggunakan konstanta ABSENSI_API */
   script.src = `${ABSENSI_API}?action=createFolderAbsensi&prefix=${callbackName}&t=${new Date().getTime()}`;
   script.onerror = function() {
     body.innerHTML = `<div style="color:#f87171;"><i class="fas fa-wifi"></i> Gangguan Jaringan. Gagal mengirim instruksi pembuatan folder.</div>`;

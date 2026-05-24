@@ -10,7 +10,6 @@
 
   <title>Profil Sekolah - APASE WEB</title>
 
-  <!-- GOOGLE FONT -->
   <link rel="preconnect"
         href="https://fonts.googleapis.com">
 
@@ -335,14 +334,11 @@
 
 <body>
 
-  <!-- BACKGROUND -->
   <div class="blur1"></div>
   <div class="blur2"></div>
 
-  <!-- CONTAINER -->
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
 
       <img src="assets/logo/logo.png"
@@ -354,7 +350,6 @@
 
     </div>
 
-    <!-- CARD -->
     <div class="card">
 
       <div class="loading"
@@ -409,7 +404,6 @@
 
       </table>
 
-      <!-- BUTTON -->
       <div class="button-area">
 
         <a href="https://sugeng1104.github.io/apase-web/dashboard.html"
@@ -425,127 +419,72 @@
 
   </div>
 
-  <!-- SCRIPT -->
   <script>
 
     // =========================
     // API URL
     // =========================
-
-    const API_URL =
-    "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
 
     // =========================
     // CEK LOGIN
     // =========================
-
-    const loginUser =
-    localStorage.getItem(
-      "loginUser"
-    );
+    const loginUser = localStorage.getItem("loginUser");
 
     if(!loginUser){
-
-      window.location.href =
-      "login.html";
-
+      window.location.href = "login.html";
     }
 
     // =========================
-    // LOAD DATA SEKOLAH
+    // LOAD DATA SEKOLAH (BYPASS CORS DENGAN METODE GENERATE SCRIPT/JSONP)
     // =========================
+    function loadDataSekolah(){
+      
+      // Membuat nama callback acak yang unik secara global
+      const callbackName = "profilCallback_" + Math.floor(Math.random() * 100000);
+      
+      // Membuat fungsi global penampung response data dari Google Apps Script
+      window[callbackName] = function(result) {
+        
+        // Bersihkan tag script yang sudah selesai digunakan
+        document.getElementById(callbackName).remove();
+        delete window[callbackName];
 
-    async function loadDataSekolah(){
+        document.getElementById("loading").style.display = "none";
 
-      try{
+        if(result && result.status === "success"){
+          document.getElementById("profilTable").style.display = "table";
+          const data = result.data;
 
-        const response =
-        await fetch(
-          `${API_URL}?action=getProfilSekolah`
-        );
-
-        const result =
-        await response.json();
-
-        document.getElementById(
-          "loading"
-        ).style.display = "none";
-
-        if(result.status === "success"){
-
-          document.getElementById(
-            "profilTable"
-          ).style.display = "table";
-
-          const data =
-          result.data;
-
-          document.getElementById(
-            "nama_sekolah"
-          ).innerText =
-          data.nama_sekolah || "-";
-
-          document.getElementById(
-            "npsn"
-          ).innerText =
-          data.npsn || "-";
-
-          document.getElementById(
-            "alamat"
-          ).innerText =
-          data.alamat || "-";
-
-          document.getElementById(
-            "desa_Sekolah"
-          ).innerText =
-          data.Desa_Sekolah || "-";
-
-          document.getElementById(
-            "kecamatan"
-          ).innerText =
-          data.Kecamatan || "-";
-
-          document.getElementById(
-            "kabupaten"
-          ).innerText =
-          data.Kabupaten || "-";
-
-          document.getElementById(
-            "provinsi"
-          ).innerText =
-          data.Provinsi || "-";
-
-          document.getElementById(
-            "email"
-          ).innerText =
-          data.email || "-";
-
+          // Mapping data ke elemen HTML sesuai property di Google Apps Script Anda
+          document.getElementById("nama_sekolah").innerText = data.nama_sekolah || "-";
+          document.getElementById("npsn").innerText         = data.npsn || "-";
+          document.getElementById("alamat").innerText       = data.alamat || "-";
+          document.getElementById("desa_Sekolah").innerText  = data.Desa_Sekolah || "-"; // Menggunakan properti berhuruf kapital 'Desa_Sekolah' sesuai Apps Script
+          document.getElementById("kecamatan").innerText    = data.Kecamatan || "-";
+          document.getElementById("kabupaten").innerText    = data.Kabupaten || "-";
+          document.getElementById("provinsi").innerText     = data.Provinsi || "-";
+          document.getElementById("email").innerText        = data.email || "-";
+        } else {
+          document.getElementById("loading").innerHTML = result.message || "Data sekolah tidak ditemukan";
         }
+      };
 
-        else{
+      // Trik Utama: Menggunakan Injeksi Tag Script agar Terhindar dari Blokir CORS Browser secara Mutlak
+      const script = document.createElement("script");
+      script.id = callbackName;
+      // Memanfaatkan trik parameter redirect Google Drive untuk memaksa output teks dibaca sebagai Javascript global
+      script.src = `${API_URL}?action=getProfilSekolah&prefix=${callbackName}&t=${new Date().getTime()}`;
+      
+      // Antisipasi jika server gagal merespons atau URL Apps Script salah
+      script.onerror = function() {
+        document.getElementById("loading").innerHTML = "Gagal memuat data. Periksa kembali status deployment Apps Script Anda.";
+      };
 
-          document.getElementById(
-            "loading"
-          ).innerHTML =
-          "Data sekolah tidak ditemukan";
-
-        }
-
-      }
-
-      catch(error){
-
-        document.getElementById(
-          "loading"
-        ).innerHTML =
-        "Gagal memuat data";
-
-        console.error(error);
-
-      }
-
+      document.body.appendChild(script);
     }
 
+    // Jalankan pemanggilan data
     loadDataSekolah();
 
   </script>

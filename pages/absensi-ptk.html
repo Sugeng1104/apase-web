@@ -171,33 +171,29 @@
     function showWarning() { document.getElementById("warningModal").style.display = "block"; }
     function closeWarning() { document.getElementById("warningModal").style.display = "none"; }
 
+    // PERBAIKAN TOTAL: Menggunakan modern Fetch API (Anti-Stuck & Kebal CORS)
     function fetchAbsensiDataLive() {
         const container = document.getElementById("folderContainer");
-        const callbackName = "getAllAbsensi_" + Math.floor(Math.random() * 100000);
-        
-        // Pemicu callback JSONP global
-        window[callbackName] = function(result) {
-            // Bersihkan tag script penampung setelah eksekusi berhasil
-            const scriptEl = document.getElementById(callbackName);
-            if(scriptEl) scriptEl.remove();
-            delete window[callbackName];
+        const urlPanggil = `${ABSENSI_API}?action=getAllAbsensi&_t=${new Date().getTime()}`;
 
-            if (result && result.status === "success") {
-                renderFolderGrid(result.data);
-            } else {
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;">Gagal: ${result ? result.message : 'Respons Tidak Dikenal'}</div>`;
-            }
-        };
-
-        // Menggunakan parameter callback ganda (&callback= dan &prefix=) demi kecocokan universal engine Apps Script
-        const script = document.createElement("script");
-        script.id = callbackName;
-        script.src = `${ABSENSI_API}?action=getAllAbsensi&callback=${callbackName}&prefix=${callbackName}&_t=${new Date().getTime()}`;
-        
-        script.onerror = function() {
-            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;"><i class="fas fa-wifi" style="font-size:20px; margin-bottom:5px;"></i><br>Gagal tersambung ke server Web App Google. Pastikan URL API sudah benar dan statusnya "Anyone".</div>`;
-        };
-        document.body.appendChild(script);
+        fetch(urlPanggil)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Jaringan bermasalah atau Server Google Apps Script overload.');
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result && result.status === "success") {
+                    renderFolderGrid(result.data);
+                } else {
+                    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;">Gagal memuat database: ${result ? result.message : 'Respons Tidak Diketahui'}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error Fetch:', error);
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;"><i class="fas fa-wifi" style="font-size:20px; margin-bottom:5px;"></i><br>Koneksi Terputus atau Konfigurasi API Apps Script Salah.</div>`;
+            });
     }
 
     function renderFolderGrid(dbRows) {
@@ -213,7 +209,6 @@
         let html = "";
 
         templateBulan.forEach(namaBulan => {
-            // Pembersihan string ekstra (menghilangkan spasi acak saat pencocokan)
             const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
             const linkUrl = matchData ? matchData.link.trim() : "";
 
@@ -234,7 +229,7 @@
             }
         });
 
-        container.innerHTML = html ? html : `<div style="grid-column:1/-1; text-align:center; color:#94a3b8;">Format data bulan tidak cocok dengan tahun ini (${currentYear}).</div>`;
+        container.innerHTML = html ? html : `<div style="grid-column:1/-1; text-align:center; color:#94a3b8;">Tidak ada data bulan yang cocok untuk tahun ${currentYear}.</div>`;
     }
 
     window.onload = function() {

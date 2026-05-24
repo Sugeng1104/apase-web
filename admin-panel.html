@@ -348,7 +348,7 @@ background:#1d4ed8;
 transform:translateY(-2px);
 }
 
-/* STYLE UNTUK AREA POPUP DRIVER ABSENSI */
+/* AREA TAMPILAN RESPONS FOLDER ABSENSI */
 .absensi-display-box {
   background: rgba(255, 255, 255, 0.05);
   border: 1px dashed rgba(255,255,255,0.2);
@@ -583,6 +583,9 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IW
 const PTK_API = "https://script.google.com/macros/s/AKfycbydbCQVMuU59haYmboDhQXHmac8J9PqnXLQEsUmn24ZY7OOuGscucigcLEZBLmbw8IJ/exec";
 const SISWA_API = "https://script.google.com/macros/s/AKfycbzSOyQZ19w7IjuFIFmBqsFMvxC4bOifMXSxBR0UpwZ_Pdcsf8K39q_1Fv6z5VSUbD66GQ/exec";
 
+/* JALUR BARU KHUSUS API ABSENSI PTK ANDA */
+const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
+
 const loginUser = localStorage.getItem("loginUser");
 if(!loginUser){ window.location.href = "index.html"; }
 
@@ -663,7 +666,6 @@ const colors = [
 return colors[Math.floor(Math.random()*colors.length)];
 }
 
-/* MENERAPKAN WARNA RANDOM PADA BALOK BARU SAAT HALAMAN DIBUKA */
 function applyRandomColorToNewBalok() {
   document.getElementById("balokAbsensi").style.background = randomColor();
   document.getElementById("balokSupervisi").style.background = randomColor();
@@ -692,12 +694,12 @@ console.log(error);
 }
 
 // ====================================================
-// FUNGSI BARU: PENGOLAH OTOMATIS FOLDER ABSENSI (JSONP SAFE)
+// TRIGGER BARU: MENGHUBUNGKAN LANGSUNG KE ABSENSI_API ANDA
 // ====================================================
 function handleAbsensiClick() {
   openModal('absensiModal');
   const body = document.getElementById("absensiModalBody");
-  body.innerHTML = `<p id="statusPembuatan"><i class="fas fa-spinner fa-spin"></i> Memeriksa & membuat folder otomatis di Drive Server...</p>`;
+  body.innerHTML = `<p id="statusPembuatan"><i class="fas fa-spinner fa-spin"></i> Memproses pembuatan master folder tahunan di Google Drive...</p>`;
   
   const callbackName = "absensiCallback_" + Math.floor(Math.random() * 100000);
   
@@ -729,7 +731,8 @@ function handleAbsensiClick() {
 
   const script = document.createElement("script");
   script.id = callbackName;
-  script.src = `${API_URL}?action=createFolderAbsensi&prefix=${callbackName}&t=${new Date().getTime()}`;
+  /* Menggunakan konstanta ABSENSI_API */
+  script.src = `${ABSENSI_API}?action=createFolderAbsensi&prefix=${callbackName}&t=${new Date().getTime()}`;
   script.onerror = function() {
     body.innerHTML = `<div style="color:#f87171;"><i class="fas fa-wifi"></i> Gangguan Jaringan. Gagal mengirim instruksi pembuatan folder.</div>`;
   };

@@ -131,7 +131,7 @@
             <img src="gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
             <div class="info-title">Kedisiplinan Nilai Utama</div>
             <p class="info-text">
-                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahaman kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
+                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahankan kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
             </p>
         </div>
 
@@ -175,7 +175,9 @@
         const container = document.getElementById("folderContainer");
         const callbackName = "getAllAbsensi_" + Math.floor(Math.random() * 100000);
         
+        // Pemicu callback JSONP global
         window[callbackName] = function(result) {
+            // Bersihkan tag script penampung setelah eksekusi berhasil
             const scriptEl = document.getElementById(callbackName);
             if(scriptEl) scriptEl.remove();
             delete window[callbackName];
@@ -183,24 +185,25 @@
             if (result && result.status === "success") {
                 renderFolderGrid(result.data);
             } else {
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Gagal mengambil data dari database Absensi. Reason: ${result ? result.message : 'Unknown'}</div>`;
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;">Gagal: ${result ? result.message : 'Respons Tidak Dikenal'}</div>`;
             }
         };
 
+        // Menggunakan parameter callback ganda (&callback= dan &prefix=) demi kecocokan universal engine Apps Script
         const script = document.createElement("script");
         script.id = callbackName;
-        script.src = `${ABSENSI_API}?action=getAllAbsensi&prefix=${callbackName}&t=${new Date().getTime()}`;
+        script.src = `${ABSENSI_API}?action=getAllAbsensi&callback=${callbackName}&prefix=${callbackName}&_t=${new Date().getTime()}`;
+        
         script.onerror = function() {
-            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Koneksi terputus atau server tidak merespon JSONP.</div>`;
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;"><i class="fas fa-wifi" style="font-size:20px; margin-bottom:5px;"></i><br>Gagal tersambung ke server Web App Google. Pastikan URL API sudah benar dan statusnya "Anyone".</div>`;
         };
         document.body.appendChild(script);
     }
 
     function renderFolderGrid(dbRows) {
         const container = document.getElementById("folderContainer");
-        
-        // Pendeteksian Tahun Dinamis agar jika di sheet tahun bergeser, web tetap bekerja fleksibel
         const currentYear = new Date().getFullYear();
+        
         const templateBulan = [
             "JANUARI " + currentYear, "FEBRUARI " + currentYear, "MARET " + currentYear, "APRIL " + currentYear, 
             "MEI " + currentYear, "JUNI " + currentYear, "JULI " + currentYear, "AGUSTUS " + currentYear, 
@@ -210,7 +213,7 @@
         let html = "";
 
         templateBulan.forEach(namaBulan => {
-            // Pembersihan pencarian string (Case-Insensitive & Spasi Bebas)
+            // Pembersihan string ekstra (menghilangkan spasi acak saat pencocokan)
             const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
             const linkUrl = matchData ? matchData.link.trim() : "";
 
@@ -231,7 +234,7 @@
             }
         });
 
-        container.innerHTML = html;
+        container.innerHTML = html ? html : `<div style="grid-column:1/-1; text-align:center; color:#94a3b8;">Format data bulan tidak cocok dengan tahun ini (${currentYear}).</div>`;
     }
 
     window.onload = function() {

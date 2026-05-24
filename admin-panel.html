@@ -112,15 +112,15 @@ font-size:20px;
 font-weight:600;
 }
 
-/* --- BARU: STRUKTUR GRID 3 BALOK LANGSING --- */
+/* --- STRUKTUR GRID 3 BALOK LANGSING --- */
 .trio-balok-grid {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 gap: 25px;
-margin-bottom: 35px;
+margin-bottom: 25px; /* Jarak antar baris balok */
 }
 
-/* BALOK STANDAR (Dipakai Twin Balok & Diadaptasi ke Trio Balok) */
+/* BALOK STANDAR */
 .guru-box{
 width:100%;
 padding:25px 30px;
@@ -133,35 +133,36 @@ gap:20px;
 box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
-/* MODIFIKASI KHUSUS TRIO BALOK AGAR PENDEK & LANGSING */
+/* MODIFIKASI KHUSUS SEUA TRIO BALOK AGAR PENDEK & LANGSING */
 .trio-balok-grid .guru-box {
-padding: 18px 22px; /* Dipersempit agar tipis/pendek */
+padding: 18px 22px; 
 border-radius: 20px;
 gap: 12px;
 }
 
 .trio-balok-grid .guru-title {
-font-size: 16px; /* Font dikecilkan agar seimbang di area langsing */
+font-size: 16px; 
 font-weight: 700;
 letter-spacing: 0.5px;
-max-width: 60%;
+max-width: 65%;
 }
 
 .trio-balok-grid .upload-btn {
-padding: 10px 18px; /* Tombol dibuat lebih imut */
+padding: 10px 18px; 
 font-size: 13px;
 border-radius: 12px;
 flex-shrink: 0;
+/* ANIMASI TIMBUL SAAT HOVER */
+transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s;
 }
 
-/* KOTAK GRID DUA KOLOM SEJAJAR BARU */
-.twin-balok-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 30px;
-margin-bottom: 35px;
+.trio-balok-grid .upload-btn:hover {
+transform: scale(1.1) translateY(-2px); /* Efek membesar/timbul sedikit ke atas */
+background: #fff7ed;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* GRADASI WARNA BALOK */
 .orange-box{
 background: linear-gradient(135deg, #f59e0b, #ea580c, #dc2626);
 }
@@ -172,6 +173,10 @@ background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e40af);
 
 .purple-box{
 background: linear-gradient(135deg, #9333ea, #7e22ce, #6b21a8);
+}
+
+.green-box{
+background: linear-gradient(135deg, #10b981, #059669, #047857);
 }
 
 .guru-title{
@@ -189,11 +194,6 @@ color:#1e293b;
 font-weight:700;
 cursor:pointer;
 transition:.3s;
-}
-
-.upload-btn:hover{
-transform:translateY(-2px);
-background:#fff7ed;
 }
 
 /* TABLE */
@@ -415,13 +415,9 @@ white-space:nowrap;
 .trio-balok-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
-@media(max-width:992px){
-.twin-balok-grid { grid-template-columns: 1fr; gap: 20px; }
-}
-
 @media(max-width:768px){
 .header{ flex-direction:column; align-items:flex-start; }
-.guru-box{ flex-direction:column; align-items:flex-start; }
+.trio-balok-grid .guru-box{ flex-direction:column; align-items:flex-start; }
 }
 
 </style>
@@ -470,17 +466,22 @@ white-space:nowrap;
 
 </div>
 
-<div class="twin-balok-grid">
-  
-  <div class="guru-box" id="balokAbsensi">
-    <div class="guru-title">ABSENSI PTK</div>
-    <button class="upload-btn" onclick="handleAbsensiClick()">Unggah</button>
-  </div>
+<div class="trio-balok-grid">
 
-  <div class="guru-box" id="balokSupervisi">
-    <div class="guru-title">ADMINISTRASI SUPERVISI</div>
-    <button class="upload-btn" onclick="alert('Modul Administrasi Supervisi')">Lihat</button>
-  </div>
+    <div class="guru-box green-box">
+        <div class="guru-title">PROGRAM SEKOLAH</div>
+        <button class="upload-btn" onclick="window.open('https://drive.google.com/drive/folders/1IvIPN6l8e3-Zy0sS4nNA-D9Rp2nbN0by?usp=drive_link', '_blank')">Unggah</button>
+    </div>
+
+    <div class="guru-box" id="balokAbsensi">
+        <div class="guru-title">ABSENSI PTK</div>
+        <button class="upload-btn" onclick="handleAbsensiClick()">Unggah</button>
+    </div>
+
+    <div class="guru-box" id="balokSupervisi">
+        <div class="guru-title">ADMINISTRASI SUPERVISI</div>
+        <button class="upload-btn" onclick="alert('Modul Administrasi Supervisi')">Lihat</button>
+    </div>
 
 </div>
 
@@ -683,7 +684,7 @@ function aktifkanEditSiswa(){
 const cells = document.querySelectorAll("#siswaTable td[contenteditable]");
 cells.forEach(cell=>{ cell.contentEditable = "true"; });
 const btn = document.getElementById("editSiswaBtn");
-btn.innerHTML = "Mode Edit Aktif";
+btn.innerHTML = "Mode Edit Hack-Aktif";
 btn.style.background = "#f59e0b";
 }
 
@@ -691,12 +692,10 @@ async function updateSiswa(){ alert("Data siswa berhasil diperbarui"); }
 
 function randomColor(){
 const colors = [
-"linear-gradient(135deg,#2563eb,#1d4ed8)",
-"linear-gradient(135deg,#16a34a,#15803d)",
-"linear-gradient(135deg,#dc2626,#b91c1c)",
-"linear-gradient(135deg,#9333ea,#7e22ce)",
-"linear-gradient(135deg,#ea580c,#c2410c)",
-"linear-gradient(135deg,#0891b2,#0e7490)"
+"linear-gradient(135deg,#db2777,#b91c1c)",
+"linear-gradient(135deg,#7c3aed,#6d28d9)",
+"linear-gradient(135deg,#0284c7,#0369a1)",
+"linear-gradient(135deg,#4f46e5,#4338ca)"
 ];
 return colors[Math.floor(Math.random()*colors.length)];
 }

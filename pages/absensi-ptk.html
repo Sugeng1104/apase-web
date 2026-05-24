@@ -41,7 +41,7 @@
             margin: auto; 
         }
         
-        /* HEADER LEVEL LUXURY */
+        /* HEADER */
         .header {
             display: flex;
             align-items: center;
@@ -69,14 +69,12 @@
             width: 75px; 
             height: 75px; 
             object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
         }
 
         .header h1 { 
             font-size: 22px; 
             font-weight: 800; 
             line-height: 1.4; 
-            letter-spacing: -0.5px;
             background: linear-gradient(120deg, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -89,7 +87,7 @@
             gap: 35px; 
         }
 
-        /* LEFT PANEL: KEDISIPLINAN */
+        /* PANEL KIRI */
         .info-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -103,7 +101,6 @@
         }
 
         .faceprint-wrapper {
-            position: relative;
             width: 100%;
             max-width: 240px;
             margin: 0 auto 30px auto;
@@ -121,7 +118,6 @@
             font-weight: 700; 
             color: var(--accent-color); 
             margin-bottom: 15px; 
-            letter-spacing: -0.3px;
         }
 
         .info-text { 
@@ -131,7 +127,7 @@
             text-align: justify; 
         }
 
-        /* RIGHT PANEL: ARSIP FOLDER */
+        /* PANEL KANAN */
         .folder-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -159,7 +155,7 @@
             gap: 20px; 
         }
 
-        /* PREMIUM FOLDER CARD */
+        /* FOLDER CARD */
         .folder-card {
             background: rgba(15, 23, 42, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -167,46 +163,26 @@
             padding: 25px 15px; 
             text-align: center;
             cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        .folder-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 60%);
-            opacity: 0; transition: opacity 0.4s ease;
-        }
-
         .folder-card:hover { 
-            transform: translateY(-6px) scale(1.02); 
+            transform: translateY(-5px); 
             background: rgba(30, 41, 59, 0.7); 
             border-color: rgba(250, 204, 21, 0.4);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(250, 204, 21, 0.1);
         }
-
-        .folder-card:hover::before { opacity: 1; }
 
         .folder-icon-wrapper {
-            position: relative;
             margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        .folder-card:hover .folder-icon-wrapper {
-            transform: scale(1.08);
         }
 
         .folder-icon { 
             font-size: 52px; 
             color: var(--accent-color); 
-            filter: drop-shadow(0 4px 10px rgba(250, 204, 21, 0.2));
         }
 
         .folder-name { 
@@ -214,7 +190,6 @@
             font-weight: 700; 
             color: #f1f5f9;
             margin-bottom: 10px;
-            letter-spacing: 0.2px;
         }
 
         /* STATUS BADGE */
@@ -224,7 +199,6 @@
             padding: 4px 10px;
             border-radius: 100px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .badge-available {
             background: rgba(16, 185, 129, 0.15);
@@ -237,18 +211,11 @@
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
-        /* DISABLED FOLDER CARD */
         .folder-card.disabled { 
             opacity: 0.5; 
         }
         .folder-card.disabled .folder-icon { 
             color: #64748b; 
-            filter: none;
-        }
-        .folder-card.disabled:hover {
-            border-color: rgba(239, 68, 68, 0.3);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            transform: translateY(-2px);
         }
 
         /* BACK BUTTON */
@@ -258,34 +225,29 @@
             border: none; border-radius: 16px; font-weight: 700; font-size: 14px;
             cursor: pointer; box-shadow: 0 10px 25px var(--accent-glow);
             display: flex; align-items: center; gap: 10px; z-index: 99; 
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
         .back-btn:hover { 
             background: #eab308; 
-            transform: translateY(-4px); 
-            box-shadow: 0 15px 30px rgba(250, 204, 21, 0.4);
+            transform: translateY(-3px); 
         }
 
         /* DIALOG POPUP MODAL */
         .modal {
             display: none; position: fixed; z-index: 9999;
             left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px); padding: 20px;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 20px;
         }
         .modal-content {
             background: #111827; 
             border: 1px solid rgba(239, 68, 68, 0.2); 
             border-radius: 24px;
             max-width: 450px; margin: 25vh auto auto; padding: 40px 30px; text-align: center;
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); 
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .modal-icon { font-size: 55px; color: #ef4444; margin-bottom: 20px; }
         .modal-text { font-size: 14.5px; color: #d1d5db; line-height: 1.6; margin-bottom: 30px; }
-        .modal-close-btn { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .modal-close-btn:hover { background: #dc2626; }
+        .modal-close-btn { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
 
         /* SKELETON LOADERS */
         .skeleton-card {
@@ -310,7 +272,6 @@
             .main-content { grid-template-columns: 1fr; gap: 30px; } 
             .header { padding: 20px; gap: 15px; }
             .header h1 { font-size: 17px; }
-            .back-btn { bottom: 20px; right: 20px; padding: 12px 20px; }
         }
     </style>
 </head>
@@ -329,7 +290,7 @@
             </div>
             <div class="info-title">Kedisiplinan Nilai Utama</div>
             <p class="info-text">
-                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahaman kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
+                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahankan kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
             </p>
         </div>
 
@@ -338,14 +299,6 @@
                 <i class="fas fa-folder-open" style="color: var(--accent-color);"></i> Arsip Digital Pengumpulan Absensi
             </div>
             <div id="folderContainer" class="folder-grid">
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
@@ -370,7 +323,8 @@
 </div>
 
 <script>
-    const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
+    // URL API murni tanpa modifikasi parameter yang berisiko memicu CORS block
+    const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec?action=getAllAbsensi";
 
     function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
     function showWarning() { document.getElementById("warningModal").style.display = "block"; }
@@ -378,24 +332,31 @@
 
     function fetchAbsensiDataLive() {
         const container = document.getElementById("folderContainer");
-        const urlPanggil = `${ABSENSI_API}?action=getAllAbsensi&_t=${new Date().getTime()}`;
 
-        fetch(urlPanggil)
-            .then(response => {
-                if (!response.ok) throw new Error('Jaringan bermasalah.');
-                return response.json();
-            })
+        fetch(ABSENSI_API, { method: "GET" })
+            .then(response => response.json())
             .then(result => {
                 if (result && result.status === "success") {
                     renderFolderGrid(result.data);
                 } else {
-                    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px; font-weight:600;">Gagal memuat database: ${result ? result.message : 'Respons Kosong'}</div>`;
+                    showErrorMessage("Format database tidak sesuai.");
                 }
             })
             .catch(error => {
-                console.error(error);
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px; font-size:14px;"><i class="fas fa-wifi" style="font-size:24px; margin-bottom:10px;"></i><br>Gagal menghubungkan ke server API.<br>Pastikan Apps Script Anda di-deploy ulang versi terbaru dengan akses 'Anyone'.</div>`;
+                console.error("Fetch error:", error);
+                showErrorMessage("Gagal terhubung ke database server Apps Script.");
             });
+    }
+
+    function showErrorMessage(msg) {
+        const container = document.getElementById("folderContainer");
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 15px; padding: 30px; color: #f87171;">
+                <i class="fas fa-triangle-exclamation" style="font-size: 30px; margin-bottom: 12px;"></i>
+                <p style="font-weight: 600; font-size: 14px;">${msg}</p>
+                <p style="font-size: 12px; margin-top: 5px; color: #fca5a5;">Pastikan Web Apps di Google Apps Script sudah di-deploy ulang sebagai 'Versi Baru'.</p>
+            </div>
+        `;
     }
 
     function renderFolderGrid(dbRows) {
@@ -409,10 +370,17 @@
         let html = "";
 
         templateBulan.forEach(namaBulan => {
-            const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
-            const linkUrl = matchData ? matchData.link.trim() : "";
+            // Pencocokan string yang jauh lebih toleran terhadap variasi spasi
+            const matchData = dbRows.find(row => {
+                if (!row.bulan) return false;
+                const cleanRowBulan = row.bulan.toString().toUpperCase().replace(/\s+/g, ' ').trim();
+                const cleanTemplateBulan = namaBulan.toUpperCase().replace(/\s+/g, ' ').trim();
+                return cleanRowBulan === cleanTemplateBulan;
+            });
 
-            if(linkUrl !== "" && (linkUrl.indexOf("http") === 0)) {
+            const linkUrl = matchData && matchData.link ? matchData.link.toString().trim() : "";
+
+            if(linkUrl !== "" && (linkUrl.toLowerCase().indexOf("http") === 0)) {
                 html += `
                     <div class="folder-card" onclick="window.open('${linkUrl}', '_blank')">
                         <div class="folder-icon-wrapper">

@@ -159,7 +159,7 @@
             gap: 20px; 
         }
 
-        /* PREMIUM FOLDER CARD EXPERT STYLE */
+        /* PREMIUM FOLDER CARD */
         .folder-card {
             background: rgba(15, 23, 42, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -251,7 +251,7 @@
             transform: translateY(-2px);
         }
 
-        /* BACK BUTTON MODERN MODERN FLATING */
+        /* BACK BUTTON */
         .back-btn {
             position: fixed; bottom: 35px; right: 35px;
             padding: 14px 30px; background: var(--accent-color); color: #0f172a;
@@ -266,7 +266,7 @@
             box-shadow: 0 15px 30px rgba(250, 204, 21, 0.4);
         }
 
-        /* GLOWING MODERN DIALOG POPUP */
+        /* DIALOG POPUP MODAL */
         .modal {
             display: none; position: fixed; z-index: 9999;
             left: 0; top: 0; width: 100%; height: 100%;
@@ -279,15 +279,15 @@
             border-radius: 24px;
             max-width: 450px; margin: 25vh auto auto; padding: 40px 30px; text-align: center;
             animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px rgba(239, 68, 68, 0.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
         @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .modal-icon { font-size: 55px; color: #ef4444; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.2)); }
+        .modal-icon { font-size: 55px; color: #ef4444; margin-bottom: 20px; }
         .modal-text { font-size: 14.5px; color: #d1d5db; line-height: 1.6; margin-bottom: 30px; }
         .modal-close-btn { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .modal-close-btn:hover { background: #dc2626; }
 
-        /* SKELETON LOADERS (SENSASI WEB ELITE) */
+        /* SKELETON LOADERS */
         .skeleton-card {
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--glass-border);
@@ -310,4 +310,138 @@
             .main-content { grid-template-columns: 1fr; gap: 30px; } 
             .header { padding: 20px; gap: 15px; }
             .header h1 { font-size: 17px; }
-            .back-btn { bottom: 20px; right
+            .back-btn { bottom: 20px; right: 20px; padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="pages/img/logo1.png" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'">
+        <h1>ABSENSI GURU & STAF<br>SDN PNDITAN I KEC. LUMBANG KAB. PASURUAN</h1>
+    </div>
+
+    <div class="main-content">
+        <div class="info-panel">
+            <div class="faceprint-wrapper">
+                <img src="gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
+            </div>
+            <div class="info-title">Kedisiplinan Nilai Utama</div>
+            <p class="info-text">
+                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahaman kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
+            </p>
+        </div>
+
+        <div class="folder-panel">
+            <div class="folder-panel-title">
+                <i class="fas fa-folder-open" style="color: var(--accent-color);"></i> Arsip Digital Pengumpulan Absensi
+            </div>
+            <div id="folderContainer" class="folder-grid">
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-text"></div><div class="skeleton-badge"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="back-btn" onclick="goBack()">
+    <i class="fas fa-arrow-left"></i> Kembali
+</button>
+
+<div class="modal" id="warningModal">
+    <div class="modal-content">
+        <i class="fas fa-circle-exclamation modal-icon"></i>
+        <p class="modal-text">
+            Maaf, folder pengumpulan absensi belum tersedia untuk bulan ini. Silakan hubungi Kepala Sekolah atau Admin Sistem. Terima kasih.
+        </p>
+        <button class="modal-close-btn" onclick="closeWarning()">Tutup Dialog</button>
+    </div>
+</div>
+
+<script>
+    const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
+
+    function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
+    function showWarning() { document.getElementById("warningModal").style.display = "block"; }
+    function closeWarning() { document.getElementById("warningModal").style.display = "none"; }
+
+    function fetchAbsensiDataLive() {
+        const container = document.getElementById("folderContainer");
+        const urlPanggil = `${ABSENSI_API}?action=getAllAbsensi&_t=${new Date().getTime()}`;
+
+        fetch(urlPanggil)
+            .then(response => {
+                if (!response.ok) throw new Error('Jaringan bermasalah.');
+                return response.json();
+            })
+            .then(result => {
+                if (result && result.status === "success") {
+                    renderFolderGrid(result.data);
+                } else {
+                    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px; font-weight:600;">Gagal memuat database: ${result ? result.message : 'Respons Kosong'}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px; font-size:14px;"><i class="fas fa-wifi" style="font-size:24px; margin-bottom:10px;"></i><br>Gagal menghubungkan ke server API.<br>Pastikan Apps Script Anda di-deploy ulang versi terbaru dengan akses 'Anyone'.</div>`;
+            });
+    }
+
+    function renderFolderGrid(dbRows) {
+        const container = document.getElementById("folderContainer");
+        
+        const templateBulan = [
+            "JULI 2025", "AGUSTUS 2025", "SEPTEMBER 2025", "OKTOBER 2025", "NOPEMBER 2025", "DESEMBER 2025",
+            "JANUARI 2026", "FEBRUARI 2026", "MARET 2026", "APRIL 2026", "MEI 2026", "JUNI 2026"
+        ];
+
+        let html = "";
+
+        templateBulan.forEach(namaBulan => {
+            const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
+            const linkUrl = matchData ? matchData.link.trim() : "";
+
+            if(linkUrl !== "" && (linkUrl.indexOf("http") === 0)) {
+                html += `
+                    <div class="folder-card" onclick="window.open('${linkUrl}', '_blank')">
+                        <div class="folder-icon-wrapper">
+                            <i class="fas fa-folder-open folder-icon"></i>
+                        </div>
+                        <div class="folder-name">${namaBulan}</div>
+                        <span class="status-badge badge-available">Tersedia</span>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="folder-card disabled" onclick="showWarning()">
+                        <div class="folder-icon-wrapper">
+                            <i class="fas fa-folder folder-icon"></i>
+                        </div>
+                        <div class="folder-name">${namaBulan}</div>
+                        <span class="status-badge badge-empty">Belum Ada</span>
+                    </div>
+                `;
+            }
+        });
+
+        container.innerHTML = html;
+    }
+
+    window.onload = function() {
+        fetchAbsensiDataLive();
+    };
+</script>
+
+</body>
+</html>

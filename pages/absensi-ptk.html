@@ -131,7 +131,7 @@
             <img src="gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
             <div class="info-title">Kedisiplinan Nilai Utama</div>
             <p class="info-text">
-                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahankan kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
+                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahaman kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
             </p>
         </div>
 
@@ -165,14 +165,12 @@
 </div>
 
 <script>
-    // URL API Resmi Terintegrasi Penuh Milik Anda
     const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
 
     function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
     function showWarning() { document.getElementById("warningModal").style.display = "block"; }
     function closeWarning() { document.getElementById("warningModal").style.display = "none"; }
 
-    // Membaca data list baris dari spreadsheet secara live via JSONP
     function fetchAbsensiDataLive() {
         const container = document.getElementById("folderContainer");
         const callbackName = "getAllAbsensi_" + Math.floor(Math.random() * 100000);
@@ -185,7 +183,7 @@
             if (result && result.status === "success") {
                 renderFolderGrid(result.data);
             } else {
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Gagal mengambil data dari database Absensi.</div>`;
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Gagal mengambil data dari database Absensi. Reason: ${result ? result.message : 'Unknown'}</div>`;
             }
         };
 
@@ -193,31 +191,30 @@
         script.id = callbackName;
         script.src = `${ABSENSI_API}?action=getAllAbsensi&prefix=${callbackName}&t=${new Date().getTime()}`;
         script.onerror = function() {
-            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Koneksi terputus. Gagal memuat arsip folder.</div>`;
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171;">Koneksi terputus atau server tidak merespon JSONP.</div>`;
         };
         document.body.appendChild(script);
     }
 
-    // Melakukan render folder bulanan ke layar monitor
     function renderFolderGrid(dbRows) {
         const container = document.getElementById("folderContainer");
         
-        // Template master bulan bawaan tahun berjalan
+        // Pendeteksian Tahun Dinamis agar jika di sheet tahun bergeser, web tetap bekerja fleksibel
+        const currentYear = new Date().getFullYear();
         const templateBulan = [
-            "JANUARI 2026", "FEBRUARI 2026", "MARET 2026", "APRIL 2026", 
-            "MEI 2026", "JUNI 2026", "JULI 2026", "AGUSTUS 2026", 
-            "SEPTEMBER 2026", "OKTOBER 2026", "NOPEMBER 2026", "DESEMBER 2026"
+            "JANUARI " + currentYear, "FEBRUARI " + currentYear, "MARET " + currentYear, "APRIL " + currentYear, 
+            "MEI " + currentYear, "JUNI " + currentYear, "JULI " + currentYear, "AGUSTUS " + currentYear, 
+            "SEPTEMBER " + currentYear, "OKTOBER " + currentYear, "NOPEMBER " + currentYear, "DESEMBER " + currentYear
         ];
 
         let html = "";
 
         templateBulan.forEach(namaBulan => {
-            // Cari data link di dbRows hasil response API yang namanya cocok
-            const matchData = dbRows.find(row => row.bulan === namaBulan);
+            // Pembersihan pencarian string (Case-Insensitive & Spasi Bebas)
+            const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
             const linkUrl = matchData ? matchData.link.trim() : "";
 
             if(linkUrl !== "" && (linkUrl.indexOf("http") === 0)) {
-                // Folder Menyala & Bisa Dibuka
                 html += `
                     <div class="folder-card" onclick="window.open('${linkUrl}', '_blank')">
                         <i class="fas fa-folder folder-icon"></i>
@@ -225,7 +222,6 @@
                     </div>
                 `;
             } else {
-                // Folder Buram & Memunculkan Peringatan Sesuai Permintaan
                 html += `
                     <div class="folder-card disabled" onclick="showWarning()">
                         <i class="fas fa-folder folder-icon"></i>
@@ -238,7 +234,6 @@
         container.innerHTML = html;
     }
 
-    // Jalankan eksekusi pemuatan saat web terbuka
     window.onload = function() {
         fetchAbsensiDataLive();
     };

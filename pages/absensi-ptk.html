@@ -14,9 +14,8 @@
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
             --glass-bg: rgba(30, 41, 59, 0.45);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #facc15; /* Kuning untuk judul */
-            --drive-green: #10b981; /* Hijau untuk folder Drive */
-            --drive-green-glow: rgba(16, 185, 129, 0.2);
+            --accent-color: #facc15; 
+            --drive-green: #10b981; 
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -176,7 +175,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); /* cubic-bezier untuk animasi 'timbul' yang halus */
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); 
             position: relative;
         }
 
@@ -198,7 +197,7 @@
 
         /* IKON FOLDER BESAR WARNA HIJAU DRIVE */
         .big-folder-icon {
-            font-size: 150px; /* Ukuran sangat besar */
+            font-size: 150px; 
             color: var(--drive-green);
             margin-bottom: 25px;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
@@ -216,25 +215,25 @@
 
         /* ANIMASI TIMBUL SAAT CURSOR DIARAHKAN (HOVER) */
         .big-folder-btn:hover {
-            transform: translateY(-15px) scale(1.05); /* Timbul ke atas dan membesar sedikit */
+            transform: translateY(-15px) scale(1.05); 
         }
 
         .big-folder-btn:hover .big-folder-icon {
-            color: #34d399; /* Warna hijau sedikit terang saat hover */
-            filter: drop-shadow(0 20px 30px rgba(16, 185, 129, 0.4)); /* Shadow hijau glow */
+            color: #34d399; 
+            filter: drop-shadow(0 20px 30px rgba(16, 185, 129, 0.4)); 
         }
 
         .big-folder-btn:hover::after {
-            opacity: 1; /* Glow muncul */
-            transform: translate(-50%, -50%) scale(1.2); /* Glow membesar */
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1.2); 
         }
 
         .big-folder-btn:hover .folder-action-text {
             color: #ffffff;
-            letter-spacing: 1px; /* Spasi huruf melebar sedikit */
+            letter-spacing: 1px; 
         }
 
-        /* TOMBOL KEMBALI KUNING FLATING */
+        /* TOMBOL KEMBALI KUNING */
         .back-btn {
             position: fixed; bottom: 35px; right: 35px;
             padding: 14px 30px; background: var(--accent-color); color: #0f172a;
@@ -271,7 +270,7 @@
     <div class="main-content">
         <div class="info-panel">
             <div class="faceprint-wrapper">
-                <img src="gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
+                <img src="pages/img/gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
             </div>
             <div class="info-title">Kedisiplinan Nilai Utama</div>
             <p class="info-text">
@@ -300,8 +299,6 @@
 
 <script>
     function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
-
-    // PERINTAH AMBIL DATA DARI SPREADSHEET DIHAPUS, HALAMAN SEKARANG STATIS
 </script>
 
 </body>

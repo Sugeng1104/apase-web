@@ -31,9 +31,6 @@
       justify-content: center;
     }
 
-    /* ========================= */
-    /* GLOW BACKGROUND EFFECT */
-    /* ========================= */
     .blur-circle {
       position: fixed;
       border-radius: 50%;
@@ -44,9 +41,6 @@
     .blur-1 { width: 400px; height: 400px; background: #4ade80; top: -100px; left: -100px; }
     .blur-2 { width: 400px; height: 400px; background: #22c55e; bottom: -100px; right: -100px; }
 
-    /* ========================= */
-    /* MAIN CONTAINER */
-    /* ========================= */
     .container{
       position:relative;
       z-index:2;
@@ -55,9 +49,6 @@
       margin: auto;
     }
 
-    /* ========================= */
-    /* MAIN GLASS CARD */
-    /* ========================= */
     .card {
       background: rgba(255, 255, 255, 0.07);
       backdrop-filter: blur(25px);
@@ -68,9 +59,6 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
-    /* ========================= */
-    /* FOTO & HEADER PROFILE */
-    /* ========================= */
     .foto-box {
       text-align: center;
       margin-bottom: 10px;
@@ -119,9 +107,6 @@
       letter-spacing: 2px;
     }
 
-    /* ========================= */
-    /* DATA DISPLAY GRID */
-    /* ========================= */
     .data-container {
       margin-top: 40px;
       display: grid;
@@ -188,9 +173,6 @@
       word-break: break-word;
     }
 
-    /* ========================= */
-    /* BUTTON ACTION */
-    /* ========================= */
     .btn-back {
       display: inline-flex;
       align-items: center;
@@ -216,9 +198,20 @@
       background: #ffffff;
     }
 
-    /* ========================= */
-    /* LOADING STATE */
-    /* ========================= */
+    .btn-retry {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .loading {
       text-align: center;
       color: #dcfce7;
@@ -232,9 +225,6 @@
       margin-bottom: 15px;
     }
 
-    /* ========================= */
-    /* ANIMATIONS & RESPONSIVE */
-    /* ========================= */
     @keyframes pulse {
       0% { transform: scale(1); opacity: 0.6; }
       50% { transform: scale(1.05); opacity: 0.2; }
@@ -242,18 +232,10 @@
     }
 
     @media (max-width: 768px) {
-      .data-container {
-        grid-template-columns: 1fr;
-      }
-      .full-width {
-        grid-column: span 1;
-      }
-      body {
-        padding: 20px 10px;
-      }
-      .title {
-        font-size: 24px;
-      }
+      .data-container { grid-template-columns: 1fr; }
+      .full-width { grid-column: span 1; }
+      body { padding: 20px 10px; }
+      .title { font-size: 24px; }
     }
 
   </style>
@@ -266,7 +248,6 @@
   <div class="blur-circle blur-2"></div>
 
   <div class="container">
-
     <div class="card">
 
       <div class="foto-box">
@@ -278,8 +259,8 @@
       </div>
 
       <div class="loading" id="loading">
-        <i class="fas fa-spinner fa-spin"></i>
-        <p>Menghubungkan ke Server Kepegawaian...</p>
+        <i class="fas fa-spinner fa-spin" id="loadingIcon"></i>
+        <p id="loadingText">Menghubungkan ke Server Kepegawaian...</p>
       </div>
 
       <div class="data-container" id="dataContainer" style="display:none;">
@@ -298,3 +279,111 @@
             <span class="label">NIP Resmi</span>
             <span class="value" id="nip">-</span>
           </div>
+        </div>
+
+        <div class="data-item">
+          <div class="icon-box"><i class="fas fa-award"></i></div>
+          <div class="text-box">
+            <span class="label">Pangkat / Golongan</span>
+            <span class="value" id="pangkat">-</span>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+          <div class="text-box">
+            <span class="label">Kontak No. HP</span>
+            <span class="value" id="hp">-</span>
+          </div>
+        </div>
+
+        <div class="data-item full-width">
+          <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="text-box">
+            <span class="label">Alamat Rumah</span>
+            <span class="value" id="alamat">-</span>
+          </div>
+        </div>
+
+        <div class="data-item full-width">
+          <div class="icon-box"><i class="fas fa-envelope"></i></div>
+          <div class="text-box">
+            <span class="label">Surel Pribadi (Email)</span>
+            <span class="value" id="email">-</span>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="https://sugeng1104.github.io/apase-web/dashboard.html" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+      </a>
+
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwo6yEkwQebM4ImabaLk7IWZx7z8l1vGkVOzJw1SlhgW8kwbL7_THG4LzmZfyvBemoo/exec";
+
+    function loadDataKepsek(){
+      const callbackName = "kepsekCallback_" + Math.floor(Math.random() * 100000);
+      
+      // Mengatur sistem Batas Waktu Tanggapan (Timeout 6 Detik)
+      const timeoutWatch = setTimeout(function() {
+        if (window[callbackName]) {
+          delete window[callbackName];
+          const scriptEl = document.getElementById(callbackName);
+          if(scriptEl) scriptEl.remove();
+          
+          document.getElementById("loadingIcon").className = "fas fa-exclamation-circle";
+          document.getElementById("loadingIcon").style.color = "#f87171";
+          document.getElementById("loadingText").innerHTML = `
+            Koneksi lambat atau nama sheet tidak sesuai.<br>
+            <button class="btn-retry" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Coba Hubungkan Kembali</button>
+          `;
+        }
+      }, 6000);
+
+      window[callbackName] = function(result) {
+        clearTimeout(timeoutWatch); // Batalkan hitung mundur jika server merespons tepat waktu
+        
+        const scriptEl = document.getElementById(callbackName);
+        if(scriptEl) scriptEl.remove();
+        delete window[callbackName];
+
+        if(result && result.status === "success"){
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("dataContainer").style.display = "grid";
+          
+          const data = result.data;
+          document.getElementById("header_nama_kepsek").innerText = data.nama || "Profil Kepala Sekolah";
+          document.getElementById("nama").innerText    = data.nama || "-";
+          document.getElementById("nip").innerText     = data.nip || "-";
+          document.getElementById("pangkat").innerText = data.pangkat || "-";
+          document.getElementById("alamat").innerText  = data.alamat || "-";
+          document.getElementById("email").innerText   = data.email || "-";
+          document.getElementById("hp").innerText      = data.hp || "-";
+        } else {
+          document.getElementById("loadingIcon").className = "fas fa-exclamation-triangle";
+          document.getElementById("loadingText").innerText = result.message || "Gagal memuat profil pimpinan.";
+        }
+      };
+
+      const script = document.createElement("script");
+      script.id = callbackName;
+      script.src = `${API_URL}?action=getKepsek&prefix=${callbackName}&t=${new Date().getTime()}`;
+      
+      script.onerror = function() {
+        clearTimeout(timeoutWatch);
+        document.getElementById("loadingIcon").className = "fas fa-wifi";
+        document.getElementById("loadingText").innerText = "Gangguan Jaringan. Gagal terhubung ke Apps Script.";
+      };
+
+      document.body.appendChild(script);
+    }
+
+    loadDataKepsek();
+  </script>
+
+</body>
+</html>

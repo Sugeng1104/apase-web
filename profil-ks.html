@@ -173,21 +173,28 @@
       word-break: break-word;
     }
 
+    /* ==================================== */
+    /* AREA TOMBOL TENGAH (SUDAH DIPERBAIKI)*/
+    /* ==================================== */
+    .button-area {
+      text-align: center;
+      margin-top: 40px;
+      width: 100%;
+    }
+
     .btn-back {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      width: 100%;
-      margin-top: 40px;
-      padding: 16px;
+      padding: 14px 35px; /* Mengatur proporsi tombol agar pas di genggaman */
       border: none;
       border-radius: 50px;
       background: linear-gradient(135deg, #ffffff, #f0fdf4);
       color: #14532d;
       text-decoration: none;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
       transition: transform 0.3s, box-shadow 0.3s;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
@@ -236,6 +243,7 @@
       .full-width { grid-column: span 1; }
       body { padding: 20px 10px; }
       .title { font-size: 24px; }
+      .btn-back { width: 80%; } /* Sedikit melebar di mobile agar mudah ditekan jempol */
     }
 
   </style>
@@ -315,9 +323,11 @@
 
       </div>
 
-      <a href="https://sugeng1104.github.io/apase-web/dashboard.html" class="btn-back">
-        <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
-      </a>
+      <div class="button-area">
+        <a href="https://sugeng1104.github.io/apase-web/dashboard.html" class="btn-back">
+          <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+        </a>
+      </div>
 
     </div>
   </div>
@@ -328,7 +338,6 @@
     function loadDataKepsek(){
       const callbackName = "kepsekCallback_" + Math.floor(Math.random() * 100000);
       
-      // Mengatur sistem Batas Waktu Tanggapan (Timeout 6 Detik)
       const timeoutWatch = setTimeout(function() {
         if (window[callbackName]) {
           delete window[callbackName];
@@ -345,7 +354,7 @@
       }, 6000);
 
       window[callbackName] = function(result) {
-        clearTimeout(timeoutWatch); // Batalkan hitung mundur jika server merespons tepat waktu
+        clearTimeout(timeoutWatch);
         
         const scriptEl = document.getElementById(callbackName);
         if(scriptEl) scriptEl.remove();

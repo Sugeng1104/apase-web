@@ -1,224 +1,628 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi Guru & Staf - SDN Panditan I</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
-            --glass-bg: rgba(30, 41, 59, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #facc15;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { min-height: 100vh; background: var(--bg-gradient); color: var(--text-main); padding: 40px 20px; padding-bottom: 120px; }
-        .container { max-width: 1300px; margin: auto; }
-        
-        .header {
-            display: flex; align-items: center; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); padding: 24px 35px; border-radius: 24px; margin-bottom: 40px; gap: 28px;
-            position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        .header::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-color), transparent); }
-        .header .logo { width: 75px; height: 75px; object-fit: contain; }
-        .header h1 { font-size: 22px; font-weight: 800; line-height: 1.4; background: linear-gradient(120deg, #ffffff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+<title>APASE WEB Microsite</title>
 
-        .main-content { display: grid; grid-template-columns: 1fr 1.7fr; gap: 35px; }
-        .info-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 40px 30px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); height: fit-content; }
-        .faceprint-wrapper { width: 100%; max-width: 240px; margin: 0 auto 30px auto; }
-        .faceprint-img { width: 100%; height: auto; border-radius: 20px; filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.5)); }
-        .info-title { font-size: 20px; font-weight: 700; color: var(--accent-color); margin-bottom: 15px; }
-        .info-text { font-size: 13.5px; color: var(--text-muted); line-height: 1.75; text-align: justify; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        .folder-panel { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
-        .folder-panel-title { font-size: 20px; font-weight: 700; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; display: flex; align-items: center; gap: 12px; }
-        .folder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; }
+<style>
 
-        .folder-card { background: rgba(15, 23, 42, 0.45); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 25px 15px; text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .folder-card:hover { transform: translateY(-5px); background: rgba(30, 41, 59, 0.7); border-color: rgba(250, 204, 21, 0.4); }
-        .folder-icon-wrapper { margin-bottom: 15px; }
-        .folder-icon { font-size: 52px; color: var(--accent-color); }
-        .folder-name { font-size: 13.5px; font-weight: 700; color: #f1f5f9; margin-bottom: 10px; }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-        .status-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; }
-        .badge-available { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
-        .badge-empty { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
-        .folder-card.disabled { opacity: 0.5; }
-        .folder-card.disabled .folder-icon { color: #64748b; }
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
 
-        .back-btn { position: fixed; bottom: 35px; right: 35px; padding: 14px 30px; background: var(--accent-color); color: #0f172a; border: none; border-radius: 16px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 10px 25px rgba(250, 204, 21, 0.2); display: flex; align-items: center; gap: 10px; z-index: 99; transition: all 0.3s ease; }
-        .back-btn:hover { background: #eab308; transform: translateY(-3px); }
+/* HERO */
+.hero{
+position:relative;
+padding:50px 20px 90px;
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e3a8a,
+#2563eb
+);
+}
 
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 20px; }
-        .modal-content { background: #111827; border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 24px; max-width: 450px; margin: 25vh auto auto; padding: 40px 30px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6); }
-        .modal-icon { font-size: 55px; color: #ef4444; margin-bottom: 20px; }
-        .modal-text { font-size: 14.5px; color: #d1d5db; line-height: 1.6; margin-bottom: 30px; }
-        .modal-close-btn { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
+.blur1,
+.blur2{
+position:absolute;
+border-radius:50%;
+filter:blur(120px);
+opacity:.35;
+}
 
-        .loading-state { grid-column: 1/-1; text-align: center; padding: 40px; color: var(--accent-color); }
-        .loading-state i { font-size: 35px; margin-bottom: 15px; }
-    </style>
+.blur1{
+width:300px;
+height:300px;
+background:#60a5fa;
+top:-100px;
+left:-100px;
+}
+
+.blur2{
+width:300px;
+height:300px;
+background:#2563eb;
+bottom:-100px;
+right:-100px;
+}
+
+.topbar{
+position:relative;
+z-index:2;
+max-width:1400px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.15);
+padding:18px 25px;
+border-radius:22px;
+margin-bottom:35px;
+}
+
+.user-info{
+font-size:15px;
+font-weight:500;
+}
+
+.user-info span{
+font-weight:700;
+color:#facc15;
+}
+
+.logout-btn{
+padding:12px 22px;
+border:none;
+border-radius:14px;
+background:#ef4444;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.logout-btn:hover{
+background:#dc2626;
+transform:translateY(-2px);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:1400px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+}
+
+.hero-left h1{
+font-size:65px;
+font-weight:700;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.hero-left p{
+font-size:18px;
+line-height:1.8;
+opacity:.9;
+margin-bottom:30px;
+max-width:650px;
+}
+
+.hero-btns{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.hero-btn{
+padding:14px 24px;
+border-radius:16px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+}
+
+.btn-primary{
+background:#facc15;
+color:#111827;
+}
+
+.btn-primary:hover{
+background:#fde047;
+transform:translateY(-2px);
+}
+
+.btn-secondary{
+background:rgba(255,255,255,0.12);
+color:white;
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover{
+background:rgba(255,255,255,0.2);
+}
+
+.hero-right{
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.hero-card{
+width:100%;
+max-width:480px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:35px;
+padding:35px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,0.35);
+}
+
+.hero-card img{
+width:120px;
+height:120px;
+border-radius:50%;
+background:white;
+padding:8px;
+object-fit:cover;
+margin-bottom:20px;
+}
+
+.hero-card h2{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.hero-card p{
+line-height:1.8;
+opacity:.9;
+}
+
+/* MENU SECTION */
+.menu-section{
+padding:70px 20px;
+background:#f8fafc;
+color:#111827;
+}
+
+.section-title{
+max-width:1400px;
+margin:auto auto 40px;
+text-align:center;
+}
+
+.section-title h2{
+font-size:42px;
+margin-bottom:10px;
+font-weight:700;
+}
+
+.section-title p{
+font-size:17px;
+color:#475569;
+}
+
+.menu-grid{
+max-width:1400px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:28px;
+}
+
+.menu-card{
+background:white;
+border-radius:30px;
+padding:30px 25px;
+text-decoration:none;
+color:#111827;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:.35s;
+border:2px solid transparent;
+}
+
+.menu-card:hover{
+transform:translateY(-10px);
+border-color:#2563eb;
+}
+
+.menu-icon{
+width:100px;
+height:100px;
+border-radius:28px;
+background:#dbeafe;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:25px;
+}
+
+.menu-icon img{
+width:65%;
+height:65%;
+object-fit:contain;
+}
+
+.menu-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.menu-desc{
+font-size:14px;
+line-height:1.8;
+color:#475569;
+}
+
+/* INFO */
+.info-section{
+padding:70px 20px;
+background:#0f172a;
+}
+
+.info-grid{
+max-width:1400px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.info-card{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:28px;
+text-align:center;
+}
+
+.info-card h3{
+font-size:45px;
+color:#facc15;
+margin-bottom:10px;
+}
+
+.info-card p{
+opacity:.9;
+line-height:1.8;
+}
+
+/* FOOTER */
+.footer{
+background:#020617;
+padding:35px 20px;
+text-align:center;
+font-size:14px;
+line-height:2;
+color:#94a3b8;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+.hero-content{
+grid-template-columns:1fr;
+}
+
+.hero-left h1{
+font-size:45px;
+}
+
+.hero-left,
+.hero-right{
+text-align:center;
+}
+
+.hero-btns{
+justify-content:center;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero-left h1{
+font-size:35px;
+}
+
+.section-title h2{
+font-size:30px;
+}
+
+.topbar{
+flex-direction:column;
+gap:15px;
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <img src="img/logo1.png" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'">
-        <h1>ABSENSI GURU & STAF<br>SDN PNDITAN I KEC. LUMBANG KAB. PASURUAN</h1>
-    </div>
+<!-- HERO -->
+<section class="hero">
 
-    <div class="main-content">
-        <div class="info-panel">
-            <div class="faceprint-wrapper">
-                <img src="img/gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
-            </div>
-            <div class="info-title">Kedisiplinan Nilai Utama</div>
-            <p class="info-text">
-                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahankan kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
-            </p>
-        </div>
+<div class="blur1"></div>
+<div class="blur2"></div>
 
-        <div class="folder-panel">
-            <div class="folder-panel-title">
-                <i class="fas fa-folder-open" style="color: var(--accent-color);"></i> Arsip Digital Pengumpulan Absensi
-            </div>
-            <div id="folderContainer" class="folder-grid">
-                <div class="loading-state" id="loadingState">
-                    <i class="fas fa-circle-notch fa-spin"></i>
-                    <p>Membaca database absensi sekolah...</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- TOPBAR -->
+<div class="topbar">
+
+<div class="user-info">
+Login Sebagai :
+<span id="loginName">User</span>
 </div>
 
-<button class="back-btn" onclick="goBack()">
-    <i class="fas fa-arrow-left"></i> Kembali
+<button class="logout-btn" onclick="logout()">
+Logout
 </button>
 
-<div class="modal" id="warningModal">
-    <div class="modal-content">
-        <i class="fas fa-circle-exclamation modal-icon"></i>
-        <p class="modal-text">
-            Maaf, folder pengumpulan absensi belum tersedia untuk bulan ini. Silakan hubungi Kepala Sekolah atau Admin Sistem. Terima kasih.
-        </p>
-        <button class="modal-close-btn" onclick="closeWarning()">Tutup Dialog</button>
-    </div>
+</div>
+
+<!-- HERO CONTENT -->
+<div class="hero-content">
+
+<div class="hero-left">
+
+<h1>
+APASE WEB
+</h1>
+
+<p>
+Aplikasi Administrasi Sekolah Digital SDN Panditan I untuk pengelolaan data sekolah, guru, tenaga kependidikan, peserta didik, supervisi, program sekolah, dan administrasi pendidikan secara modern.
+</p>
+
+<div class="hero-btns">
+
+<a href="https://sugeng1104.github.io/apase-web/profil.html" class="hero-btn btn-primary">
+Lihat Profil Sekolah
+</a>
+
+<a href="https://sugeng1104.github.io/apase-web/pages/pd-panditan1.html" class="hero-btn btn-secondary">
+Data Statistik Siswa
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-right">
+
+<div class="hero-card">
+
+<img src="assets/logo/logo.png">
+
+<h2>
+SDN PANDITAN I
+</h2>
+
+<p>
+Platform administrasi sekolah berbasis web dengan tampilan modern, cepat, responsif, dan terintegrasi Google Spreadsheet.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MENU -->
+<section class="menu-section">
+
+<div class="section-title">
+<h2>Menu Administrasi</h2>
+<p>Silakan pilih layanan administrasi sekolah yang tersedia</p>
+</div>
+
+<div class="menu-grid">
+
+<a href="https://sugeng1104.github.io/apase-web/profil-ks.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr1.png">
+</div>
+<div class="menu-title">Data Kepala Sekolah</div>
+<div class="menu-desc">
+Informasi kepala sekolah dan administrasi kepemimpinan sekolah.
+</div>
+</a>
+
+<a href="https://sugeng1104.github.io/apase-web/profil.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr2.png">
+</div>
+<div class="menu-title">Data Sekolah</div>
+<div class="menu-desc">
+Profil lengkap sekolah dan data identitas satuan pendidikan.
+</div>
+</a>
+
+<a href="https://sugeng1104.github.io/apase-web/ptk-panditan1.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr3.png">
+</div>
+<div class="menu-title">Data Guru & Tendik</div>
+<div class="menu-desc">
+Daftar lengkap guru dan tenaga kependidikan SDN Panditan I.
+</div>
+</a>
+
+<a href="https://sugeng1104.github.io/apase-web/pages/pd-panditan1.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr4.png">
+</div>
+<div class="menu-title">Data Statistik Siswa</div>
+<div class="menu-desc">
+Data peserta didik dan statistik siswa secara realtime.
+</div>
+</a>
+
+<a href="pages/absensi.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr5.png">
+</div>
+<div class="menu-title">Absensi Guru & Staf</div>
+<div class="menu-desc">
+Monitoring kehadiran guru dan staf sekolah secara digital.
+</div>
+</a>
+
+<a href="pages/program-sekolah.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr6.png">
+</div>
+<div class="menu-title">Program Sekolah</div>
+<div class="menu-desc">
+Dokumen program kerja dan perencanaan sekolah.
+</div>
+</a>
+
+<a href="pages/pb-panditan1.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr7.png">
+</div>
+<div class="menu-title">Perangkat Pembelajaran</div>
+<div class="menu-desc">
+Administrasi perangkat pembelajaran guru dan kelas.
+</div>
+</a>
+
+<a href="pages/supervisi.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr8.png">
+</div>
+<div class="menu-title">Administrasi Supervisi</div>
+<div class="menu-desc">
+Supervisi akademik dan administrasi guru sekolah.
+</div>
+</a>
+
+<a href="pages/e-kinerja.html" class="menu-card">
+<div class="menu-icon">
+<img src="assets/img/gbr9.png">
+</div>
+<div class="menu-title">Data E-Kinerja</div>
+<div class="menu-desc">
+Pengelolaan data e-kinerja guru dan tenaga kependidikan.
+</div>
+</a>
+
+</div>
+
+</section>
+
+<!-- INFO -->
+<section class="info-section">
+
+<div class="info-grid">
+
+<div class="info-card">
+<h3>9+</h3>
+<p>Menu Administrasi Sekolah</p>
+</div>
+
+<div class="info-card">
+<h3>100%</h3>
+<p>Berbasis Cloud & Google Spreadsheet</p>
+</div>
+
+<div class="info-card">
+<h3>24 Jam</h3>
+<p>Akses Sistem Online Dimanapun</p>
+</div>
+
+<div class="info-card">
+<h3>2026</h3>
+<p>APASE WEB SDN Panditan I</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+
+APASE WEB © 2026
+<br>
+SDN PANDITAN I
+
 </div>
 
 <script>
-    // URL API UTAMAKAN MENGGUNAKAN ID MACROS ANDA YANG ASLI
-    const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
 
-    function goBack() { window.location.href = "dashboard.html"; }
-    function showWarning() { document.getElementById("warningModal").style.display = "block"; }
-    function closeWarning() { document.getElementById("warningModal").style.display = "none"; }
+// LOGIN
+const loginUser =
+localStorage.getItem("loginUser");
 
-    function fetchAbsensiDataLive() {
-        // MENGGUNAKAN METODE CARA AMAN TEMBUS PENGALIHAN URL GOOGLE (REDIRECT PROXY)
-        fetch(ABSENSI_API, { method: "GET", mode: "cors" })
-        .then(response => {
-            if (!response.ok) throw new Error("HTTP error " + response.status);
-            return response.json();
-        })
-        .then(result => {
-            if (result && result.status === "success") {
-                renderFolderGrid(result.data);
-            } else {
-                showErrorMessage("Gagal membaca isi data: " + (result ? result.message : 'Respons Kosong'));
-            }
-        })
-        .catch(error => {
-            console.error("Error Detail:", error);
-            // KETIKA TERJADI TIMEOUT ATAU PENGALIHAN INTERNAL GOOGLE, LAKUKAN METODE JUMP BALIK JSONP
-            fallbackXHR();
-        });
-    }
+const loginNama =
+localStorage.getItem("namaPengguna");
 
-    function fallbackXHR() {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", ABSENSI_API, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    try {
-                        const result = JSON.parse(xhr.responseText);
-                        if(result && result.status === "success") {
-                            renderFolderGrid(result.data);
-                            return;
-                        }
-                    } catch(e) {}
-                }
-                // JIKA TETAP GAGAL, BERARTI URL WEB APP ANDA BELUM DI-DEPLOY DENGAN PILIHAN "VERSI BARU"
-                showErrorMessage("Sistem gagal sinkronisasi data. Pastikan Anda sudah membuat 'Versi Baru' saat melakukan Deploy di Google Apps Script.");
-            }
-        };
-        xhr.send();
-    }
+if(!loginUser){
+window.location.href =
+"index.html";
+}
 
-    function showErrorMessage(msg) {
-        const container = document.getElementById("folderContainer");
-        container.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 15px; padding: 30px; color: #f87171;">
-                <i class="fas fa-triangle-exclamation" style="font-size: 30px; margin-bottom: 12px;"></i>
-                <p style="font-weight: 600; font-size: 14px; line-height:1.5;">${msg}</p>
-            </div>
-        `;
-    }
+// TAMPIL USER
 
-    function renderFolderGrid(dbRows) {
-        const container = document.getElementById("folderContainer");
-        
-        // SUSUNAN STRUKTUR BULAN SESUAI TAMPILAN SPREADSHEET USER
-        const templateBulan = [
-            "JULI 2025", "AGUSTUS 2025", "SEPTEMBER 2025", "OKTOBER 2025", "NOPEMBER 2025", "DESEMBER 2025",
-            "JANUARI 2026", "FEBRUARI 2026", "MARET 2026", "APRIL 2026"
-        ];
+document.getElementById(
+"loginName"
+).innerText =
+loginNama || loginUser;
 
-        let html = "";
+// LOGOUT
+function logout(){
 
-        templateBulan.forEach(namaBulan => {
-            // Lakukan pencocokan string secara bersih dari database spreadsheet
-            const matchData = dbRows.find(row => {
-                if (!row.bulan) return false;
-                return row.bulan.toString().toUpperCase().replace(/\s+/g, ' ').trim() === namaBulan.toUpperCase().replace(/\s+/g, ' ').trim();
-            });
+localStorage.removeItem(
+"loginUser"
+);
 
-            const linkUrl = matchData && matchData.link ? matchData.link.toString().trim() : "";
+localStorage.removeItem(
+"namaPengguna"
+);
 
-            if(linkUrl !== "" && (linkUrl.toLowerCase().indexOf("http") === 0)) {
-                html += `
-                    <div class="folder-card" onclick="window.open('${linkUrl}', '_blank')">
-                        <div class="folder-icon-wrapper"><i class="fas fa-folder-open folder-icon"></i></div>
-                        <div class="folder-name">${namaBulan}</div>
-                        <span class="status-badge badge-available">Tersedia</span>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="folder-card disabled" onclick="showWarning()">
-                        <div class="folder-icon-wrapper"><i class="fas fa-folder folder-icon"></i></div>
-                        <div class="folder-name">${namaBulan}</div>
-                        <span class="status-badge badge-empty">Belum Ada</span>
-                    </div>
-                `;
-            }
-        });
+localStorage.removeItem(
+"userRole"
+);
 
-        container.innerHTML = html;
-    }
+window.location.href =
+"index.html";
 
-    window.onload = fetchAbsensiDataLive;
+}
+
 </script>
 
 </body>
 </html>
+
+

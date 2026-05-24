@@ -263,14 +263,14 @@
 
 <div class="container">
     <div class="header">
-        <img src="pages/img/logo1.png" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'">
+        <img src="pages/img/logo1.png" alt="Logo" class="logo" id="siteLogo">
         <h1>ABSENSI GURU & STAF<br>SDN PNDITAN I KEC. LUMBANG KAB. PASURUAN</h1>
     </div>
 
     <div class="main-content">
         <div class="info-panel">
             <div class="faceprint-wrapper">
-                <img src="pages/img/gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
+                <img src="pages/img/gbr5.png" alt="Faceprint" class="faceprint-img" id="faceprintImg">
             </div>
             <div class="info-title">Kedisiplinan Nilai Utama</div>
             <p class="info-text">
@@ -299,6 +299,35 @@
 
 <script>
     function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
+
+    // SCRIPT FIXER GAMBAR PECAH (Mendeteksi struktur folder secara pintar)
+    window.addEventListener('DOMContentLoaded', function() {
+        const logo = document.getElementById('siteLogo');
+        const face = document.getElementById('faceprintImg');
+
+        // Fungsi mencocokkan jalur gambar jika jalur utama gagal dimuat
+        function fixImagePath(element, subPath) {
+            element.onerror = function() {
+                // Percobaan 2: Coba muat langsung dari subfolder img/
+                element.src = "img/" + subPath;
+                element.onerror = function() {
+                    // Percobaan 3: Paksa ambil dari root absolut repositori github
+                    element.src = "https://sugeng1104.github.io/apase-web/pages/img/" + subPath;
+                    element.onerror = function() {
+                        // Percobaan 4: Alternatif lokasi root sekunder
+                        element.src = "https://sugeng1104.github.io/apase-web/img/" + subPath;
+                        element.onerror = function() {
+                            // Jika semua gagal, tampilkan placeholder agar tidak kosong berantakan
+                            element.src = "https://via.placeholder.com/150?text=" + subPath;
+                        };
+                    };
+                };
+            };
+        }
+
+        fixImagePath(logo, "logo1.png");
+        fixImagePath(face, "gbr5.png");
+    });
 </script>
 
 </body>

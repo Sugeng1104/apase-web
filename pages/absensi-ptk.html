@@ -4,232 +4,310 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absensi Guru & Staf - SDN Panditan I</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
+            --glass-bg: rgba(30, 41, 59, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #facc15;
+            --accent-glow: rgba(250, 204, 21, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
-            color: white;
-            padding: 30px;
-            padding-bottom: 100px;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            padding: 40px 20px;
+            padding-bottom: 120px;
+            overflow-x: hidden;
         }
-        .container { max-width: 1400px; margin: auto; }
+
+        .container { 
+            max-width: 1300px; 
+            margin: auto; 
+        }
         
-        /* HEADER */
+        /* HEADER LEVEL LUXURY */
         .header {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 20px 30px;
-            border-radius: 25px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 24px 35px;
+            border-radius: 24px;
             margin-bottom: 40px;
-            gap: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            gap: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .header .logo { width: 80px; height: 80px; object-fit: contain; }
-        .header h1 { font-size: 24px; font-weight: 700; line-height: 1.4; }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        .header .logo { 
+            width: 75px; 
+            height: 75px; 
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .header h1 { 
+            font-size: 22px; 
+            font-weight: 800; 
+            line-height: 1.4; 
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
         /* GRID MAIN */
-        .main-content { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; }
+        .main-content { 
+            display: grid; 
+            grid-template-columns: 1fr 1.7fr; 
+            gap: 35px; 
+        }
 
-        /* KEBANCIAN PANEL KIRI */
+        /* LEFT PANEL: KEDISIPLINAN */
         .info-panel {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--glass-bg);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 30px;
-            padding: 35px;
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            height: fit-content;
         }
+
+        .faceprint-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 240px;
+            margin: 0 auto 30px auto;
+        }
+
         .faceprint-img {
-            width: 100%; max-width: 260px; height: auto;
-            margin-bottom: 25px; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
-        }
-        .info-title { font-size: 22px; font-weight: 600; color: #facc15; margin-bottom: 15px; }
-        .info-text { font-size: 14px; color: #cbd5e1; line-height: 1.7; text-align: justify; }
-
-        /* PANEL KANAN FOLDER ARSIP */
-        .folder-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 35px;
-        }
-        .folder-panel-title {
-            font-size: 22px; font-weight: 600; margin-bottom: 25px;
-            border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .folder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-
-        /* DESIGN KARTU DIGITAL */
-        .folder-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 100%; 
+            height: auto;
+            filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.5));
             border-radius: 20px;
-            padding: 25px 15px; text-align: center;
-            cursor: pointer; transition: all 0.3s ease;
         }
-        .folder-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.18); border-color: #facc15; }
-        .folder-icon { font-size: 55px; color: #facc15; margin-bottom: 12px; }
-        .folder-name { font-size: 14px; font-weight: 700; color: white; }
 
-        /* KONDISI FOLDER KOSONG ATAU BELUM DIBUAT */
-        .folder-card.disabled { opacity: 0.4; background: rgba(255, 255, 255, 0.02); }
-        .folder-card.disabled .folder-icon { color: #94a3b8; }
+        .info-title { 
+            font-size: 20px; 
+            font-weight: 700; 
+            color: var(--accent-color); 
+            margin-bottom: 15px; 
+            letter-spacing: -0.3px;
+        }
 
-        /* LAYOUT TOMBOL NAVIGASI */
+        .info-text { 
+            font-size: 13.5px; 
+            color: var(--text-muted); 
+            line-height: 1.75; 
+            text-align: justify; 
+        }
+
+        /* RIGHT PANEL: ARSIP FOLDER */
+        .folder-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .folder-panel-title {
+            font-size: 20px; 
+            font-weight: 700; 
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08); 
+            padding-bottom: 15px;
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+        }
+
+        .folder-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); 
+            gap: 20px; 
+        }
+
+        /* PREMIUM FOLDER CARD EXPERT STYLE */
+        .folder-card {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px 15px; 
+            text-align: center;
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .folder-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.08), transparent 60%);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+
+        .folder-card:hover { 
+            transform: translateY(-6px) scale(1.02); 
+            background: rgba(30, 41, 59, 0.7); 
+            border-color: rgba(250, 204, 21, 0.4);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(250, 204, 21, 0.1);
+        }
+
+        .folder-card:hover::before { opacity: 1; }
+
+        .folder-icon-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .folder-card:hover .folder-icon-wrapper {
+            transform: scale(1.08);
+        }
+
+        .folder-icon { 
+            font-size: 52px; 
+            color: var(--accent-color); 
+            filter: drop-shadow(0 4px 10px rgba(250, 204, 21, 0.2));
+        }
+
+        .folder-name { 
+            font-size: 13.5px; 
+            font-weight: 700; 
+            color: #f1f5f9;
+            margin-bottom: 10px;
+            letter-spacing: 0.2px;
+        }
+
+        /* STATUS BADGE */
+        .status-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-available {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .badge-empty {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        /* DISABLED FOLDER CARD */
+        .folder-card.disabled { 
+            opacity: 0.5; 
+        }
+        .folder-card.disabled .folder-icon { 
+            color: #64748b; 
+            filter: none;
+        }
+        .folder-card.disabled:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* BACK BUTTON MODERN MODERN FLATING */
         .back-btn {
-            position: fixed; bottom: 30px; right: 30px;
-            padding: 12px 28px; background: #facc15; color: #1e293b;
-            border: none; border-radius: 14px; font-weight: 700; font-size: 15px;
-            cursor: pointer; box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
-            display: flex; align-items: center; gap: 10px; z-index: 99; transition: .3s;
+            position: fixed; bottom: 35px; right: 35px;
+            padding: 14px 30px; background: var(--accent-color); color: #0f172a;
+            border: none; border-radius: 16px; font-weight: 700; font-size: 14px;
+            cursor: pointer; box-shadow: 0 10px 25px var(--accent-glow);
+            display: flex; align-items: center; gap: 10px; z-index: 99; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .back-btn:hover { background: #eab308; transform: translateY(-3px); }
+        .back-btn:hover { 
+            background: #eab308; 
+            transform: translateY(-4px); 
+            box-shadow: 0 15px 30px rgba(250, 204, 21, 0.4);
+        }
 
-        /* PANEL ALARM MODAL POPUP */
+        /* GLOWING MODERN DIALOG POPUP */
         .modal {
-            display: none; position: fixed; z-index: 999;
+            display: none; position: fixed; z-index: 9999;
             left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); padding: 30px;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px); padding: 20px;
         }
         .modal-content {
-            background: #1e293b; border: 2px solid #ef4444; border-radius: 25px;
-            max-width: 500px; margin: 20vh auto auto; padding: 35px; text-align: center;
-            animation: popIn 0.3s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background: #111827; 
+            border: 1px solid rgba(239, 68, 68, 0.2); 
+            border-radius: 24px;
+            max-width: 450px; margin: 25vh auto auto; padding: 40px 30px; text-align: center;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px rgba(239, 68, 68, 0.05);
         }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .modal-icon { font-size: 50px; color: #ef4444; margin-bottom: 20px; }
-        .modal-text { font-size: 15px; color: #e2e8f0; line-height: 1.6; margin-bottom: 25px; }
-        .modal-close-btn { padding: 10px 25px; background: #ef4444; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-icon { font-size: 55px; color: #ef4444; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.2)); }
+        .modal-text { font-size: 14.5px; color: #d1d5db; line-height: 1.6; margin-bottom: 30px; }
+        .modal-close-btn { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .modal-close-btn:hover { background: #dc2626; }
 
-        @media (max-width: 992px) { .main-content { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="header">
-        <img src="pages/img/logo1.png" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'">
-        <h1>ABSENSI GURU & STAF<br>SDN PNDITAN I KEC. LUMBANG KAB. PASURUAN</h1>
-    </div>
-
-    <div class="main-content">
-        <div class="info-panel">
-            <img src="gbr5.png" alt="Faceprint" class="faceprint-img" onerror="this.src='https://via.placeholder.com/260x200?text=Faceprint'">
-            <div class="info-title">Kedisiplinan Nilai Utama</div>
-            <p class="info-text">
-                Ketepatan waktu kehadiran adalah cerminan dari dedikasi dan profesionalisme kita sebagai pendidik generasi penerus bangsa. Mari pertahankan kedisiplinan absensi harian dengan menggunakan fasilitas Faceprint tepat waktu demi kelancaran administrasi sekolah serta pelayanan pendidikan terbaik di SDN Panditan I.
-            </p>
-        </div>
-
-        <div class="folder-panel">
-            <div class="folder-panel-title">
-                <i class="fas fa-folder-open" style="color: #facc15;"></i> Arsip Digital Pengumpulan Absensi
-            </div>
-            <div id="folderContainer" class="folder-grid">
-                <div style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 10px;"></i>
-                    <p>Membaca database absensi sekolah...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<button class="back-btn" onclick="goBack()">
-    <i class="fas fa-arrow-left"></i> Kembali
-</button>
-
-<div class="modal" id="warningModal">
-    <div class="modal-content">
-        <i class="fas fa-exclamation-triangle modal-icon"></i>
-        <p class="modal-text">
-            Maaf folder tidak ada. Silahkan hubungi Kepala sekolah atau Admin Sekolah, Terimakasih.
-        </p>
-        <button class="modal-close-btn" onclick="closeWarning()">Tutup</button>
-    </div>
-</div>
-
-<script>
-    const ABSENSI_API = "https://script.google.com/macros/s/AKfycbybmiPlUxgYH1VAec7SMg3iOp9l7IswRbysU69jP0IdQn7TVAiv_0pUBDyD5fXAaUYL/exec";
-
-    function goBack() { window.location.href = "https://sugeng1104.github.io/apase-web/dashboard.html"; }
-    function showWarning() { document.getElementById("warningModal").style.display = "block"; }
-    function closeWarning() { document.getElementById("warningModal").style.display = "none"; }
-
-    function fetchAbsensiDataLive() {
-        const container = document.getElementById("folderContainer");
-        const urlPanggil = `${ABSENSI_API}?action=getAllAbsensi&_t=${new Date().getTime()}`;
-
-        fetch(urlPanggil)
-            .then(response => {
-                if (!response.ok) throw new Error('Jaringan bermasalah.');
-                return response.json();
-            })
-            .then(result => {
-                if (result && result.status === "success") {
-                    renderFolderGrid(result.data);
-                } else {
-                    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;">Gagal: ${result ? result.message : 'Respons Tidak Dikenali'}</div>`;
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f87171; padding:20px;"><i class="fas fa-wifi" style="font-size:20px; margin-bottom:5px;"></i><br>Gagal menghubungkan ke database server Google Apps Script.</div>`;
-            });
-    }
-
-    function renderFolderGrid(dbRows) {
-        const container = document.getElementById("folderContainer");
+        /* SKELETON LOADERS (SENSASI WEB ELITE) */
+        .skeleton-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 25px 15px; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .skeleton-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.04); border-radius: 50%; margin-bottom: 15px; position: relative; overflow: hidden; }
+        .skeleton-text { width: 80%; height: 14px; background: rgba(255,255,255,0.04); border-radius: 4px; margin-bottom: 10px; position: relative; overflow: hidden; }
+        .skeleton-badge { width: 50%; height: 18px; background: rgba(255,255,255,0.03); border-radius: 100px; position: relative; overflow: hidden; }
         
-        // SUSUNAN STRUKTUR ARSIP BERDASARKAN URUTAN BULAN KALENDER AKADEMIK DI SPREADSHEET
-        const templateBulan = [
-            "JULI 2025", "AGUSTUS 2025", "SEPTEMBER 2025", "OKTOBER 2025", "NOPEMBER 2025", "DESEMBER 2025",
-            "JANUARI 2026", "FEBRUARI 2026", "MARET 2026", "APRIL 2026", "MEI 2026", "JUNI 2026"
-        ];
+        .skeleton-icon::after, .skeleton-text::after, .skeleton-badge::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer { 100% { left: 150%; } }
 
-        let html = "";
-
-        templateBulan.forEach(namaBulan => {
-            // Pencocokan string super bersih, menghilangkan spasi ganda tak terduga
-            const matchData = dbRows.find(row => row.bulan.replace(/\s+/g, '') === namaBulan.replace(/\s+/g, ''));
-            const linkUrl = matchData ? matchData.link.trim() : "";
-
-            if(linkUrl !== "" && (linkUrl.indexOf("http") === 0)) {
-                html += `
-                    <div class="folder-card" onclick="window.open('${linkUrl}', '_blank')">
-                        <i class="fas fa-folder folder-icon"></i>
-                        <div class="folder-name">${namaBulan}</div>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="folder-card disabled" onclick="showWarning()">
-                        <i class="fas fa-folder folder-icon"></i>
-                        <div class="folder-name">${namaBulan}</div>
-                    </div>
-                `;
-            }
-        });
-
-        container.innerHTML = html;
-    }
-
-    window.onload = function() {
-        fetchAbsensiDataLive();
-    };
-</script>
-
-</body>
-</html>
+        @media (max-width: 992px) { 
+            body { padding: 20px 15px; }
+            .main-content { grid-template-columns: 1fr; gap: 30px; } 
+            .header { padding: 20px; gap: 15px; }
+            .header h1 { font-size: 17px; }
+            .back-btn { bottom: 20px; right
